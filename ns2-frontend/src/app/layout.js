@@ -1,6 +1,6 @@
 import { Poppins, Open_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 
 const poppins = Poppins({
   subsets: ["latin"],

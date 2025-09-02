@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { fetchNavbarData } from "@/lib/api";
 import MobileMenu from "./MobileMenuClient";
-import LogoClient from "./LogoClient"; // Import the new client component
+import LogoClient from "./LogoClient";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default async function Navbar() {
   // Fetch data on the server
@@ -17,29 +16,22 @@ export default async function Navbar() {
   }
 
   // Use fallback if data is missing
-  const menuItems = navbarData?.header?.menu || [
-    { text: "Home", url: "/", is_button: false, order: 1, submenus: [] },
-    {
-      text: "Get Started",
-      url: "/get-started",
-      is_button: true,
-      order: 2,
-      submenus: [],
-    },
-  ];
+  const menuItems = navbarData?.header?.menu || [];
 
   // Get logo URL from footer and prepend backend URL
   const logoPath = navbarData?.footer?.company?.logo;
   const logoUrl = logoPath ? `${API_BASE_URL}${logoPath}` : null;
 
   const regularMenuItems = menuItems.filter((item) => !item.is_button);
-  const buttonMenuItem = menuItems.find((item) => item.is_button);
+  const buttonMenuItems = menuItems.filter((item) => item.is_button);
 
   return (
     <nav className="bg-[#F8F9FA] shadow-md py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo - Using Client Component */}
-        <LogoClient logoUrl={logoUrl} />
+        <div className="pl-4 md:pl-8">
+          <LogoClient logoUrl={logoUrl} />
+        </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex flex-1 justify-center items-center">
@@ -91,15 +83,18 @@ export default async function Navbar() {
           </ul>
         </div>
 
-        {/* CTA Button - Desktop */}
-        {buttonMenuItem && (
-          <div className="hidden md:block">
-            <Link
-              href={buttonMenuItem.url}
-              className="bg-[#007BFF] text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
-            >
-              {buttonMenuItem.text}
-            </Link>
+        {/* CTA Buttons - Desktop */}
+        {buttonMenuItems.length > 0 && (
+          <div className="hidden md:flex space-x-4 pr-4 md:pr-8">
+            {buttonMenuItems.map((buttonItem, index) => (
+              <Link
+                key={index}
+                href={buttonItem.url}
+                className="bg-[#007BFF] text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
+              >
+                {buttonItem.text}
+              </Link>
+            ))}
           </div>
         )}
 
