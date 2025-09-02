@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { fetchNavbarData } from "@/lib/api";
-import MobileMenu from "./MobileMenuClient"; // Client component
+import MobileMenu from "./MobileMenuClient";
+import LogoClient from "./LogoClient"; // Import the new client component
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
 
 export default async function Navbar() {
   // Fetch data on the server
@@ -13,7 +17,7 @@ export default async function Navbar() {
   }
 
   // Use fallback if data is missing
-  const menuItems = navbarData?.menu || [
+  const menuItems = navbarData?.header?.menu || [
     { text: "Home", url: "/", is_button: false, order: 1, submenus: [] },
     {
       text: "Get Started",
@@ -24,8 +28,9 @@ export default async function Navbar() {
     },
   ];
 
-  // Get logo URL from footer
-  const logoUrl = navbarData?.company?.logo || null;
+  // Get logo URL from footer and prepend backend URL
+  const logoPath = navbarData?.footer?.company?.logo;
+  const logoUrl = logoPath ? `${API_BASE_URL}${logoPath}` : null;
 
   const regularMenuItems = menuItems.filter((item) => !item.is_button);
   const buttonMenuItem = menuItems.find((item) => item.is_button);
@@ -33,12 +38,8 @@ export default async function Navbar() {
   return (
     <nav className="bg-[#F8F9FA] shadow-md py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo */}
-        {logoUrl && (
-          <Link href="/" className="flex items-center">
-            <img src={logoUrl} alt="Company Logo" className="h-10 w-auto" />
-          </Link>
-        )}
+        {/* Logo - Using Client Component */}
+        <LogoClient logoUrl={logoUrl} />
 
         {/* Desktop Menu */}
         <div className="hidden md:flex flex-1 justify-center items-center">

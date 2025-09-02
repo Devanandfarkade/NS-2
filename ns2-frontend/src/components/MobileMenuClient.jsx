@@ -7,6 +7,7 @@ export default function MobileMenu({ menuItems, logoUrl }) {
   const [isMounted, setIsMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [logoError, setLogoError] = useState(false);
 
   useEffect(() => setIsMounted(true), []);
 
@@ -100,13 +101,30 @@ export default function MobileMenu({ menuItems, logoUrl }) {
           <div className="p-6 h-full flex flex-col">
             {/* Menu Header */}
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
-              {logoUrl && (
+              {logoUrl && !logoError ? (
                 <Link href="/" onClick={() => setIsMenuOpen(false)}>
                   <img
                     src={logoUrl}
                     alt="Company Logo"
                     className="h-10 w-auto"
+                    onError={() => {
+                      console.error(
+                        "Failed to load logo in mobile menu:",
+                        logoUrl
+                      );
+                      setLogoError(true);
+                    }}
                   />
+                </Link>
+              ) : (
+                <Link
+                  href="/"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center"
+                >
+                  <div className="h-10 w-32 bg-gray-300 flex items-center justify-center text-sm font-medium text-gray-600 rounded-md">
+                    Company Logo
+                  </div>
                 </Link>
               )}
               <button
