@@ -38,7 +38,7 @@ export default function MobileMenu({ menuItems, logoUrl }) {
     setActiveSubmenu(activeSubmenu === index ? null : index);
 
   const regularItems = menuItems.filter((item) => !item.is_button);
-  const buttonItem = menuItems.find((item) => item.is_button);
+  const buttonItems = menuItems.filter((item) => item.is_button);
 
   if (!isMounted) return null;
 
@@ -210,16 +210,19 @@ export default function MobileMenu({ menuItems, logoUrl }) {
               </ul>
             </nav>
 
-            {/* CTA Button */}
-            {buttonItem && (
-              <div className="pt-6 mt-auto border-t border-gray-200">
-                <Link
-                  href={buttonItem.url}
-                  className="block w-full bg-[#007BFF] text-white text-center px-6 py-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium shadow-md hover:shadow-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {buttonItem.text}
-                </Link>
+            {/* CTA Buttons */}
+            {buttonItems.length > 0 && (
+              <div className="pt-6 mt-auto border-t border-gray-200 space-y-3">
+                {buttonItems.map((buttonItem, index) => (
+                  <Link
+                    key={index}
+                    href={buttonItem.url}
+                    className="block w-full bg-[#007BFF] text-white text-center px-6 py-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium shadow-md hover:shadow-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {buttonItem.text}
+                  </Link>
+                ))}
               </div>
             )}
           </div>
