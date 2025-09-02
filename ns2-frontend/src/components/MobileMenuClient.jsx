@@ -11,7 +11,6 @@ export default function MobileMenu({ menuItems, logoUrl }) {
 
   useEffect(() => setIsMounted(true), []);
 
-  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       const menu = document.getElementById("mobile-menu");
