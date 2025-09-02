@@ -3,21 +3,18 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export default function MobileMenu({ menuItems }) {
+export default function MobileMenu({ menuItems, logoUrl }) {
   const [isMounted, setIsMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  useEffect(() => setIsMounted(true), []);
 
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       const menu = document.getElementById("mobile-menu");
       const button = document.getElementById("hamburger-button");
-
       if (
         menu &&
         button &&
@@ -28,7 +25,6 @@ export default function MobileMenu({ menuItems }) {
         setActiveSubmenu(null);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -38,19 +34,16 @@ export default function MobileMenu({ menuItems }) {
     if (isMenuOpen) setActiveSubmenu(null);
   };
 
-  const toggleSubmenu = (index) => {
+  const toggleSubmenu = (index) =>
     setActiveSubmenu(activeSubmenu === index ? null : index);
-  };
 
-  // Separate regular items and button items
   const regularItems = menuItems.filter((item) => !item.is_button);
   const buttonItem = menuItems.find((item) => item.is_button);
 
-  if (!isMounted) return null; // SSR-safe
+  if (!isMounted) return null;
 
   return (
     <div className="md:hidden">
-      {/* Hamburger Button */}
       <button
         id="hamburger-button"
         onClick={toggleMenu}
@@ -64,7 +57,6 @@ export default function MobileMenu({ menuItems }) {
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               strokeLinecap="round"
@@ -79,7 +71,6 @@ export default function MobileMenu({ menuItems }) {
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               strokeLinecap="round"
@@ -91,7 +82,6 @@ export default function MobileMenu({ menuItems }) {
         )}
       </button>
 
-      {/* Mobile Menu Overlay */}
       <div
         className={`fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 ${
           isMenuOpen
@@ -110,13 +100,15 @@ export default function MobileMenu({ menuItems }) {
           <div className="p-6 h-full flex flex-col">
             {/* Menu Header */}
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
-              <Link
-                href="/"
-                className="text-[#007BFF] font-poppins font-bold text-xl"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                NSA2 Infotech
-              </Link>
+              {logoUrl && (
+                <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                  <img
+                    src={logoUrl}
+                    alt="Company Logo"
+                    className="h-10 w-auto"
+                  />
+                </Link>
+              )}
               <button
                 onClick={() => setIsMenuOpen(false)}
                 className="p-2 rounded-full text-[#6C757D] hover:text-[#007BFF] hover:bg-[#F8F9FA] transition-colors duration-200"
@@ -127,7 +119,6 @@ export default function MobileMenu({ menuItems }) {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     strokeLinecap="round"
@@ -161,7 +152,6 @@ export default function MobileMenu({ menuItems }) {
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               strokeLinecap="round"
@@ -203,7 +193,7 @@ export default function MobileMenu({ menuItems }) {
               </ul>
             </nav>
 
-            {/* CTA Button at bottom */}
+            {/* CTA Button */}
             {buttonItem && (
               <div className="pt-6 mt-auto border-t border-gray-200">
                 <Link

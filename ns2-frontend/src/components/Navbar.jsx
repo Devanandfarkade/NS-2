@@ -1,4 +1,3 @@
-// app/components/Navbar.jsx
 import Link from "next/link";
 import { fetchNavbarData } from "@/lib/api";
 import MobileMenu from "./MobileMenuClient"; // Client component
@@ -15,13 +14,7 @@ export default async function Navbar() {
 
   // Use fallback if data is missing
   const menuItems = navbarData?.menu || [
-    {
-      text: "Home",
-      url: "/",
-      is_button: false,
-      order: 1,
-      submenus: [],
-    },
+    { text: "Home", url: "/", is_button: false, order: 1, submenus: [] },
     {
       text: "Get Started",
       url: "/get-started",
@@ -31,6 +24,9 @@ export default async function Navbar() {
     },
   ];
 
+  // Get logo URL from footer
+  const logoUrl = navbarData?.company?.logo || null;
+
   const regularMenuItems = menuItems.filter((item) => !item.is_button);
   const buttonMenuItem = menuItems.find((item) => item.is_button);
 
@@ -38,12 +34,11 @@ export default async function Navbar() {
     <nav className="bg-[#F8F9FA] shadow-md py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <Link
-          href="/"
-          className="text-[#007BFF] font-poppins font-bold text-xl"
-        >
-          NS^2 Infotech
-        </Link>
+        {logoUrl && (
+          <Link href="/" className="flex items-center">
+            <img src={logoUrl} alt="Company Logo" className="h-10 w-auto" />
+          </Link>
+        )}
 
         {/* Desktop Menu */}
         <div className="hidden md:flex flex-1 justify-center items-center">
@@ -66,11 +61,10 @@ export default async function Navbar() {
                           strokeLinejoin="round"
                           strokeWidth="2"
                           d="M19 9l-7 7-7-7"
-                        ></path>
+                        />
                       </svg>
                     </button>
 
-                    {/* Desktop Submenu */}
                     <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                       {item.submenus.map((subitem, subIndex) => (
                         <Link
@@ -110,7 +104,7 @@ export default async function Navbar() {
 
         {/* Mobile Menu */}
         <div className="md:hidden">
-          <MobileMenu menuItems={menuItems} />
+          <MobileMenu menuItems={menuItems} logoUrl={logoUrl} />
         </div>
       </div>
     </nav>
