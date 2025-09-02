@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { fetchNavbarData } from "@/lib/api";
-import MobileMenu from "./MobileMenuClient";
-import LogoClient from "./LogoClient";
+import MobileMenu from "@/components/navbar/MobileMenuClient";
+import LogoClient from "@/components/navbar/LogoClient";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default async function Navbar() {
-  // Fetch data on the server
   let navbarData;
   try {
     navbarData = await fetchNavbarData();
@@ -15,10 +14,8 @@ export default async function Navbar() {
     navbarData = null;
   }
 
-  // Use fallback if data is missing
   const menuItems = navbarData?.header?.menu || [];
 
-  // Get logo URL from footer and prepend backend URL
   const logoPath = navbarData?.footer?.company?.logo;
   const logoUrl = logoPath ? `${API_BASE_URL}${logoPath}` : null;
 
@@ -28,12 +25,10 @@ export default async function Navbar() {
   return (
     <nav className="bg-[#F8F9FA] shadow-md py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo - Using Client Component */}
         <div className="pl-4 md:pl-8">
           <LogoClient logoUrl={logoUrl} />
         </div>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex flex-1 justify-center items-center">
           <ul className="flex space-x-6">
             {regularMenuItems.map((item, index) => (
@@ -83,7 +78,6 @@ export default async function Navbar() {
           </ul>
         </div>
 
-        {/* CTA Buttons - Desktop */}
         {buttonMenuItems.length > 0 && (
           <div className="hidden md:flex space-x-4 pr-4 md:pr-8">
             {buttonMenuItems.map((buttonItem, index) => (
@@ -98,7 +92,6 @@ export default async function Navbar() {
           </div>
         )}
 
-        {/* Mobile Menu */}
         <div className="md:hidden">
           <MobileMenu menuItems={menuItems} logoUrl={logoUrl} />
         </div>

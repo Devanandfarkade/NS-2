@@ -98,7 +98,6 @@ export default function MobileMenu({ menuItems, logoUrl }) {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="p-6 h-full flex flex-col">
-            {/* Menu Header */}
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
               {logoUrl && !logoError ? (
                 <Link href="/" onClick={() => setIsMenuOpen(false)}>
@@ -147,7 +146,6 @@ export default function MobileMenu({ menuItems, logoUrl }) {
               </button>
             </div>
 
-            {/* Menu Items */}
             <nav className="flex-1 overflow-y-auto">
               <ul className="space-y-2">
                 {regularItems.map((item, index) => (
@@ -210,7 +208,6 @@ export default function MobileMenu({ menuItems, logoUrl }) {
               </ul>
             </nav>
 
-            {/* CTA Buttons */}
             {buttonItems.length > 0 && (
               <div className="pt-6 mt-auto border-t border-gray-200 space-y-3">
                 {buttonItems.map((buttonItem, index) => (
