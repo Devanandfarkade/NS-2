@@ -31,22 +31,22 @@ export default function Hero({ data }) {
       {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20 grid lg:grid-cols-2 items-center gap-8 sm:gap-10">
         <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
-          <h2 className="text-blue-400 font-extrabold text-2xl sm:text-3xl lg:text-4xl">
+          <h2 className="text-blue-400 font-extrabold text-2xl sm:text-3xl lg:text-4xl font-heading">
             {data.super_heading}
           </h2>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-snug">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-snug font-heading">
             {data.heading}
           </h1>
 
-          <p className="text-gray-300 max-w-lg mx-auto lg:mx-0 text-sm sm:text-base">
+          <p className="text-gray-300 max-w-lg mx-auto lg:mx-0 text-sm sm:text-base font-body">
             {data.subheading}
           </p>
 
           {data.primary_button_text && (
             <Link
               href={data.primary_button_url || "#"}
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium transition-colors"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium transition-colors font-body"
             >
               {data.primary_button_text}
             </Link>
@@ -54,18 +54,18 @@ export default function Hero({ data }) {
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="absolute left-1/2 bottom-0 w-full max-w-6xl -translate-x-1/2 translate-y-1/2 z-20">
+      {/* Stats Section - visible only on large screens */}
+      <div className="hidden lg:block lg:absolute left-1/2 bottom-0 w-full max-w-6xl -translate-x-1/2 translate-y-1/2 z-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 px-4 sm:px-6">
           {data.content_items?.map((item, idx) => (
             <div
               key={idx}
               className="bg-white text-black p-4 sm:p-6 rounded-xl shadow hover:shadow-lg transition-transform flex flex-col items-center justify-center text-center"
             >
-              <p className="text-xl sm:text-2xl lg:text-3xl font-bold">
+              <p className="text-xl sm:text-2xl lg:text-3xl font-bold font-heading">
                 {item.label}
               </p>
-              <p className="text-xs sm:text-sm lg:text-base text-gray-600">
+              <p className="text-xs sm:text-sm lg:text-base text-gray-600 font-body">
                 {item.title}
               </p>
             </div>
