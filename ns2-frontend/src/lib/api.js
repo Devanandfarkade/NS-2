@@ -49,7 +49,7 @@ export async function fetchHeroData() {
       "API of Hero section/component returned unexpected structure, using fallback"
     );
     return null;
-  } catch {
+  } catch (error) {
     console.log("Failed to fetch hero data: ", error);
     return null;
   }
