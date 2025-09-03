@@ -1,6 +1,11 @@
-// src/app/page.js
-import Navbar from "../components/navbar/Navbar";
+import { fetchHeroData } from "@/lib/api";
+import Hero from "@/components/homepage/HeroSection";
 
-export default function HomePage() {
-  return;
+export default async function HomePage() {
+  const heroData = await fetchHeroData();
+  return (
+    <main>
+      <Hero data={heroData} />
+    </main>
+  );
 }

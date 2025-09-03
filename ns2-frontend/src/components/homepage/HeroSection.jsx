@@ -1,0 +1,77 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+export default function Hero({ data }) {
+  if (!data) return null;
+
+  const backgroundImageUrl = data.background_image
+    ? data.background_image.startsWith("http")
+      ? data.background_image
+      : `${API_BASE_URL}${data.background_image}`
+    : "/hero-bg.jpg";
+
+  return (
+    <section className="relative w-full bg-black text-white pb-40 sm:pb-48">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <Image
+          alt="Hero Background"
+          src={backgroundImageUrl}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-50"
+        />
+      </div>
+
+      {/* Hero Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20 grid lg:grid-cols-2 items-center gap-8 sm:gap-10">
+        <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
+          <h2 className="text-blue-400 font-extrabold text-2xl sm:text-3xl lg:text-4xl">
+            {data.super_heading}
+          </h2>
+
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-snug">
+            {data.heading}
+          </h1>
+
+          <p className="text-gray-300 max-w-lg mx-auto lg:mx-0 text-sm sm:text-base">
+            {data.subheading}
+          </p>
+
+          {data.primary_button_text && (
+            <Link
+              href={data.primary_button_url || "#"}
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium transition-colors"
+            >
+              {data.primary_button_text}
+            </Link>
+          )}
+        </div>
+      </div>
+
+      {/* Stats Section */}
+      <div className="absolute left-1/2 bottom-0 w-full max-w-6xl -translate-x-1/2 translate-y-1/2 z-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 px-4 sm:px-6">
+          {data.content_items?.map((item, idx) => (
+            <div
+              key={idx}
+              className="bg-white text-black p-4 sm:p-6 rounded-xl shadow hover:shadow-lg transition-transform flex flex-col items-center justify-center text-center"
+            >
+              <p className="text-xl sm:text-2xl lg:text-3xl font-bold">
+                {item.label}
+              </p>
+              <p className="text-xs sm:text-sm lg:text-base text-gray-600">
+                {item.title}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
