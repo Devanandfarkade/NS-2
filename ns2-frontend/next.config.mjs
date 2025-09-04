@@ -2,7 +2,14 @@
 const nextConfig = {
   productionBrowserSourceMaps: false,
   images: {
-    domains: ["nsbackend.strangled.net"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'nsbackend.strangled.net',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 

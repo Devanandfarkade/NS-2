@@ -1,10 +1,11 @@
-import { fetchHomepageSection } from "@/lib/api";
+export const dynamic = 'force-dynamic';
+import FAQSection from "@/components/homepage/FAQSection";
 import Hero from "@/components/homepage/HeroSection";
 import Overview from "@/components/homepage/Overview";
-import WhyChooseUs from "@/components/homepage/WhyChooseUs";
-import Testimonial from "@/components/homepage/Testimonial";
-import FAQSection from "@/components/homepage/FAQSection";
 import ScrollToTop from "@/components/homepage/ScrollToTop";
+import Testimonial from "@/components/homepage/Testimonial";
+import WhyChooseUs from "@/components/homepage/WhyChooseUs";
+import { fetchHomepageSection } from "@/lib/api";
 
 export default async function HomePage() {
   const heroData = await fetchHomepageSection("Hero Banner");
