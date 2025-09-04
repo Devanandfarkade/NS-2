@@ -25,7 +25,7 @@ export default function Overview({ data }) {
   if (!data) return null;
 
   return (
-    <section className="relative w-full bg-white mt-12 sm:mt-16 lg:mt-24 py-12 sm:py-20 overflow-hidden">
+    <section className="relative w-full bg-white py-12 sm:py-20 overflow-hidden">
       {/* Abstract floating shapes */}
       <div className="absolute -left-6 top-20 w-28 h-28 bg-blue-100 rounded-full opacity-40 blur-sm"></div>
       <div className="absolute right-12 top-16 w-16 h-16 bg-blue-200 rounded-[32px] rotate-45 opacity-30"></div>
@@ -104,7 +104,7 @@ export default function Overview({ data }) {
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center relative z-10">
+      <div className="container mt-12 mx-auto px-4 sm:px-6 lg:px-12 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center relative z-10">
         {/* Image container with responsive positioning */}
         <div className="relative w-full h-[320px] sm:h-[400px] md:h-[450px] lg:h-[500px]">
           {/* Decorative corner elements */}
@@ -194,7 +194,7 @@ export default function Overview({ data }) {
             </h2>
           )}
 
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-snug">
+          <h3 className="text-2xl text-black sm:text-3xl lg:text-4xl font-bold leading-snug">
             {data.heading}
           </h3>
 
