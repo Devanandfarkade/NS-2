@@ -108,6 +108,7 @@ export async function fetchOverviewData() {
   }
 }
 
+
 //function for fetchWhyChooseUsData of homepage - ram
 export async function fetchWhyChooseUsData() {
   try {
@@ -157,3 +158,32 @@ export async function fetchTestimonialData() {
     return null;
   }
 }
+
+export async function fetchPortfolioData() {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/portfolio/fetch-portfolio`,
+      {
+        cache: "no-store", // Ensures fresh data on every request (SSR)
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+
+    // Check if the API returns a valid, non-empty array
+    if (data && Array.isArray(data) && data.length > 0) {
+      return data;
+    }
+    
+    console.warn(
+      "API for Portfolio page returned an empty or invalid response."
+    );
+    return []; // Return an empty array on failure to avoid render errors
+  } catch (error) {
+    console.error("Failed to fetch Portfolio page data:", error);
+    return []; // Return an empty array on error
+  }
+}
+
