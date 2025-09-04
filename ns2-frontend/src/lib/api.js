@@ -1,5 +1,6 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+//image normalizer - ram
 export function normalizeImageUrl(url) {
   if (!url) return null;
   if (url.startsWith("http")) return url;
@@ -7,7 +8,7 @@ export function normalizeImageUrl(url) {
   return `${API_BASE_URL}${url.startsWith("/") ? "" : "/"}${url}`;
 }
 
-//function for Navbar component
+//function for Navbar component - ram
 export async function fetchNavbarData() {
   try {
     const response = await fetch(`${API_BASE_URL}/api/core/header-footer`);
@@ -35,7 +36,7 @@ export async function fetchNavbarData() {
   }
 }
 
-//function for Hero component of homepage
+//function for Hero component of homepage - ram
 export async function fetchHeroData() {
   try {
     const response = await fetch(
@@ -62,7 +63,7 @@ export async function fetchHeroData() {
   }
 }
 
-//function for overview of homepage
+//function for overview of homepage - ram
 export async function fetchOverviewData() {
   try {
     const response = await fetch(
@@ -103,6 +104,56 @@ export async function fetchOverviewData() {
     return overview;
   } catch (error) {
     console.error("Failed to fetch overview data:", error);
+    return null;
+  }
+}
+
+//function for fetchWhyChooseUsData of homepage - ram
+export async function fetchWhyChooseUsData() {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/homepage/fetch-homepage`,
+      { cache: "no-store" }
+    );
+    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+    const data = await response.json();
+    const section = data.find(
+      (s) => s.section_type?.toLowerCase() === "why choose us" && s.is_active
+    );
+    if (!section) return null;
+
+    if (section.background_image)
+      section.background_image = normalizeImageUrl(section.background_image);
+    if (section.primary_image)
+      section.primary_image = normalizeImageUrl(section.primary_image);
+
+    return section;
+  } catch (error) {
+    console.error("Failed to fetch Why Choose Us data:", error);
+    return null;
+  }
+}
+
+//function for testimonial of homepage - ram
+
+export async function fetchTestimonialData() {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/homepage/fetch-homepage`,
+      { cache: "no-store" }
+    );
+    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+
+    const data = await response.json();
+
+    const section = data.find(
+      (s) =>
+        s.section_type?.toLowerCase() === "testimonials slider" && s.is_active
+    );
+
+    return section || null;
+  } catch (error) {
+    console.error("Failed to fetch Testimonials data:", error);
     return null;
   }
 }
