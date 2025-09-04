@@ -1,6 +1,5 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-//image normalizer - ram
 export function normalizeImageUrl(url) {
   if (!url) return null;
   if (url.startsWith("http")) return url;
@@ -8,10 +7,11 @@ export function normalizeImageUrl(url) {
   return `${API_BASE_URL}${url.startsWith("/") ? "" : "/"}${url}`;
 }
 
-//function for Navbar component - ram
 export async function fetchNavbarData() {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/core/header-footer`);
+    const response = await fetch(`${API_BASE_URL}/api/core/header-footer`, {
+      cache: "no-store",
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -19,20 +19,17 @@ export async function fetchNavbarData() {
 
     const data = await response.json();
 
-    if (data && data.header) {
-      return data;
-    } else if (data && data.menu) {
+    if (data && (data.header || data.menu)) {
       return data;
     } else {
       console.warn(
-        "API response doesn't have expected structure, using fallback data"
+        "API response missing expected structure, returning empty array instead of fallback"
       );
-      // return fallbackNavbarData;
+      return { header: [], menu: [] };
     }
   } catch (error) {
     console.error("Failed to fetch Navbar data:", error);
-    console.log("Using fallback navbar data");
-    // return fallbackNavbarData;
+    return { header: [], menu: [] };
   }
 }
 
@@ -108,6 +105,28 @@ export async function fetchPortfolioData() {
   }
 }
 
+export async function submitContactForm(payload) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/core/contact/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      console.error("Contact API error:", response.status);
+      return { success: false };
+    }
+
+    const result = await response.json();
+    return { success: true, data: result };
+  } catch (error) {
+    console.error("Contact form submission failed:", error);
+    return { success: false };
+  }
+}
 
 // export async function fetchServiceBySlug(slug) {
 //   try {
@@ -130,7 +149,6 @@ export async function fetchPortfolioData() {
 //     return null;
 //   }
 // }
-
 
 // src/lib/services/api.js
 // const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
