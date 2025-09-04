@@ -27,12 +27,12 @@ export async function fetchNavbarData() {
       console.warn(
         "API response doesn't have expected structure, using fallback data"
       );
-      return fallbackNavbarData;
+      // return fallbackNavbarData;
     }
   } catch (error) {
     console.error("Failed to fetch Navbar data:", error);
     console.log("Using fallback navbar data");
-    return fallbackNavbarData;
+    // return fallbackNavbarData;
   }
 }
 
