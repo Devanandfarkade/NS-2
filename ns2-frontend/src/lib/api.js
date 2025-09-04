@@ -36,35 +36,8 @@ export async function fetchNavbarData() {
   }
 }
 
-//function for Hero component of homepage - ram
-export async function fetchHeroData() {
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/homepage/fetch-homepage`,
-      {
-        cache: "no-store",
-      }
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error status: ${response.status}`);
-    }
-    const data = await response.json();
-
-    if (data && Array.isArray(data) && data.length > 0) {
-      return data.find((section) => section.section_type === "Hero Banner");
-    }
-    console.log(
-      "API of Hero section/component returned unexpected structure, using fallback"
-    );
-    return null;
-  } catch (error) {
-    console.log("Failed to fetch hero data: ", error);
-    return null;
-  }
-}
-
-//function for overview of homepage - ram
-export async function fetchOverviewData() {
+// ✅ Generic fetcher for homepage sections
+export async function fetchHomepageSection(sectionType) {
   try {
     const response = await fetch(
       `${API_BASE_URL}/api/homepage/fetch-homepage`,
@@ -73,9 +46,7 @@ export async function fetchOverviewData() {
       }
     );
 
-    if (!response.ok) {
-      throw new Error(`HTTP error status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error status: ${response.status}`);
 
     const data = await response.json();
 
@@ -85,76 +56,27 @@ export async function fetchOverviewData() {
         ? data.data
         : [];
 
-    const overview = sections.find(
-      (s) => s?.section_type?.toLowerCase() === "overview" && s?.is_active
+    const section = sections.find(
+      (s) =>
+        s.section_type?.toLowerCase() === sectionType.toLowerCase() &&
+        s.is_active
     );
 
-    if (!overview) {
-      console.warn("Overview section not found in homepage API.");
+    if (!section) {
+      console.warn(`${sectionType} section not found.`);
       return null;
     }
 
-    if (overview.background_image) {
-      overview.background_image = normalizeImageUrl(overview.background_image);
-    }
-    if (overview.primary_image) {
-      overview.primary_image = normalizeImageUrl(overview.primary_image);
-    }
-
-    return overview;
-  } catch (error) {
-    console.error("Failed to fetch overview data:", error);
-    return null;
-  }
-}
-
-
-//function for fetchWhyChooseUsData of homepage - ram
-export async function fetchWhyChooseUsData() {
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/homepage/fetch-homepage`,
-      { cache: "no-store" }
-    );
-    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-    const data = await response.json();
-    const section = data.find(
-      (s) => s.section_type?.toLowerCase() === "why choose us" && s.is_active
-    );
-    if (!section) return null;
-
+    // Normalize images if present
     if (section.background_image)
       section.background_image = normalizeImageUrl(section.background_image);
+
     if (section.primary_image)
       section.primary_image = normalizeImageUrl(section.primary_image);
 
     return section;
   } catch (error) {
-    console.error("Failed to fetch Why Choose Us data:", error);
-    return null;
-  }
-}
-
-//function for testimonial of homepage - ram
-
-export async function fetchTestimonialData() {
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/homepage/fetch-homepage`,
-      { cache: "no-store" }
-    );
-    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-
-    const data = await response.json();
-
-    const section = data.find(
-      (s) =>
-        s.section_type?.toLowerCase() === "testimonials slider" && s.is_active
-    );
-
-    return section || null;
-  } catch (error) {
-    console.error("Failed to fetch Testimonials data:", error);
+    console.error(`Failed to fetch ${sectionType} section:`, error);
     return null;
   }
 }
@@ -176,7 +98,7 @@ export async function fetchPortfolioData() {
     if (data && Array.isArray(data) && data.length > 0) {
       return data;
     }
-    
+
     console.warn(
       "API for Portfolio page returned an empty or invalid response."
     );
@@ -186,4 +108,3 @@ export async function fetchPortfolioData() {
     return []; // Return an empty array on error
   }
 }
-
