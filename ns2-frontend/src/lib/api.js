@@ -36,7 +36,6 @@ export async function fetchNavbarData() {
   }
 }
 
-// ✅ Generic fetcher for homepage sections
 export async function fetchHomepageSection(sectionType) {
   try {
     const response = await fetch(
