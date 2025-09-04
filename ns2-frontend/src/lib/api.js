@@ -27,16 +27,15 @@ export async function fetchNavbarData() {
       console.warn(
         "API response doesn't have expected structure, using fallback data"
       );
-      return fallbackNavbarData;
+      // return fallbackNavbarData;
     }
   } catch (error) {
     console.error("Failed to fetch Navbar data:", error);
     console.log("Using fallback navbar data");
-    return fallbackNavbarData;
+    // return fallbackNavbarData;
   }
 }
 
-// ✅ Generic fetcher for homepage sections
 export async function fetchHomepageSection(sectionType) {
   try {
     const response = await fetch(
@@ -106,5 +105,48 @@ export async function fetchPortfolioData() {
   } catch (error) {
     console.error("Failed to fetch Portfolio page data:", error);
     return []; // Return an empty array on error
+  }
+}
+
+
+// export async function fetchServiceBySlug(slug) {
+//   try {
+//     const res = await fetch(
+//       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/services/fetch-services/?slug=${slug}`,
+//       {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         cache: "no-store", // SSR fresh data
+//       }
+//     );
+
+//     if (!res.ok) throw new Error("Failed to fetch service data");
+
+//     return await res.json();
+//   } catch (error) {
+//     console.error("Failed to fetch service:", error);
+//     return null;
+//   }
+// }
+
+
+// src/lib/services/api.js
+// const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+export async function fetchServiceBySlug(slug) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/services/fetch-services/?slug=${slug}`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) throw new Error("Failed to fetch service data");
+
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching service by slug:", error);
+    return null;
   }
 }
