@@ -135,18 +135,18 @@ export async function fetchPortfolioData() {
 // src/lib/services/api.js
 // const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export async function fetchServiceBySlug(slug) {
-  try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/services/fetch-services/?slug=${slug}`,
-      { cache: "no-store" }
-    );
+// export async function fetchServiceBySlug(slug) {
+//   try {
+//     const res = await fetch(
+//       `${API_BASE_URL}/api/services/fetch-services/?slug=${slug}`,
+//       { cache: "no-store" }
+//     );
 
-    if (!res.ok) throw new Error("Failed to fetch service data");
+//     if (!res.ok) throw new Error("Failed to fetch service data");
 
-    return await res.json();
-  } catch (error) {
-    console.error("Error fetching service by slug:", error);
-    return null;
-  }
-}
+//     return await res.json();
+//   } catch (error) {
+//     console.error("Error fetching service by slug:", error);
+//     return null;
+//   }
+// }

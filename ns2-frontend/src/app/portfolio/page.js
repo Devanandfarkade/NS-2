@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Testimonial from "@/components/homepage/Testimonial";
 import { fetchHomepageSection } from "@/lib/api";
 import { redirect } from "next/navigation";
