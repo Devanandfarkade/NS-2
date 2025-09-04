@@ -4,7 +4,7 @@ export default function Testimonial({ data }) {
   if (!data) return null;
 
   return (
-    <section className="relative w-full bg-gradient-to-br from-white to-gray-50 mt-12 sm:mt-16 lg:mt-24 py-16 sm:py-20 overflow-hidden">
+    <section className="relative w-full bg-gradient-to-br from-white to-gray-50 mt-0 sm:mt-0 lg:mt-0 py-16 sm:py-20 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 text-center relative z-10">
         {data.super_heading && (
           <h2 className="text-blue-600 font-semibold text-sm sm:text-base mb-2">
