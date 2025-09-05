@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { motion } from "framer-motion";
@@ -19,7 +20,7 @@ export default function WhoWeAre({ data }) {
 
   return (
     <section className="relative w-full py-5 overflow-hidden">
-      {/* Wave Background filling the whole section */}
+      {/* Wave Background */}
       <div className="absolute inset-0 z-0">
         <svg
           className="w-full h-full"
@@ -36,7 +37,7 @@ export default function WhoWeAre({ data }) {
         </svg>
       </div>
 
-      {/* Doodle Icons */}
+      {/* Static Doodle Icons */}
       <div className="absolute top-10 left-12 text-blue-400 opacity-60 z-0">
         <Rocket size={50} strokeWidth={1.5} />
       </div>
@@ -66,7 +67,7 @@ export default function WhoWeAre({ data }) {
       </div>
 
       {/* Foreground Content */}
-      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+      <div className="container mx-auto bg-transparent px-6 lg:px-12 relative z-10">
         {/* Heading */}
         {data.heading && (
           <motion.h2
@@ -81,24 +82,32 @@ export default function WhoWeAre({ data }) {
 
         {/* Content Box */}
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-transparent  p-8 mt-2"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-transparent p-8 mt-2"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
         >
           {/* Left Image */}
           {data.primary_image && (
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <img
-                src={data.primary_image}
-                alt={data.heading || "Who We Are"}
-                className="rounded-xl  w-full h-[300px] object-contain max-h-96"
-              />
-            </motion.div>
+          <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 1 }}
+  className="bg-transparent  overflow-hidden w-full"
+>
+  <motion.img
+    src={data.primary_image}
+    alt={data.heading || "Who We Are"}
+    className="w-full h-full object-cover"
+    animate={{ scale: [1, 1.05, 1] }} // zoom in → zoom out
+    transition={{
+      duration: 6, // slower loop
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+  />
+</motion.div>
+
           )}
 
           {/* Right Content */}
