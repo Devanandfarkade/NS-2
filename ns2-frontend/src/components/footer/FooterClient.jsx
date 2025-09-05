@@ -16,14 +16,109 @@ export default function FooterClient({ data }) {
   const { sections = [], company = {}, social_links = [] } = data;
 
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-black text-gray-300">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
+    <footer className="bg-gradient-to-b from-gray-900 to-black text-gray-300 relative overflow-hidden">
+      {/* Doodle elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Top left corner doodle */}
+        <div className="absolute top-10 left-10 opacity-50">
+          <svg
+            width="80"
+            height="80"
+            viewBox="0 0 80 80"
+            className="text-white"
+          >
+            <circle cx="20" cy="20" r="3" fill="currentColor" />
+            <circle cx="40" cy="20" r="3" fill="currentColor" />
+            <circle cx="60" cy="20" r="3" fill="currentColor" />
+            <circle cx="20" cy="40" r="3" fill="currentColor" />
+            <circle cx="40" cy="40" r="3" fill="currentColor" />
+            <circle cx="60" cy="40" r="3" fill="currentColor" />
+            <circle cx="20" cy="60" r="3" fill="currentColor" />
+            <circle cx="40" cy="60" r="3" fill="currentColor" />
+            <circle cx="60" cy="60" r="3" fill="currentColor" />
+          </svg>
+        </div>
+
+        {/* Bottom right corner doodle */}
+        <div className="absolute bottom-10 right-10 opacity-50">
+          <svg
+            width="100"
+            height="100"
+            viewBox="0 0 100 100"
+            className="text-white"
+          >
+            <path
+              d="M10,50 Q30,30 50,50 T90,50"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+              strokeDasharray="4,4"
+            />
+            <circle cx="10" cy="50" r="4" fill="currentColor" />
+            <circle cx="90" cy="50" r="4" fill="currentColor" />
+          </svg>
+        </div>
+
+        {/* Center left squiggle */}
+        <div className="absolute top-1/2 left-5 opacity-10">
+          <svg
+            width="60"
+            height="120"
+            viewBox="0 0 60 120"
+            className="text-white"
+          >
+            <path
+              d="M30,10 C40,30 20,50 30,70 C40,90 20,110 30,110"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+            />
+          </svg>
+        </div>
+
+        {/* Center right circles */}
+        <div className="absolute top-1/3 right-8 opacity-5">
+          <svg
+            width="80"
+            height="80"
+            viewBox="0 0 80 80"
+            className="text-white"
+          >
+            <circle
+              cx="40"
+              cy="40"
+              r="30"
+              stroke="currentColor"
+              strokeWidth="1"
+              fill="none"
+            />
+            <circle
+              cx="40"
+              cy="40"
+              r="20"
+              stroke="currentColor"
+              strokeWidth="1"
+              fill="none"
+            />
+            <circle
+              cx="40"
+              cy="40"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="1"
+              fill="none"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 relative z-10">
         {/* Main footer content - two column layout */}
         <div className="flex flex-col md:flex-row gap-10 md:gap-16 mb-10">
           {/* Left column - Company info */}
           <div className="md:w-2/5">
             {company?.logo && (
-              <div className="inline-flex items-center justify-center bg-white/95 dark:bg-black/80 rounded-xl p-3 shadow-lg mb-6">
+              <div className="inline-flex items-center justify-center bg-white/95 dark:bg-black/80 rounded-xl p-3 shadow-lg mb-6 transform transition-transform duration-500 hover:scale-105">
                 <Image
                   src={getImageUrl(company.logo)}
                   alt={company.name || "Company Logo"}
@@ -35,7 +130,7 @@ export default function FooterClient({ data }) {
               </div>
             )}
 
-            <h3 className="font-heading text-xl font-bold text-white mb-3">
+            <h3 className="font-heading text-xl font-bold text-white mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
               {company?.name}
             </h3>
 
@@ -48,9 +143,9 @@ export default function FooterClient({ data }) {
             {/* Contact information */}
             <div className="space-y-3">
               {company?.email && (
-                <div className="flex items-start">
+                <div className="flex items-start group">
                   <svg
-                    className="w-5 h-5 text-blue-400 mr-3 mt-0.5"
+                    className="w-5 h-5 text-blue-400 mr-3 mt-0.5 transform group-hover:scale-110 transition-transform"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -65,7 +160,7 @@ export default function FooterClient({ data }) {
                   </svg>
                   <a
                     href={`mailto:${company.email}`}
-                    className="hover:text-blue-400 transition-colors"
+                    className="hover:text-blue-400 transition-colors group-hover:translate-x-1 inline-block transform transition-transform"
                   >
                     {company.email}
                   </a>
@@ -73,9 +168,9 @@ export default function FooterClient({ data }) {
               )}
 
               {company?.phone && (
-                <div className="flex items-start">
+                <div className="flex items-start group">
                   <svg
-                    className="w-5 h-5 text-blue-400 mr-3 mt-0.5"
+                    className="w-5 h-5 text-blue-400 mr-3 mt-0.5 transform group-hover:scale-110 transition-transform"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -90,7 +185,7 @@ export default function FooterClient({ data }) {
                   </svg>
                   <a
                     href={`tel:${company.phone}`}
-                    className="hover:text-blue-400 transition-colors"
+                    className="hover:text-blue-400 transition-colors group-hover:translate-x-1 inline-block transform transition-transform"
                   >
                     {company.phone}
                   </a>
@@ -107,7 +202,7 @@ export default function FooterClient({ data }) {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-gray-800 hover:bg-gray-700 p-2.5 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5"
+                    className="bg-gray-800 hover:bg-gradient-to-r from-blue-600 to-cyan-500 p-2.5 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group relative"
                     aria-label={social.platform || `social-${idx}`}
                   >
                     {social.icon ? (
@@ -116,12 +211,15 @@ export default function FooterClient({ data }) {
                         alt={social.platform || "Social Link"}
                         width={20}
                         height={20}
-                        className="object-contain"
+                        className="object-contain filter brightness-0 invert opacity-80 group-hover:opacity-100 transition-all"
                         unoptimized
                       />
                     ) : (
                       <span className="text-sm">{social.platform}</span>
                     )}
+
+                    {/* Subtle glow effect on hover */}
+                    <span className="absolute inset-0 rounded-lg bg-blue-500/20 group-hover:animate-ping opacity-0 group-hover:opacity-100 duration-1000"></span>
                   </a>
                 ))}
               </div>
@@ -136,7 +234,7 @@ export default function FooterClient({ data }) {
                 .sort((a, b) => (a.order || 0) - (b.order || 0))
                 .map((section, idx) => (
                   <div key={idx} className="w-full">
-                    <h4 className="font-heading font-semibold text-white mb-4 text-lg relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-blue-500">
+                    <h4 className="font-heading font-semibold text-white mb-4 text-lg relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-to-r after:from-blue-500 after:to-cyan-400">
                       {section.title}
                     </h4>
                     <ul className="space-y-3">
@@ -144,13 +242,13 @@ export default function FooterClient({ data }) {
                         .slice()
                         .sort((a, b) => (a.order || 0) - (b.order || 0))
                         .map((item, i) => (
-                          <li key={i}>
+                          <li key={i} className="group">
                             <Link
                               href={item.url || "#"}
                               className="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-start"
                             >
                               <svg
-                                className="w-4 h-4 text-blue-400 mr-2 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                                className="w-4 h-4 text-blue-400 mr-2 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1 transition-transform"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -163,7 +261,9 @@ export default function FooterClient({ data }) {
                                   d="M9 5l7 7-7 7"
                                 ></path>
                               </svg>
-                              {item.text}
+                              <span className="group-hover:translate-x-1 transform transition-transform inline-block">
+                                {item.text}
+                              </span>
                             </Link>
                           </li>
                         ))}
@@ -175,12 +275,12 @@ export default function FooterClient({ data }) {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="border-t border-gray-800/50 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-sm text-gray-400">
             <p>{company?.copyright_text}</p>
           </div>
 
-          <div className="text-sm text-gray-400">
+          <div className="text-sm text-gray-400 text-center md:text-right">
             <p>{company?.credits_text}</p>
           </div>
         </div>
