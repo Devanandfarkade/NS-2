@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 // Section Header
@@ -101,13 +102,16 @@ export const ServicesSection = ({ data = {} }) => {
 
                 {/* Learn More Button */}
                 <div className="mt-auto">
-                  <button
-                    className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 transition-all group-hover:underline"
-                    aria-label={`Learn more about ${item.label}`}
-                    // onClick={() => router.push('/services')} // optional
-                  >
-                    Learn More →
-                  </button>
+                  {item.text && item.question && (
+                    <Link
+                      href={item.question}
+                      className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 transition-all group-hover:underline"
+                      aria-label={`${item.text} about ${item.label}`}
+                    >
+                      {item.text} →
+                    </Link>
+                  )}
+
                 </div>
               </div>
             </div>

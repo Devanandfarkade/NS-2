@@ -103,32 +103,25 @@ export default function ContactUs({ data }) {
   if (!data) return null;
 
   return (
-    <section
-      id="contact"
-      className="w-full py-16 bg-gradient-to-b from-[#f8faff] to-white dark:from-[#0b0b1a] dark:to-black"
-    >
+    <section id="contact" className="w-full py-16 bg-white text-black">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center mb-12">
-          <p
-            className="text-sm font-semibold text-blue-500 animate-pulse 
-     drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
-          >
+          <p className="text-sm font-semibold text-blue-500 animate-pulse drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">
             + Get In Touch
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold mt-2">
+          <h2 className="text-3xl md:text-4xl font-bold mt-2 text-black">
             {data.super_heading}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
-            {data.heading}
-          </p>
+          <p className="text-black mt-4 max-w-2xl mx-auto">{data.heading}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-10">
+          {/* Left side */}
           <div>
-            <h3 className="text-xl font-bold mb-4">{data.subheading}</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
-              {data.overview_text}
-            </p>
+            <h3 className="text-xl font-bold mb-4 text-black">
+              {data.subheading}
+            </h3>
+            <p className="text-black mb-6">{data.overview_text}</p>
 
             <div className="space-y-6">
               {data.content_items
@@ -140,7 +133,7 @@ export default function ContactUs({ data }) {
                 .map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start p-5 rounded-2xl shadow-md bg-white dark:bg-[#111]"
+                    className="flex items-start p-5 rounded-2xl shadow-md bg-white border border-gray-200"
                   >
                     {item.icon && (
                       <img
@@ -151,10 +144,12 @@ export default function ContactUs({ data }) {
                     )}
                     <div>
                       {item.label && (
-                        <h4 className="font-semibold">{item.label}</h4>
+                        <h4 className="font-semibold text-black">
+                          {item.label}
+                        </h4>
                       )}
                       {item.title && (
-                        <p className="text-gray-500 text-sm">{item.title}</p>
+                        <p className="text-black text-sm">{item.title}</p>
                       )}
                       {item.description && (
                         <p className="text-blue-600 font-medium mt-1">
@@ -167,7 +162,7 @@ export default function ContactUs({ data }) {
             </div>
 
             <div className="mt-6">
-              <p className="font-semibold">Follow Us</p>
+              <p className="font-semibold text-black">Follow Us</p>
               <div className="flex space-x-4 mt-3">
                 {data.social_links?.map((link, i) => (
                   <a key={i} href={link.url} target="_blank" rel="noreferrer">
@@ -182,9 +177,12 @@ export default function ContactUs({ data }) {
             </div>
           </div>
 
-          <div className="p-8 rounded-2xl shadow-lg bg-white dark:bg-[#111]">
-            <h3 className="text-lg font-bold mb-2">Send us a Message</h3>
-            <p className="text-gray-500 text-sm mb-6">
+          {/* Right side (Form) */}
+          <div className="p-8 rounded-2xl shadow-lg bg-white border border-gray-200">
+            <h3 className="text-lg font-bold mb-2 text-black">
+              Send us a Message
+            </h3>
+            <p className="text-black text-sm mb-6">
               Fill out the form below and we'll get back to you within 24 hours.
             </p>
 
@@ -205,7 +203,7 @@ export default function ContactUs({ data }) {
                       value={formData.fullName}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
                     />
                     {errors.fullName && (
                       <p className="text-red-500 text-sm mt-1">
@@ -221,7 +219,7 @@ export default function ContactUs({ data }) {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
                     />
                     {errors.email && (
                       <p className="text-red-500 text-sm mt-1">
@@ -239,7 +237,7 @@ export default function ContactUs({ data }) {
                     placeholder="Enter phone e.g. +91 9876543210"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
                   />
                   {errors.phone && (
                     <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
@@ -252,7 +250,7 @@ export default function ContactUs({ data }) {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
                   >
                     <option value="">Select a subject</option>
                     {subjects.map((s, idx) => (
@@ -276,7 +274,7 @@ export default function ContactUs({ data }) {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
                   />
                   {errors.message && (
                     <p className="text-red-500 text-sm mt-1">
@@ -306,7 +304,7 @@ export default function ContactUs({ data }) {
                         message: "",
                       })
                     }
-                    className="px-6 py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="px-6 py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-100"
                   >
                     Reset
                   </button>

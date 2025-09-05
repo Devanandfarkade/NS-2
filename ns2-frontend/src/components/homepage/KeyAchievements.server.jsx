@@ -4,7 +4,8 @@ export default function KeyAchievementsServer({ data }) {
   if (!data) return null;
 
   return (
-    <section className="w-full py-16 bg-background text-foreground">
+    // ✅ Force white background & dark text (ignores dark mode)
+    <section className="w-full py-16 bg-white text-gray-900">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
         {data.super_heading && (
           <p className="text-sm text-gray-500 uppercase tracking-wider font-sans">
@@ -13,12 +14,12 @@ export default function KeyAchievementsServer({ data }) {
         )}
 
         <h2 className="mt-2 text-3xl md:text-4xl font-bold font-heading">
-          <span className="text-foreground">Key </span>
+          <span className="text-gray-900">Key </span>
           <span className="text-blue-600">Achievements</span>
         </h2>
 
         {data.heading && (
-          <p className="mt-3 text-base md:text-lg text-gray-500 font-sans max-w-3xl mx-auto">
+          <p className="mt-3 text-base md:text-lg text-gray-600 font-sans max-w-3xl mx-auto">
             {data.heading}
           </p>
         )}

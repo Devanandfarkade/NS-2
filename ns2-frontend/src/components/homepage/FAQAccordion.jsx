@@ -15,15 +15,14 @@ export default function FAQAccordion({ items }) {
       {items.map((item, index) => (
         <div
           key={index}
-          className="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-neutral-800 shadow-sm"
+          // ✅ Force light mode (white card, light border, shadow)
+          className="border border-gray-200 rounded-xl bg-white shadow-sm"
         >
           <button
             onClick={() => toggle(index)}
             className="w-full flex justify-between items-center px-4 py-3 text-left"
           >
-            <span className="font-medium text-gray-900 dark:text-gray-100">
-              {item.question}
-            </span>
+            <span className="font-medium text-gray-900">{item.question}</span>
             <ChevronDown
               className={`w-5 h-5 text-gray-500 transition-transform ${
                 openIndex === index ? "rotate-180" : ""
@@ -31,7 +30,7 @@ export default function FAQAccordion({ items }) {
             />
           </button>
           {openIndex === index && (
-            <div className="px-4 pb-4 text-gray-600 dark:text-gray-300">
+            <div className="px-4 pb-4 text-gray-600">
               {item.answer || "No answer provided yet."}
             </div>
           )}
