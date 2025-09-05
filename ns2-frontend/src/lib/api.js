@@ -142,10 +142,11 @@ export async function fetchAboutPage() {
   try {
     const res = await fetch(
       `${API_BASE_URL}/api/aboutus/fetch-about-page/`,
-      { cache: "no-store" }
+      { cache: "no-store" } // SSR - no cache
     );
 
-    if (!res.ok) throw new Error(`Failed to fetch About Us page: ${res.status}`);
+    if (!res.ok)
+      throw new Error(`Failed to fetch About Us page: ${res.status}`);
 
     return await res.json();
   } catch (error) {
