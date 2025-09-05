@@ -18,17 +18,17 @@ export async function fetchNavbarData() {
 
     const data = await response.json();
 
-    if (data && (data.header || data.menu)) {
+    if (data && (data.header || data.menu || data.footer)) {
       return data;
     } else {
       console.warn(
         "API response missing expected structure, returning empty array instead of fallback"
       );
-      return { header: [], menu: [] };
+      return { header: [], menu: [], footer: null };
     }
   } catch (error) {
     console.error("Failed to fetch Navbar data:", error);
-    return { header: [], menu: [] };
+    return { header: [], menu: [], footer: null };
   }
 }
 
@@ -44,17 +44,15 @@ export async function fetchHomepageSection(sectionType) {
     if (!response.ok) throw new Error(`HTTP error status: ${response.status}`);
 
     const data = await response.json();
-
     const sections = Array.isArray(data)
       ? data
       : Array.isArray(data?.data)
         ? data.data
         : [];
-
     const section = sections.find(
       (s) =>
-        s.section_type?.toLowerCase() === sectionType.toLowerCase() &&
-        s.is_active
+        s.section_type?.toLowerCase().replace(/\s/g, "") ===
+          sectionType.toLowerCase().replace(/\s/g, "") && s.is_active
     );
 
     if (!section) {
@@ -64,7 +62,6 @@ export async function fetchHomepageSection(sectionType) {
 
     if (section.background_image)
       section.background_image = normalizeImageUrl(section.background_image);
-
     if (section.primary_image)
       section.primary_image = normalizeImageUrl(section.primary_image);
 

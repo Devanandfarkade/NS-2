@@ -7,6 +7,7 @@ import Testimonial from "@/components/homepage/Testimonial";
 import WhyChooseUs from "@/components/homepage/WhyChooseUs";
 import { fetchHomepageSection } from "@/lib/api";
 import ContactUs from "@/components/homepage/ContactUs";
+import KeyAchievementsServer from "@/components/homepage/KeyAchievements.server";
 
 export default async function HomePage() {
   const heroData = await fetchHomepageSection("Hero Banner");
@@ -16,12 +17,14 @@ export default async function HomePage() {
   const faq = await fetchHomepageSection("Frequently Asked Questions");
   const cta = await fetchHomepageSection("Call To Action");
   const contact = await fetchHomepageSection("Contact Us");
+  const keyAchievements = await fetchHomepageSection("Key Achivements");
 
   return (
     <main>
       <Hero data={heroData} />
       <Overview data={overview} />
       <WhyChooseUs data={whyChooseUs} />
+      <KeyAchievementsServer data={keyAchievements} />
       <Testimonial data={testimonial} />
       <FAQSection data={faq} cta={cta} />
       <ContactUs data={contact} />
