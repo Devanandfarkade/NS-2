@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-// Section header
+// Section Header
 const SectionHeader = ({ superHeading, heading, subheading }) => (
   <div className="text-center max-w-3xl mx-auto px-4">
     <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight font-poppins">
@@ -48,7 +48,7 @@ export const ServicesSection = ({ data = {} }) => {
         <SectionHeader
           superHeading={data.super_heading}
           heading={data.heading}
-          subheading={data.overview_text}
+          subheading={data.subheading || data.overview_text}
         />
 
         <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
@@ -63,21 +63,22 @@ export const ServicesSection = ({ data = {} }) => {
                 animationFillMode: "forwards",
               }}
             >
-              <div className="flex flex-col items-start text-left gap-4">
-                {/* Icon Above Heading, left aligned */}
+              <div className="flex flex-col items-start text-left gap-4 h-full">
+                {/* Icon */}
                 {item.icon && (
                   <div className="flex-shrink-0">
                     <img
                       src={`${API_BASE_URL}${item.icon}`}
-                      alt={`${item.label} icon`}
+                      alt={`${item.label || "Service"} icon`}
                       className="h-12 w-12 object-contain"
+                      loading="lazy"
                     />
                   </div>
                 )}
 
                 {/* Heading */}
                 <h3 className="text-xl font-bold text-gray-900 font-poppins">
-                  {item.label}
+                  {item.label || "Untitled Service"}
                 </h3>
 
                 {/* Description */}
@@ -86,7 +87,7 @@ export const ServicesSection = ({ data = {} }) => {
                 </p>
 
                 {/* Bullet points */}
-                <ul className="mt-4 space-y-2">
+                <ul className="mt-4 space-y-2 mb-6">
                   {item.description?.split(",").map((point, i) => (
                     <li
                       key={i}
@@ -97,6 +98,17 @@ export const ServicesSection = ({ data = {} }) => {
                     </li>
                   ))}
                 </ul>
+
+                {/* Learn More Button */}
+                <div className="mt-auto">
+                  <button
+                    className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 transition-all group-hover:underline"
+                    aria-label={`Learn more about ${item.label}`}
+                    // onClick={() => router.push('/services')} // optional
+                  >
+                    Learn More →
+                  </button>
+                </div>
               </div>
             </div>
           ))}

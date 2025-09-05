@@ -1,18 +1,16 @@
-// app/portfolio/page.tsx (or wherever your portfolio page is)
+// app/portfolio/page.js
 
 import Testimonial from "@/components/homepage/Testimonial";
 import { FeaturedProjectsSection } from "../../components/portfolio/FeaturedProjects";
 import { HeroSection } from "../../components/portfolio/HeroSection";
-import { ServicesSection } from "../../components/portfolio/ServiceSection";
 import { TrustedCompaniesSection } from "../../components/portfolio/TrustedCompanies";
 import { TeamSection } from "../../components/portfolio/ourteam";
 
 const SECTION_COMPONENTS = {
-  "Hero Banner": HeroSection,
-  "Our Services": ServicesSection,
-  "Featured Projects": FeaturedProjectsSection,
-  "Trusted Companies": TrustedCompaniesSection,
-  "Our Team": TeamSection,
+  "hero banner": HeroSection,
+  "featured projects": FeaturedProjectsSection,
+  "trusted companies": TrustedCompaniesSection,
+  "our team": TeamSection,
 };
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -35,10 +33,9 @@ export default async function PortfolioPage() {
   return (
     <main className="bg-white">
       {sections?.map((section) => {
-        const Component = SECTION_COMPONENTS[section.section_type];
-        return Component ? (
-          <Component key={section.order} data={section} />
-        ) : null;
+        const key = section.section_type.toLowerCase().replace(/_/g, " ");
+        const Component = SECTION_COMPONENTS[key];
+        return Component ? <Component key={section.order} data={section} /> : null;
       })}
 
       {testimonialSection && <Testimonial data={testimonialSection} />}
