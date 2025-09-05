@@ -1,15 +1,12 @@
-export const dynamic = 'force-dynamic';
+// app/portfolio/page.tsx (or wherever your portfolio page is)
+
 import Testimonial from "@/components/homepage/Testimonial";
-import { fetchHomepageSection } from "@/lib/api";
-import { redirect } from "next/navigation";
 import { FeaturedProjectsSection } from "../../components/portfolio/FeaturedProjects";
 import { HeroSection } from "../../components/portfolio/HeroSection";
 import { ServicesSection } from "../../components/portfolio/ServiceSection";
 import { TrustedCompaniesSection } from "../../components/portfolio/TrustedCompanies";
-import { TeamSection } from "../../components/portfolio/ourteam"; // Assuming HeroSection is in its own file now
-import { fetchPortfolioData } from "../../lib/api";
+import { TeamSection } from "../../components/portfolio/ourteam";
 
-// Section component mapping
 const SECTION_COMPONENTS = {
   "Hero Banner": HeroSection,
   "Our Services": ServicesSection,
@@ -18,27 +15,33 @@ const SECTION_COMPONENTS = {
   "Our Team": TeamSection,
 };
 
-export default async function PortfolioPage() {
-  // Fetch portfolio data from Django API
-  const sections = await fetchPortfolioData();
-  const testimonial = await fetchHomepageSection("Testimonials Slider");
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  // Redirect if no data is found
-  if (!sections || sections.length === 0) {
-    redirect("/");
-  }
+async function fetcher(url) {
+  const res = await fetch(url, { cache: "no-store" }); // or "force-cache" to cache SSR response
+  if (!res.ok) throw new Error("Failed to fetch");
+  return res.json();
+}
+
+export default async function PortfolioPage() {
+  // Server side data fetching (SSR)
+  const sections = await fetcher(`${API_BASE_URL}/api/portfolio/fetch-portfolio`);
+  const homepageSections = await fetcher(`${API_BASE_URL}/api/homepage/fetch-homepage`);
+
+  const testimonialSection = homepageSections?.find(
+    (s) => s.section_type === "Testimonials Slider"
+  );
 
   return (
     <main className="bg-white">
-      {sections.map((section) => {
-        // Look up the component based on the section_type from the API
+      {sections?.map((section) => {
         const Component = SECTION_COMPONENTS[section.section_type];
-        // If a component is found, render it with its data
         return Component ? (
           <Component key={section.order} data={section} />
         ) : null;
       })}
-      <Testimonial data={testimonial} />
+
+      {testimonialSection && <Testimonial data={testimonialSection} />}
     </main>
   );
 }

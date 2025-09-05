@@ -29,7 +29,7 @@ export const FeaturedProjectsSection = ({ data = {} }) => {
     setAnimate(false);
     const timeout = setTimeout(() => setAnimate(true), 50);
     return () => clearTimeout(timeout);
-  }, [current]);
+  }, [current]); 
 
   // Auto slide every 3 seconds (3000ms)
   useEffect(() => {

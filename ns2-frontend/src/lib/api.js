@@ -3,7 +3,6 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 export function normalizeImageUrl(url) {
   if (!url) return null;
   if (url.startsWith("http")) return url;
-  // allow starting slash or not
   return `${API_BASE_URL}${url.startsWith("/") ? "" : "/"}${url}`;
 }
 
@@ -63,7 +62,6 @@ export async function fetchHomepageSection(sectionType) {
       return null;
     }
 
-    // Normalize images if present
     if (section.background_image)
       section.background_image = normalizeImageUrl(section.background_image);
 
@@ -82,7 +80,7 @@ export async function fetchPortfolioData() {
     const response = await fetch(
       `${API_BASE_URL}/api/portfolio/fetch-portfolio`,
       {
-        cache: "no-store", // Ensures fresh data on every request (SSR)
+        cache: "no-store",
       }
     );
     if (!response.ok) {
@@ -90,7 +88,6 @@ export async function fetchPortfolioData() {
     }
     const data = await response.json();
 
-    // Check if the API returns a valid, non-empty array
     if (data && Array.isArray(data) && data.length > 0) {
       return data;
     }
@@ -98,10 +95,10 @@ export async function fetchPortfolioData() {
     console.warn(
       "API for Portfolio page returned an empty or invalid response."
     );
-    return []; // Return an empty array on failure to avoid render errors
+    return [];
   } catch (error) {
     console.error("Failed to fetch Portfolio page data:", error);
-    return []; // Return an empty array on error
+    return [];
   }
 }
 
@@ -128,43 +125,18 @@ export async function submitContactForm(payload) {
   }
 }
 
-// export async function fetchServiceBySlug(slug) {
-//   try {
-//     const res = await fetch(
-//       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/services/fetch-services/?slug=${slug}`,
-//       {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         cache: "no-store", // SSR fresh data
-//       }
-//     );
+export async function fetchServiceBySlug(slug) {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/services/fetch-services/?submenu=${slug}`,
+      { cache: "no-store" }
+    );
 
-//     if (!res.ok) throw new Error("Failed to fetch service data");
+    if (!res.ok) throw new Error("Failed to fetch service data");
 
-//     return await res.json();
-//   } catch (error) {
-//     console.error("Failed to fetch service:", error);
-//     return null;
-//   }
-// }
-
-// src/lib/services/api.js
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-// export async function fetchServiceBySlug(slug) {
-//   try {
-//     const res = await fetch(
-//       `${API_BASE_URL}/api/services/fetch-services/?slug=${slug}`,
-//       { cache: "no-store" }
-//     );
-
-//     if (!res.ok) throw new Error("Failed to fetch service data");
-
-//     return await res.json();
-//   } catch (error) {
-//     console.error("Error fetching service by slug:", error);
-//     return null;
-//   }
-// }
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching service by slug:", error);
+    return null;
+  }
+}
