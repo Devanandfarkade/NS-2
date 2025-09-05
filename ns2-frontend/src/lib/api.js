@@ -137,3 +137,19 @@ export async function fetchServiceBySlug(slug) {
     return null;
   }
 }
+
+export async function fetchAboutPage() {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/aboutus/fetch-about-page/`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) throw new Error(`Failed to fetch About Us page: ${res.status}`);
+
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching About Us page:", error);
+    return null;
+  }
+}
