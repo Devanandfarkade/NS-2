@@ -1,4 +1,11 @@
+export const metadata = {
+  title: "NS^2 | | Home",
+  description:
+    "At NS², we craft innovative solutions that bridge technology and human creativity.",
+};
+
 export const dynamic = "force-dynamic";
+
 import FAQSection from "@/components/homepage/FAQSection";
 import Hero from "@/components/homepage/HeroSection";
 import Overview from "@/components/homepage/Overview";

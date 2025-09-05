@@ -238,19 +238,21 @@ export default function Overview({ data }) {
               </Link>
             )}
 
-            <button
-              type="button"
-              onClick={() => alert("Help clicked!")}
-              className="inline-flex items-center gap-2 border border-gray-300 text-gray-700 px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base bg-white hover:bg-gray-50 transition-all w-full sm:w-auto justify-center relative overflow-hidden group"
-            >
-              <span className="relative z-10">Help?</span>
-              <span className="text-xs relative z-10 transition-transform group-hover:translate-x-1">
-                →
-              </span>
-
-              {/* Button background effect */}
-              <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity -z-10"></div>
-            </button>
+            {data.secondary_button_text && (
+              <Link
+                href={data.secondary_button_url || "#"}
+                className="inline-flex items-center gap-2 border border-gray-300 text-gray-700 px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base bg-white hover:bg-gray-50 transition-all w-full sm:w-auto justify-center relative overflow-hidden group"
+                prefetch={false}
+              >
+                <span className="relative z-10">
+                  {data.secondary_button_text}
+                </span>
+                <span className="text-xs relative z-10 transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+                <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity -z-10"></div>
+              </Link>
+            )}
           </div>
 
           {/* Small decorative elements at bottom of content */}
