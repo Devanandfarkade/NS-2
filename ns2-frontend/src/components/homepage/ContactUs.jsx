@@ -103,7 +103,10 @@ export default function ContactUs({ data }) {
   if (!data) return null;
 
   return (
-    <section className="w-full py-16 bg-gradient-to-b from-[#f8faff] to-white dark:from-[#0b0b1a] dark:to-black">
+    <section
+      id="contact"
+      className="w-full py-16 bg-gradient-to-b from-[#f8faff] to-white dark:from-[#0b0b1a] dark:to-black"
+    >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center mb-12">
           <p

@@ -199,7 +199,7 @@ export default function FooterClient({ data }) {
                 {social_links.map((social, idx) => (
                   <a
                     key={idx}
-                    href={social.url}
+                    href={social.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-gray-800 hover:bg-gradient-to-r from-blue-600 to-cyan-500 p-2.5 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group relative"

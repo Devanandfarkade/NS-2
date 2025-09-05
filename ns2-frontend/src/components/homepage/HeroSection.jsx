@@ -55,22 +55,27 @@ export default function Hero({ data }) {
       </div>
 
       {/* Stats Section - visible only on large screens */}
-      <div className="hidden lg:block lg:absolute left-1/2 bottom-0 w-full max-w-6xl -translate-x-1/2 translate-y-1/2 z-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 px-4 sm:px-6">
-          {data.content_items?.map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-white text-black p-4 sm:p-6 rounded-xl shadow hover:shadow-lg transition-transform flex flex-col items-center justify-center text-center"
-            >
-              <p className="text-xl sm:text-2xl lg:text-3xl font-bold font-heading">
-                {item.label}
-              </p>
-              <p className="text-xs sm:text-sm lg:text-base text-gray-600 font-body">
-                {item.title}
-              </p>
-            </div>
-          ))}
-        </div>
+      {/* Stats Section */}
+      <div
+        className="
+    relative z-20 mt-8 px-4 sm:px-6
+    grid grid-cols-2 gap-4 sm:gap-6
+    lg:absolute lg:bottom-0 lg:left-1/2 lg:w-full lg:max-w-6xl lg:-translate-x-1/2 lg:translate-y-1/2 lg:grid-cols-4 lg:mt-0
+  "
+      >
+        {data.content_items?.map((item, idx) => (
+          <div
+            key={idx}
+            className="bg-white text-black p-4 sm:p-6 rounded-xl shadow hover:shadow-lg transition-transform flex flex-col items-center justify-center text-center"
+          >
+            <p className="text-lg sm:text-2xl lg:text-3xl font-bold font-heading">
+              {item.label}
+            </p>
+            <p className="text-xs sm:text-sm lg:text-base text-gray-600 font-body">
+              {item.title}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );
