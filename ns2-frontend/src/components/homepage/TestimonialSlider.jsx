@@ -144,43 +144,36 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
         </button>
 
         {/* Cards */}
-        <div className="flex justify-center items-start relative h-[280px] md:h-[300px]">
+        {/* Cards */}
+        <div className="flex justify-center items-start relative h-[320px] sm:h-[340px] md:h-[360px]">
           {items.map((item, idx) => {
             const pos = getPosition(idx);
             return (
               <div
                 key={idx}
                 className={`
-                  absolute transition-all duration-500 ease-in-out
-                  w-[360px] sm:w-[460px] md:w-[560px] lg:w-[640px]
-                  ${
-                    pos === "center"
-                      ? "z-20 opacity-100 translate-x-0 scale-100"
-                      : ""
-                  }
-                  ${
-                    pos === "left"
-                      ? "z-10 -translate-x-[110%] opacity-70 scale-95 blur-[1px]"
-                      : ""
-                  }
-                  ${
-                    pos === "right"
-                      ? "z-10 translate-x-[110%] opacity-70 scale-95 blur-[1px]"
-                      : ""
-                  }
-                  ${
-                    pos === "hidden"
-                      ? "opacity-0 pointer-events-none scale-90"
-                      : ""
-                  }
-                `}
+          absolute transition-all duration-500 ease-in-out
+          w-full max-w-[360px] sm:max-w-[460px] md:max-w-[560px] lg:max-w-[640px]
+          ${pos === "center" ? "z-20 opacity-100 translate-x-0 scale-100" : ""}
+          ${
+            pos === "left"
+              ? "z-10 -translate-x-[110%] opacity-70 scale-95 blur-[1px]"
+              : ""
+          }
+          ${
+            pos === "right"
+              ? "z-10 translate-x-[110%] opacity-70 scale-95 blur-[1px]"
+              : ""
+          }
+          ${pos === "hidden" ? "opacity-0 pointer-events-none scale-90" : ""}
+        `}
               >
-                <div className="bg-white rounded-2xl p-6 md:p-8 flex flex-col justify-between shadow-lg border border-gray-100 relative mx-auto h-[240px] md:h-[260px]">
-                  <Quote className="absolute top-5 right-5 w-8 h-8 text-blue-100" />
+                <div className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 flex flex-col justify-between shadow-lg border border-gray-100 relative mx-auto h-auto min-h-[220px] sm:min-h-[240px] md:min-h-[260px]">
+                  <Quote className="absolute top-5 right-5 w-6 h-6 sm:w-8 sm:h-8 text-blue-100" />
 
                   {/* User info */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full overflow-hidden bg-blue-100 border-2 border-white shadow-sm flex-shrink-0">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden bg-blue-100 border-2 border-white shadow-sm flex-shrink-0">
                       {item?.icon ? (
                         <Image
                           src={normalizeUrl(item.icon)}
@@ -191,24 +184,24 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                          <span className="text-lg font-semibold text-gray-600">
+                          <span className="text-base sm:text-lg font-semibold text-gray-600">
                             {item?.title?.charAt(0) || "U"}
                           </span>
                         </div>
                       )}
                     </div>
                     <div className="flex flex-col">
-                      <h4 className="font-bold text-gray-900 text-sm md:text-base leading-snug">
+                      <h4 className="font-bold text-gray-900 text-sm sm:text-base leading-snug">
                         {item?.title}
                       </h4>
-                      <p className="text-gray-600 text-xs md:text-sm">
+                      <p className="text-gray-600 text-xs sm:text-sm">
                         {item?.label}
                       </p>
                     </div>
                   </div>
 
                   {/* Testimonial content */}
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed mt-4">
+                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-3 sm:mt-4">
                     {item?.description}
                   </p>
                 </div>
