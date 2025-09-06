@@ -1,0 +1,169 @@
+"use client";
+
+import { normalizeImageUrl } from "@/lib/api";
+import Image from "next/image";
+import Link from "next/link";
+import CountUp from "react-countup";
+import { useInView } from "react-intersection-observer";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+export default function HeroSectionClient({ data }) {
+  if (!data) return null;
+
+  const {
+    heading,
+    highlighted_heading,
+    subheading,
+    primary_button_text,
+    primary_button_url,
+    secondary_button_text,
+    secondary_button_url,
+    content_items = [],
+  } = data;
+
+  const iconItems = content_items.filter((item) => item.icon);
+  const statItems = content_items.filter((item) => !item.icon);
+
+  return (
+    <section className="relative bg-white py-16 px-6 md:px-12 lg:px-24 overflow-hidden">
+      {/* Subtle dotted background */}
+      {/* Dotted Background with fade-in (SVG pattern) */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="absolute inset-0 pointer-events-none"
+      >
+        <svg
+          className="absolute w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <pattern
+              id="dots"
+              x="0"
+              y="0"
+              width="20"
+              height="20"
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx="2" cy="2" r="1.5" fill="#E5E7EB" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#dots)" />
+        </svg>
+      </motion.div>
+
+      {/* Content */}
+      <div className="relative max-w-6xl mx-auto text-center">
+        <h1 className="text-3xl md:text-5xl font-bold text-gray-900">
+          {heading}{" "}
+          <span className="text-[#007BFF]">{highlighted_heading}</span>
+        </h1>
+
+        <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          {subheading}
+        </p>
+
+        {/* Buttons */}
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <Link href={primary_button_url || "#"}>
+            <button
+              className="relative px-6 py-3 rounded bg-[#007BFF] text-white font-semibold shadow-md overflow-hidden group"
+              type="button"
+            >
+              <span className="relative z-10">{primary_button_text}</span>
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
+            </button>
+          </Link>
+
+          <Link href={secondary_button_url || "#"}>
+            <button
+              className="relative px-6 py-3 rounded border border-[#007BFF] text-[#007BFF] font-semibold overflow-hidden group"
+              type="button"
+            >
+              <span className="relative z-10">{secondary_button_text}</span>
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#007BFF]/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
+            </button>
+          </Link>
+        </div>
+
+        {/* Icon Cards */}
+        {iconItems.length > 0 && (
+          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 items-stretch">
+            {iconItems.map((item) => (
+              <div
+                key={item.id}
+                className="flex flex-col items-center text-center p-6 rounded-xl shadow-sm hover:shadow-lg transition bg-white"
+              >
+                <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-[#f6f9ff]">
+                  <Image
+                    src={normalizeImageUrl(item.icon)}
+                    alt={item.title || "icon"}
+                    width={96}
+                    height={96}
+                    className="object-contain"
+                  />
+                </div>
+                <h3 className="mt-4 font-semibold text-base text-gray-900">
+                  {item.title}
+                </h3>
+                {item.description && (
+                  <p className="mt-1 text-sm text-gray-600">
+                    {item.description}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Stats */}
+        <div
+          className={`mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 ${
+            iconItems.length === 0 ? "pt-12 border-t border-gray-200" : ""
+          }`}
+        >
+          {statItems.map((stat) => (
+            <StatCounter key={stat.id} stat={stat} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StatCounter({ stat }) {
+  const { ref, inView } = useInView({ triggerOnce: true });
+  const [start, setStart] = useState(false);
+
+  useEffect(() => {
+    if (inView) setStart(true);
+  }, [inView]);
+
+  const parseNumber = (label) => {
+    const match = label && label.match(/\d+/);
+    return match ? parseInt(match[0], 10) : 0;
+  };
+
+  const getSuffix = (label) => {
+    const match = label && label.match(/\d+/);
+    if (!match) return label || "";
+    const index = match.index + match[0].length;
+    return label.slice(index);
+  };
+
+  const number = parseNumber(stat.label || "");
+  const suffix = getSuffix(stat.label || "");
+
+  return (
+    <div ref={ref} className="text-center">
+      <h3 className="text-2xl md:text-3xl font-bold text-[#007BFF]">
+        {start ? <CountUp end={number} duration={3} separator="," /> : number}
+        {suffix}
+      </h3>
+      <p className="mt-2 text-gray-600">{stat.title}</p>
+    </div>
+  );
+}
