@@ -22,7 +22,6 @@ export default async function HomePage() {
   const whyChooseUs = await fetchHomepageSection("Why Choose Us");
   const testimonial = await fetchHomepageSection("Testimonials Slider");
   const faq = await fetchHomepageSection("Frequently Asked Questions");
-  const cta = await fetchHomepageSection("Call To Action");
   const contact = await fetchHomepageSection("Contact Us");
   const keyAchievements = await fetchHomepageSection("Key Achivements");
   const ourServices = await fetchHomepageSection("Our Services");
@@ -35,7 +34,7 @@ export default async function HomePage() {
       {ourServices && <ServicesSection data={ourServices} />}
       <KeyAchievementsServer data={keyAchievements} />
       <Testimonial data={testimonial} />
-      <FAQSection data={faq} cta={cta} />
+      <FAQSection data={faq}/>
       <ContactUs data={contact} />
       <ScrollToTop />
     </main>
