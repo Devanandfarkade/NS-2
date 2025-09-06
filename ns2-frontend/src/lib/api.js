@@ -154,3 +154,14 @@ export async function fetchAboutPage() {
     return null;
   }
 }
+
+export async function fetchTrainingPage() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/training/fetch-training-page/`,
+    {
+      cache: "no-store",
+    }
+  );
+  if (!res.ok) throw new Error("Failed to fetch training page data");
+  return res.json();
+}
