@@ -2,6 +2,7 @@ import { Poppins, Open_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import ScrollToTop from "@/components/homepage/ScrollToTop";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
       <body className="font-opensans flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">{children}</main>
+        <ScrollToTop />
         <Footer />
       </body>
     </html>
