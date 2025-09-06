@@ -142,14 +142,28 @@ export async function fetchAboutPage() {
   try {
     const res = await fetch(
       `${API_BASE_URL}/api/aboutus/fetch-about-page/`,
-      { cache: "no-store" }
+      { cache: "no-store" } // SSR - no cache
     );
 
-    if (!res.ok) throw new Error(`Failed to fetch About Us page: ${res.status}`);
+    if (!res.ok)
+      throw new Error(`Failed to fetch About Us page: ${res.status}`);
 
     return await res.json();
   } catch (error) {
     console.error("Error fetching About Us page:", error);
     return null;
   }
+}
+
+export async function fetchTrainingPage(slug) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/training/fetch-training-page/?slug=${slug}`,
+    { cache: "no-store" }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch training page data");
+  }
+
+  return res.json();
 }

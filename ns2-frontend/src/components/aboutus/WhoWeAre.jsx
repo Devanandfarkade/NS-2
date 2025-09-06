@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -50,7 +48,7 @@ export default function WhoWeAre({ data }) {
       <div className="absolute bottom-28 right-32 text-blue-500 opacity-60 z-0">
         <BarChart3 size={50} strokeWidth={1.5} />
       </div>
-      <div className="absolute top-1/2 left-1/2 text-blue-300 opacity-50 z-0">
+      <div className="absolute top-1/5     left-1/2 text-blue-300 opacity-60 z-0">
         <Smartphone size={46} strokeWidth={1.5} />
       </div>
       <div className="absolute top-16 right-40 text-blue-400 opacity-60 z-0">
@@ -89,25 +87,24 @@ export default function WhoWeAre({ data }) {
         >
           {/* Left Image */}
           {data.primary_image && (
-          <motion.div
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 1 }}
-  className="bg-transparent  overflow-hidden w-full"
->
-  <motion.img
-    src={data.primary_image}
-    alt={data.heading || "Who We Are"}
-    className="w-full h-full object-cover"
-    animate={{ scale: [1, 1.05, 1] }} // zoom in → zoom out
-    transition={{
-      duration: 6, // slower loop
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-  />
-</motion.div>
-
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="bg-transparent  overflow-hidden w-full"
+            >
+              <motion.img
+                src={data.primary_image}
+                alt={data.heading || "Who We Are"}
+                className="w-full h-full object-cover"
+                animate={{ scale: [1, 1.05, 1] }} // zoom in → zoom out
+                transition={{
+                  duration: 6, // slower loop
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </motion.div>
           )}
 
           {/* Right Content */}
