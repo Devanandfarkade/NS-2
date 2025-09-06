@@ -138,6 +138,7 @@ export async function fetchServiceBySlug(slug) {
   }
 }
 
+// Fetch About Us page data
 export async function fetchAboutPage() {
   try {
     const res = await fetch(

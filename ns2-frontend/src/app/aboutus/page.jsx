@@ -4,7 +4,7 @@ import VisionSection from "@/components/aboutus/VisionSection";
 import CompanyGallery from "@/components/aboutus/CompanyGallery";
 import OurTeam from "@/components/aboutus/OurTeam";
 
-export const revalidate = 0; // Full SSR
+export const revalidate = 0; // Full SSR (no cache)
 
 export default async function AboutUsPage() {
   const data = await fetchAboutPage();
@@ -16,7 +16,6 @@ export default async function AboutUsPage() {
   const whoWeAre = data.find(
     (section) => section.section_type === "WHO_WE_ARE" && section.is_active
   );
-
   const vision = data.find(
     (section) => section.section_type === "VISION_MISSION" && section.is_active
   );
