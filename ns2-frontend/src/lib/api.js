@@ -155,13 +155,15 @@ export async function fetchAboutPage() {
   }
 }
 
-export async function fetchTrainingPage() {
+export async function fetchTrainingPage(slug) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/training/fetch-training-page/`,
-    {
-      cache: "no-store",
-    }
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/training/fetch-training-page/?slug=${slug}`,
+    { cache: "no-store" }
   );
-  if (!res.ok) throw new Error("Failed to fetch training page data");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch training page data");
+  }
+
   return res.json();
 }
