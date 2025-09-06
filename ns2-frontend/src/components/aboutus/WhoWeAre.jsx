@@ -18,8 +18,8 @@ export default function WhoWeAre({ data }) {
 
   return (
     <section className="relative w-full py-5 overflow-hidden">
-      {/* Wave Background */}
-      <div className="absolute inset-0 z-0">
+      {/* Wave Background - hidden on mobile */}
+      <div className="absolute inset-0 z-0 hidden sm:block">
         <svg
           className="w-full h-full"
           xmlns="http://www.w3.org/2000/svg"
@@ -36,31 +36,31 @@ export default function WhoWeAre({ data }) {
       </div>
 
       {/* Static Doodle Icons */}
-      <div className="absolute top-10 left-12 text-blue-400 opacity-60 z-0">
+      <div className="absolute top-10 left-12 text-blue-400 opacity-50 z-0">
         <Rocket size={50} strokeWidth={1.5} />
       </div>
-      <div className="absolute top-1/3 right-20 text-blue-500 opacity-50 z-0">
+      <div className="absolute top-1/3 right-20 text-blue-500 opacity-40 z-0">
         <Lightbulb size={48} strokeWidth={1.5} />
       </div>
-      <div className="absolute bottom-1/3 left-16 text-blue-400 opacity-60 z-0">
+      <div className="absolute bottom-1/3 left-16 text-blue-400 opacity-50 z-0">
         <Laptop size={52} strokeWidth={1.5} />
       </div>
-      <div className="absolute bottom-28 right-32 text-blue-500 opacity-60 z-0">
+      <div className="absolute bottom-28 right-32 text-blue-500 opacity-50 z-0">
         <BarChart3 size={50} strokeWidth={1.5} />
       </div>
-      <div className="absolute top-1/5     left-1/2 text-blue-300 opacity-60 z-0">
+      <div className="absolute top-[22%] left-1/2 text-blue-300 opacity-50 z-0">
         <Smartphone size={46} strokeWidth={1.5} />
       </div>
-      <div className="absolute top-16 right-40 text-blue-400 opacity-60 z-0">
+      <div className="absolute top-16 right-40 text-blue-400 opacity-50 z-0">
         <Cloud size={54} strokeWidth={1.5} />
       </div>
-      <div className="absolute bottom-12 left-1/3 text-blue-300 opacity-50 z-0">
+      <div className="absolute bottom-12 left-1/3 text-blue-300 opacity-40 z-0">
         <Satellite size={48} strokeWidth={1.5} />
       </div>
-      <div className="absolute top-1/4 left-1/4 text-blue-400 opacity-60 z-0">
+      <div className="absolute top-1/4 left-1/4 text-blue-400 opacity-50 z-0">
         <Camera size={46} strokeWidth={1.5} />
       </div>
-      <div className="absolute bottom-1/4 right-1/4 text-blue-500 opacity-50 z-0">
+      <div className="absolute bottom-1/4 right-1/4 text-blue-500 opacity-40 z-0">
         <Microscope size={50} strokeWidth={1.5} />
       </div>
 
@@ -91,15 +91,15 @@ export default function WhoWeAre({ data }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
-              className="bg-transparent  overflow-hidden w-full"
+              className="bg-transparent overflow-hidden w-full"
             >
               <motion.img
                 src={data.primary_image}
                 alt={data.heading || "Who We Are"}
                 className="w-full h-full object-cover"
-                animate={{ scale: [1, 1.05, 1] }} // zoom in → zoom out
+                animate={{ scale: [1, 1.05, 1] }}
                 transition={{
-                  duration: 6, // slower loop
+                  duration: 6,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
