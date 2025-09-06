@@ -5,7 +5,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'nsbackend.strangled.net',
+        hostname: 'nsbackend.strangled.net', // Your GCP backend server
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'github.githubassets.com', // GitHub assets domain
         port: '',
         pathname: '/**',
       },
