@@ -1,4 +1,3 @@
-// components/aboutus/OurTeamClient.jsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -7,42 +6,11 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function OurTeamClient({ data }) {
   return (
-    <section className="relative w-full py-16 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+    <section className="relative w-full py-12 sm:py-16 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-20 left-20 w-16 h-16 bg-blue-200 rounded-full opacity-20"></div>
         <div className="absolute bottom-20 right-20 w-12 h-12 bg-indigo-300 rounded-full opacity-20"></div>
-
-        <svg
-          className="absolute top-1/4 right-1/4 w-24 h-24 text-blue-300 opacity-40"
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="50"
-            cy="50"
-            r="40"
-            stroke="currentColor"
-            strokeWidth="2"
-            fill="none"
-          />
-          <line
-            x1="10"
-            y1="50"
-            x2="90"
-            y2="50"
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-          <line
-            x1="50"
-            y1="10"
-            x2="50"
-            y2="90"
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-        </svg>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
@@ -63,7 +31,7 @@ export default function OurTeamClient({ data }) {
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-3xl md:text-5xl font-bold text-center text-gray-900"
+            className="text-2xl sm:text-3xl md:text-5xl font-bold text-center text-gray-900"
           >
             {data.heading}{" "}
             {data.subheading && (
@@ -77,7 +45,7 @@ export default function OurTeamClient({ data }) {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="mt-4 text-center text-gray-600 max-w-2xl mx-auto"
+            className="mt-3 text-center text-gray-600 max-w-2xl mx-auto text-sm sm:text-base"
           >
             {data.overview_text}
           </motion.p>
@@ -86,7 +54,7 @@ export default function OurTeamClient({ data }) {
         {/* Team Grid */}
         {data.content_items?.length > 0 && (
           <motion.div
-            className="flex flex-wrap justify-center gap-10 mt-16"
+            className="flex flex-wrap justify-center mt-12 sm:mt-16 -mx-2 sm:gap-8 gap-y-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -102,43 +70,44 @@ export default function OurTeamClient({ data }) {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group w-full sm:w-[calc(50%-20px)] md:w-[calc(33.333%-27px)] lg:w-[calc(25%-30px)] xl:w-[calc(20%-32px)] max-w-xs"
+                  className="
+                    relative bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg hover:shadow-xl sm:hover:shadow-2xl
+                    transition-all duration-500 overflow-hidden group
+                    w-1/2                       /* Mobile: 2 per row */
+                    sm:w-[calc(50%-20px)]        /* Tablet */
+                    md:w-[calc(33.333%-27px)]    /* Desktop: 3 per row */
+                    lg:w-[calc(25%-30px)]        /* Large screens: 4 per row */
+                    xl:w-[calc(20%-32px)]        /* Extra large: 5 per row */
+                    px-2                          /* Horizontal padding for mobile */
+                  "
                   whileHover={{ y: -5 }}
                 >
                   {/* Banner strip */}
-                  <div
-                    className="relative h-40 w-full bg-gradient-to-r from-blue-500/70 to-indigo-600/70 backdrop-blur-sm"
-                    style={{
-                      backgroundImage: `url(${imageUrl})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      filter: "blur(8px)",
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/40 to-indigo-600/40"></div>
+                  <div className="relative h-20 sm:h-28 md:h-36 w-full bg-gradient-to-r from-blue-100 to-indigo-100">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-200/60 to-indigo-200/60"></div>
                   </div>
 
                   {/* Profile Image */}
-                  <div className="absolute top-20 left-1/2 transform -translate-x-1/2">
+                  <div className="absolute top-10 sm:top-14 left-1/2 transform -translate-x-1/2">
                     <motion.img
                       src={imageUrl}
                       alt={member.label}
-                      className="w-36 h-36 rounded-full border-4 border-white shadow-lg object-cover group-hover:scale-105 transition duration-500"
+                      className="w-16 h-16 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full border-3 sm:border-4 border-white shadow-lg object-cover group-hover:scale-105 transition duration-500"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.3 }}
                     />
                   </div>
 
                   {/* Card content */}
-                  <div className="pt-24 pb-8 px-6 text-center">
-                    <h3 className="text-xl font-bold text-gray-900">
+                  <div className="pt-16 sm:pt-20 pb-4 sm:pb-6 px-2 sm:px-4 text-center">
+                    <h3 className="text-sm sm:text-lg font-bold text-gray-900">
                       {member.label}
                     </h3>
-                    <p className="text-sm text-blue-600 font-medium mt-1">
+                    <p className="text-xs sm:text-sm text-blue-600 font-medium mt-1">
                       {member.title}
                     </p>
                     {member.description && (
-                      <p className="mt-3 text-gray-600 text-sm leading-relaxed">
+                      <p className="mt-2 text-gray-600 text-xs sm:text-sm leading-snug sm:leading-relaxed">
                         {member.description}
                       </p>
                     )}
