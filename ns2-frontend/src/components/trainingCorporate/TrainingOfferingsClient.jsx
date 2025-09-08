@@ -4,13 +4,14 @@ import Image from "next/image";
 import { normalizeImageUrl } from "@/lib/api";
 
 export default function TrainingOfferingsClient({ data }) {
-  const items = data.content_items || [];
+  if (!data) return null;
+
+  const items = (data.content_items || []).filter((item) => item.is_active);
 
   const handleDownload = async (id, title) => {
     try {
       console.log("Fetching brochure for ID:", id);
 
-      // Step 1: Call the download API to get brochure_url
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/training/download_brochure/${id}`
       );
@@ -26,14 +27,12 @@ export default function TrainingOfferingsClient({ data }) {
         throw new Error("No brochure URL found in response");
       }
 
-      // Step 2: Extract file name from URL
       const urlParts = data.brochure_url.split("/");
       const fileName =
         urlParts[urlParts.length - 1] || `${title || "brochure"}.pdf`;
 
       console.log("Resolved file name:", fileName);
 
-      // Step 3: Fetch the actual file
       const fileRes = await fetch(data.brochure_url);
       if (!fileRes.ok) {
         throw new Error("Failed to fetch brochure file");
@@ -42,7 +41,6 @@ export default function TrainingOfferingsClient({ data }) {
       const blob = await fileRes.blob();
       console.log("Blob type:", blob.type, "Blob size:", blob.size);
 
-      // Step 4: Trigger download
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -67,6 +65,7 @@ export default function TrainingOfferingsClient({ data }) {
         </h2>
         <p className="mt-4 text-gray-600">{data.subheading}</p>
       </div>
+
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
         {items.map((item) => (
           <div
@@ -84,17 +83,22 @@ export default function TrainingOfferingsClient({ data }) {
               </div>
               <h3 className="ml-4 text-lg font-semibold">{item.title}</h3>
             </div>
+
             <p className="text-gray-600 mb-4">{item.description}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {item.tags.split(",").map((tag, idx) => (
-                <span
-                  key={idx}
-                  className="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-700"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+
+            {item.tags && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {item.tags.split(",").map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-700"
+                  >
+                    {tag.trim()}
+                  </span>
+                ))}
+              </div>
+            )}
+
             <button
               onClick={() => handleDownload(item.id, item.title)}
               className={`mt-auto inline-block text-white text-center font-medium rounded-md px-6 py-2 ${

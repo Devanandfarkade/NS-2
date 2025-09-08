@@ -5,9 +5,14 @@ import Image from "next/image";
 export default function AboutCorporateClient({ data }) {
   if (!data) return null;
 
+  const activeItems = (data.content_items || []).filter(
+    (item) => item.is_active
+  );
+
   return (
     <section className="relative bg-[#F8F9FA] py-16 px-6 md:px-12 lg:px-20">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Left Content */}
         <div>
           <h3 className="text-lg font-semibold text-[#6C757D] uppercase tracking-wide font-heading">
             {data.super_heading}
@@ -23,7 +28,7 @@ export default function AboutCorporateClient({ data }) {
           </p>
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {data.content_items?.map((item) => (
+            {activeItems.map((item) => (
               <div key={item.id} className="flex items-start space-x-3">
                 {item.icon && (
                   <Image
@@ -47,6 +52,7 @@ export default function AboutCorporateClient({ data }) {
           </div>
         </div>
 
+        {/* Right Image */}
         <div className="relative w-full max-w-md mx-auto">
           <div
             className="absolute -left-4 top-4 w-full h-[105%] rounded-[8px]"
