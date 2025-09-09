@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function IndustriesServedClient({ data }) {
   const items = (data?.content_items || [])
-    .filter((item) => item.is_active) // only active items
+    .filter((item) => item.is_active)
     .slice()
     .sort((a, b) => a.order - b.order);
 
@@ -35,8 +35,9 @@ export default function IndustriesServedClient({ data }) {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-6">
+        {/* Section Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#007BFF]">
             {data?.heading || "Industry we serve"}
           </h2>
           {data?.subheading && (
@@ -46,6 +47,7 @@ export default function IndustriesServedClient({ data }) {
           )}
         </div>
 
+        {/* Grid Section */}
         <motion.div
           variants={container}
           initial="hidden"

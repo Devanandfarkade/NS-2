@@ -14,18 +14,17 @@ export default function OurTrainersClient({ data }) {
   const getInitials = (name) => {
     if (!name) return "";
     const words = name.split(" ");
-    const initials =
-      words.length === 1
-        ? words[0][0]
-        : words[0][0] + words[words.length - 1][0];
-    return initials.toUpperCase();
+    return words.length === 1
+      ? words[0][0].toUpperCase()
+      : (words[0][0] + words[words.length - 1][0]).toUpperCase();
   };
 
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-6">
+        {/* Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#007BFF]">
             {data?.heading}
           </h2>
           {data?.subheading && (
@@ -35,6 +34,7 @@ export default function OurTrainersClient({ data }) {
           )}
         </div>
 
+        {/* Trainers Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {items.map((item, index) => {
             const profileUrl = normalizeImageUrl(item.icon);
@@ -48,7 +48,8 @@ export default function OurTrainersClient({ data }) {
                 viewport={{ once: true }}
                 className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 flex flex-col items-center text-center"
               >
-                <div className="w-full h-40 flex justify-center items-center mb-4 rounded-lg overflow-hidden ">
+                {/* Profile Image / Initials */}
+                <div className="w-full h-40 flex justify-center items-center mb-4 rounded-lg overflow-hidden">
                   {profileUrl ? (
                     <img
                       src={profileUrl}
@@ -62,18 +63,22 @@ export default function OurTrainersClient({ data }) {
                   )}
                 </div>
 
+                {/* Name */}
                 <h3 className="mt-2 text-xl font-semibold text-gray-900">
                   {item.label}
                 </h3>
 
+                {/* Title */}
                 <p className="mt-1 text-sm font-medium text-[#007BFF]">
                   {item.title}
                 </p>
 
+                {/* Description */}
                 <p className="mt-3 text-sm text-[#6C757D] leading-relaxed">
                   {item.description}
                 </p>
 
+                {/* Social Links */}
                 <div className="mt-4 flex gap-3">
                   {item.linkedin_url && (
                     <a

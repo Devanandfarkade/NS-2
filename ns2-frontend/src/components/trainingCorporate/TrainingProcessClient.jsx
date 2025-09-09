@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 
 export default function TrainingProcessClient({ data }) {
   const items = (data?.content_items || [])
-    .filter((item) => item.is_active) // only show active
+    .filter((item) => item.is_active)
     .sort((a, b) => a.order - b.order);
 
   return (
     <section className="bg-[#F8F9FA] py-16 px-6">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+        {/* Heading */}
+        <h2 className="text-3xl md:text-4xl font-bold text-[#007BFF]">
           {data?.heading}
         </h2>
         {data?.subheading && (
@@ -19,6 +20,7 @@ export default function TrainingProcessClient({ data }) {
           </p>
         )}
 
+        {/* Steps */}
         <div
           className="
             mt-12 grid gap-10 justify-center
