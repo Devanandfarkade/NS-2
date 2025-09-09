@@ -6,6 +6,16 @@ import { FaLinkedin, FaTwitter, FaGlobe } from "react-icons/fa";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+// Helper to get initials from full name
+function getInitials(name) {
+  return name
+    ?.split(" ")
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+}
+
 export default function OurTeamClient({ data }) {
   if (!data?.content_items?.length) return null;
 
@@ -41,7 +51,9 @@ export default function OurTeamClient({ data }) {
           {items.map((item, index) => {
             const imageUrl = item.image?.startsWith("http")
               ? item.image
-              : `${API_BASE_URL}${item.image}`;
+              : item.image
+                ? `${API_BASE_URL}${item.image}`
+                : null;
 
             return (
               <motion.div
@@ -52,24 +64,26 @@ export default function OurTeamClient({ data }) {
                 className="
                   relative bg-white rounded-2xl shadow-md hover:shadow-lg
                   transition-all duration-500 overflow-hidden group
-                  w-1/2 px-2               /* Mobile: 2 per row with horizontal padding */
-                  sm:w-[calc(50%-20px)]    /* Tablet */
-                  md:w-[calc(33.333%-27px)]/* Desktop: 3 per row */
-                  lg:w-[calc(25%-30px)]    /* Large screens: 4 per row */
-                  xl:w-[calc(20%-32px)]    /* Extra large: 5 per row */
+                  w-full px-2                   /* Mobile: 1 per row */
+                  sm:w-[calc(50%-20px)]         /* Tablet: 2 per row */
+                  md:w-[calc(50%-24px)]         /* Desktop: 2 per row */
+                  lg:w-[calc(33.333%-26px)]     /* Large: 3 per row */
+                  xl:w-[calc(25%-28px)]         /* Extra large: 4 per row */
                   flex flex-col items-center text-center
                 "
                 whileHover={{ y: -5 }}
               >
-                {/* Profile Image */}
+                {/* Profile Image or Initials Fallback */}
                 {imageUrl ? (
                   <img
                     src={imageUrl}
                     alt={item.label}
-                    className="w-24 h-24 object-cover rounded-lg shadow-md mt-4"
+                    className="w-24 h-24 object-cover rounded-full shadow-md mt-4"
                   />
                 ) : (
-                  <div className="w-24 h-24 bg-gray-200 rounded-lg mt-4" />
+                  <div className="w-24 h-24 bg-gray-400 rounded-full mt-4 flex items-center justify-center text-xl font-semibold text-white shadow-md">
+                    {getInitials(item.label)}
+                  </div>
                 )}
 
                 {/* Name */}
