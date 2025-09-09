@@ -12,12 +12,13 @@ import IndustriesServedServer from "@/components/trainingCorporate/IndustriesSer
 import TrainingProcessServer from "@/components/trainingCorporate/TrainingProcessServer";
 import OurTrainersServer from "@/components/trainingCorporate/OurTrainersServer";
 
+import FAQSection from "@/components/homepage/FAQSection";
+
 import { fetchTrainingPage } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
 
 export default async function TrainingPage({ params }) {
-  // Extract the slug value first
   const slug = (await params).slug;
 
   const data = await fetchTrainingPage(slug);
@@ -41,6 +42,7 @@ export default async function TrainingPage({ params }) {
   const trainersData = data.find(
     (section) => section.section_type === "OUR_TRAINERS"
   );
+  const faq = data.find((section) => section.section_type === "FAQ");
 
   return (
     <main>
@@ -53,6 +55,7 @@ export default async function TrainingPage({ params }) {
           {industries && <IndustriesServedServer data={industries} />}
           {processData && <TrainingProcessServer slug={slug} />}
           {trainersData && <OurTrainersServer data={trainersData} />}
+          {faq && <FAQSection data={faq} />}
         </>
       )}
     </main>
