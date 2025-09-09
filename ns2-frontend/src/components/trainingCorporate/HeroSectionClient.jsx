@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function HeroSectionClient({ data }) {
-  if (!data) return null;
+  if (!data || !data.is_active) return null; // hide section if inactive
 
   const {
     heading,
@@ -22,13 +22,18 @@ export default function HeroSectionClient({ data }) {
     content_items = [],
   } = data;
 
-  const iconItems = content_items.filter((item) => item.icon);
-  const statItems = content_items.filter((item) => !item.icon);
+  // filter items by is_active
+  const iconItems = (content_items || []).filter(
+    (item) => item.is_active && item.icon
+  );
+
+  const statItems = (content_items || []).filter(
+    (item) => item.is_active && !item.icon
+  );
 
   return (
     <section className="relative bg-white py-16 px-6 md:px-12 lg:px-24 overflow-hidden">
-      {/* Subtle dotted background */}
-      {/* Dotted Background with fade-in (SVG pattern) */}
+      {/* Dotted Background */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -68,25 +73,29 @@ export default function HeroSectionClient({ data }) {
 
         {/* Buttons */}
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <Link href={primary_button_url || "#"}>
-            <button
-              className="relative px-6 py-3 rounded bg-[#007BFF] text-white font-semibold shadow-md overflow-hidden group"
-              type="button"
-            >
-              <span className="relative z-10">{primary_button_text}</span>
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
-            </button>
-          </Link>
+          {primary_button_text && (
+            <Link href={primary_button_url || "#"}>
+              <button
+                className="relative px-6 py-3 rounded bg-[#007BFF] text-white font-semibold shadow-md overflow-hidden group"
+                type="button"
+              >
+                <span className="relative z-10">{primary_button_text}</span>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
+              </button>
+            </Link>
+          )}
 
-          <Link href={secondary_button_url || "#"}>
-            <button
-              className="relative px-6 py-3 rounded border border-[#007BFF] text-[#007BFF] font-semibold overflow-hidden group"
-              type="button"
-            >
-              <span className="relative z-10">{secondary_button_text}</span>
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#007BFF]/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
-            </button>
-          </Link>
+          {secondary_button_text && (
+            <Link href={secondary_button_url || "#"}>
+              <button
+                className="relative px-6 py-3 rounded border border-[#007BFF] text-[#007BFF] font-semibold overflow-hidden group"
+                type="button"
+              >
+                <span className="relative z-10">{secondary_button_text}</span>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#007BFF]/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
+              </button>
+            </Link>
+          )}
         </div>
 
         {/* Icon Cards */}

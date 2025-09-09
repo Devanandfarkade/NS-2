@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
@@ -47,43 +46,23 @@ export const HeroSection = ({ data }) => {
       {/* Content */}
       <div className="container relative z-10 mx-auto px-4 text-center">
         {/* Heading */}
-        <motion.h1
-          className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight font-poppins"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
+        <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight font-poppins">
           {data.super_heading}{" "}
           <span className="text-blue-600">{data.heading}</span>
-        </motion.h1>
+        </h1>
 
         {/* Subheading */}
-        <motion.p
-          className="mt-4 text-lg md:text-xl text-gray-600 font-medium inline-block border-b-2 border-blue-300 border-dashed px-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
+        <p className="mt-4 text-lg md:text-xl text-gray-600 font-medium inline-block border-b-2 border-blue-300 border-dashed px-2">
           {data.subheading}
-        </motion.p>
+        </p>
 
         {/* Overview */}
-        <motion.p
-          className="mt-6 max-w-3xl mx-auto text-lg text-gray-500 font-opensans"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-        >
+        <p className="mt-6 max-w-3xl mx-auto text-lg text-gray-500 font-opensans">
           {data.overview_text}
-        </motion.p>
+        </p>
 
         {/* Buttons */}
-        <motion.div
-          className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-        >
+        <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
           {data.primary_button_text && (
             <a
               href={data.primary_button_url || "#"}
@@ -98,28 +77,14 @@ export const HeroSection = ({ data }) => {
           >
             Schedule Consultation
           </a>
-        </motion.div>
+        </div>
 
         {/* Stats Cards */}
-        <motion.div
-          className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { staggerChildren: 0.2 },
-            },
-          }}
-        >
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {contentItems.map((item) => (
-            <motion.div
+            <div
               key={item.order}
               className="bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-100 text-center transition-transform transform hover:-translate-y-2"
-              variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
             >
               <div className="flex justify-center mb-4 h-12">
                 {item.icon && (
@@ -136,9 +101,9 @@ export const HeroSection = ({ data }) => {
               <p className="mt-2 text-md text-gray-600 font-opensans">
                 {item.title}
               </p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
