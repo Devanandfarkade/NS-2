@@ -12,7 +12,6 @@
   "dependencies": {
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.542.0",
-    "motion": "^12.23.12",
     "next": "15.5.2",
     "react": "19.1.0",
     "react-countup": "^6.5.3",
@@ -23,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.5.2",
     "@tailwindcss/postcss": "^4",
     "autoprefixer": "^10.4.19",
     "eslint": "^9",

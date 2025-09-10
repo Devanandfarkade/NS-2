@@ -13,17 +13,19 @@ export default function WhyChooseUsClient({ data }) {
   return (
     <section className="py-16 bg-[#F8F9FA] dark:bg-[#F8F9FA]">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-gray-900 dark:text-gray-900">
+        {/* Heading Section */}
+        <div className="text-center mb-10">
+          <h2 className="mt-0 text-3xl md:text-4xl font-bold font-[Poppins] text-[#007BFF]">
             {data?.heading}
           </h2>
           {data?.subheading && (
-            <p className="mt-4 text-sm sm:text-base text-[#6C757D] dark:text-[#6C757D] max-w-2xl mx-auto">
+            <p className="mt-2 text-gray-600 dark:text-[#6C757D] max-w-2xl mx-auto font-[Open_Sans] text-base leading-relaxed">
               {data.subheading}
             </p>
           )}
         </div>
 
+        {/* Cards Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item) => {
             const iconUrl = normalizeImageUrl(item.icon);
@@ -45,10 +47,10 @@ export default function WhyChooseUsClient({ data }) {
                     </div>
                   )}
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900">
+                    <h3 className="text-lg font-semibold font-[Poppins] text-gray-900 dark:text-gray-900">
                       {item.title}
                     </h3>
-                    <p className="mt-3 text-sm text-[#6C757D] dark:text-[#6C757D] leading-relaxed">
+                    <p className="mt-2 text-sm text-gray-600 dark:text-[#6C757D] leading-relaxed font-[Open_Sans]">
                       {item.description}
                     </p>
                   </div>
