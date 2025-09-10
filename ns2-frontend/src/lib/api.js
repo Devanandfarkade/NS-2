@@ -9,7 +9,8 @@ export function normalizeImageUrl(url) {
 export async function fetchNavbarData() {
   try {
     const response = await fetch(`${API_BASE_URL}/api/core/header-footer`, {
-      cache: "no-store",
+      // cache: "no-store",
+      next: { revalidate: 60 },
     });
 
     if (!response.ok) {
