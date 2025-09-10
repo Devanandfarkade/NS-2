@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { normalizeImageUrl } from "@/lib/api";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
@@ -17,108 +18,13 @@ export default function FooterClient({ data }) {
 
   return (
     <footer className="bg-gradient-to-b from-gray-900 to-black text-gray-300 relative overflow-hidden">
-      {/* Doodle elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Top left corner doodle */}
-        <div className="absolute top-10 left-10 opacity-50">
-          <svg
-            width="80"
-            height="80"
-            viewBox="0 0 80 80"
-            className="text-white"
-          >
-            <circle cx="20" cy="20" r="3" fill="currentColor" />
-            <circle cx="40" cy="20" r="3" fill="currentColor" />
-            <circle cx="60" cy="20" r="3" fill="currentColor" />
-            <circle cx="20" cy="40" r="3" fill="currentColor" />
-            <circle cx="40" cy="40" r="3" fill="currentColor" />
-            <circle cx="60" cy="40" r="3" fill="currentColor" />
-            <circle cx="20" cy="60" r="3" fill="currentColor" />
-            <circle cx="40" cy="60" r="3" fill="currentColor" />
-            <circle cx="60" cy="60" r="3" fill="currentColor" />
-          </svg>
-        </div>
-
-        {/* Bottom right corner doodle */}
-        <div className="absolute bottom-10 right-10 opacity-50">
-          <svg
-            width="100"
-            height="100"
-            viewBox="0 0 100 100"
-            className="text-white"
-          >
-            <path
-              d="M10,50 Q30,30 50,50 T90,50"
-              stroke="currentColor"
-              strokeWidth="2"
-              fill="none"
-              strokeDasharray="4,4"
-            />
-            <circle cx="10" cy="50" r="4" fill="currentColor" />
-            <circle cx="90" cy="50" r="4" fill="currentColor" />
-          </svg>
-        </div>
-
-        {/* Center left squiggle */}
-        <div className="absolute top-1/2 left-5 opacity-10">
-          <svg
-            width="60"
-            height="120"
-            viewBox="0 0 60 120"
-            className="text-white"
-          >
-            <path
-              d="M30,10 C40,30 20,50 30,70 C40,90 20,110 30,110"
-              stroke="currentColor"
-              strokeWidth="2"
-              fill="none"
-            />
-          </svg>
-        </div>
-
-        {/* Center right circles */}
-        <div className="absolute top-1/3 right-8 opacity-5">
-          <svg
-            width="80"
-            height="80"
-            viewBox="0 0 80 80"
-            className="text-white"
-          >
-            <circle
-              cx="40"
-              cy="40"
-              r="30"
-              stroke="currentColor"
-              strokeWidth="1"
-              fill="none"
-            />
-            <circle
-              cx="40"
-              cy="40"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="1"
-              fill="none"
-            />
-            <circle
-              cx="40"
-              cy="40"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="1"
-              fill="none"
-            />
-          </svg>
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 relative z-10">
         {/* Main footer content - two column layout */}
         <div className="flex flex-col md:flex-row gap-10 md:gap-16 mb-10">
           {/* Left column - Company info */}
           <div className="md:w-2/5">
             {company?.logo && (
-              <div className="inline-flex items-center justify-center bg-white/95 dark:bg-black/80 rounded-xl p-3 shadow-lg mb-6 transform transition-transform duration-500 hover:scale-105">
+              <div className="inline-flex items-center justify-center bg-white rounded-xl p-3 shadow-lg mb-6 transform transition-transform duration-500 hover:scale-105">
                 <Image
                   src={getImageUrl(company.logo)}
                   alt={company.name || "Company Logo"}
@@ -195,31 +101,25 @@ export default function FooterClient({ data }) {
 
             {/* Social links */}
             {social_links?.length > 0 && (
-              <div className="flex gap-4 mt-6">
+              <div className="flex gap-5 mt-6">
                 {social_links.map((social, idx) => (
                   <a
                     key={idx}
                     href={social.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-gray-800 hover:bg-gradient-to-r from-blue-600 to-cyan-500 p-2.5 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group relative"
+                    className="group relative transition-all duration-300 transform hover:-translate-y-1"
                     aria-label={social.platform || `social-${idx}`}
                   >
                     {social.icon ? (
-                      <Image
-                        src={getImageUrl(social.icon)}
+                      <img
+                        src={normalizeImageUrl(social.icon)}
                         alt={social.platform || "Social Link"}
-                        width={20}
-                        height={20}
-                        className="object-contain filter brightness-0 invert opacity-80 group-hover:opacity-100 transition-all"
-                        unoptimized
+                        className="w-6 h-6 object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all"
                       />
                     ) : (
                       <span className="text-sm">{social.platform}</span>
                     )}
-
-                    {/* Subtle glow effect on hover */}
-                    <span className="absolute inset-0 rounded-lg bg-blue-500/20 group-hover:animate-ping opacity-0 group-hover:opacity-100 duration-1000"></span>
                   </a>
                 ))}
               </div>
