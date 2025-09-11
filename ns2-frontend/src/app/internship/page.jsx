@@ -1,5 +1,7 @@
+import FeatureHighlights from "@/components/internship/FeatureHighlights";
 import HeroSection from "@/components/internship/HeroSection";
 import InternshipOpportunities from "@/components/internship/InternshipOpportunities";
+import WhyChooseUs from "@/components/internship/WhyChooseUs";
 import { fetchInternshipPage } from "@/lib/api";
 
 export const metadata = {
@@ -12,7 +14,6 @@ export const dynamic = "force-dynamic";
 export default async function InternshipPage() {
   const internshipData = await fetchInternshipPage();
 
-  // Pick hero section
   const heroBanner =
     internshipData.find(
       (section) =>
@@ -20,28 +21,50 @@ export default async function InternshipPage() {
         section.section_type === "Hero Banner"
     ) || null;
 
-  // Pick internship opportunities section
   const opportunities =
     internshipData.find(
-      (section) =>
-        section.section_type === "INTERNSHIP_OPPORTUNITIES"
+      (section) => section.section_type === "INTERNSHIP_OPPORTUNITIES"
     ) || null;
+
+  const whyChooseUs =
+    internshipData.find(
+      (section) => section.section_type === "WHY_CHOOSE_US"
+    ) || null;
+
+  const featureHighlights=internshipData.find((section) => section.section_type==="FEATURE_HIGHLIGHTS")
+
 
   return (
     <main className="bg-white">
-      {/* Hero Section */}
       {heroBanner ? (
         <HeroSection data={heroBanner} />
       ) : (
-        <div className="p-10 text-center">No internship hero data found.</div>
+        <div className="p-10 text-center text-gray-900">
+          No internship hero data found.
+        </div>
       )}
 
-      {/* Internship Opportunities Section */}
       {opportunities ? (
         <InternshipOpportunities initialData={opportunities} />
       ) : (
-        <div className="p-10 text-center">
+        <div className="p-10 text-center text-gray-900">
           No internship opportunities data found.
+        </div>
+      )}
+
+      {whyChooseUs ? (
+        <WhyChooseUs initialData={whyChooseUs} />
+      ) : (
+        <div className="p-10 text-center text-gray-900">
+          No "Why Choose Us" data found.
+        </div>
+      )}
+
+      {featureHighlights ? (
+        <FeatureHighlights initialData={featureHighlights} />
+      ) : (
+        <div className="p-10 text-center text-gray-900">
+          No "FeatureHighlights" data found.
         </div>
       )}
     </main>
