@@ -1,6 +1,7 @@
 import FeatureHighlights from "@/components/internship/FeatureHighlights";
 import HeroSection from "@/components/internship/HeroSection";
 import InternshipOpportunities from "@/components/internship/InternshipOpportunities";
+import ProgramStructure from "@/components/internship/ProgramStructure";
 import WhyChooseUs from "@/components/internship/WhyChooseUs";
 import { fetchInternshipPage } from "@/lib/api";
 
@@ -31,7 +32,12 @@ export default async function InternshipPage() {
       (section) => section.section_type === "WHY_CHOOSE_US"
     ) || null;
 
-  const featureHighlights=internshipData.find((section) => section.section_type==="FEATURE_HIGHLIGHTS")
+  const featureHighlights=internshipData.find(
+    (section) => section.section_type==="FEATURE_HIGHLIGHTS") || null;
+
+  const programStructure = internshipData.find(
+    (section) => section.section_type === "PROGRAM_STRUCTURE"
+  );
 
 
   return (
@@ -65,6 +71,13 @@ export default async function InternshipPage() {
       ) : (
         <div className="p-10 text-center text-gray-900">
           No "FeatureHighlights" data found.
+        </div>
+      )}
+      {programStructure ? (
+        <ProgramStructure initialData={programStructure} />
+      ) : (
+        <div className="p-10 text-center text-gray-900">
+          No "Program Structure" data found.
         </div>
       )}
     </main>
