@@ -21,79 +21,111 @@ export default function ProgramStructure({ initialData }) {
     : [];
 
   return (
-    <section className="py-16 bg-gray-50">
-      {/* Heading & Subheading */}
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        {primary_image && (
-          <img
-            src={normalizeImageUrl(primary_image)}
-            alt={heading}
-            className="mx-auto mb-6 w-full max-w-xl object-contain"
-          />
-        )}
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-          {heading}
-        </h2>
-        {subheading && (
-          <p className="text-gray-700 text-lg sm:text-xl mb-8">{subheading}</p>
-        )}
-
-        {/* Overlay description as separate boxes */}
-        {overlayItems.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {overlayItems.map((item, idx) => (
-              <div
-                key={idx}
-                className="px-4 py-2 bg-white shadow-md rounded-lg text-sm font-medium text-gray-800"
-              >
-                {item}
-              </div>
-            ))}
+    <section className="py-8 bg-gradient-to-b from-sky-50 via-white to-sky-100">
+      {/* Constrained container that will also hold the gradient box */}
+      <div className="max-w-5xl mx-auto px-6">
+        {/* Gradient box INSIDE the constrained container */}
+        <div className="bg-gradient-to-r from-slate-900 to-sky-700 rounded-xl p-8 mb-6 shadow-lg">
+          {/* Heading row: icon left of title */}
+          <div className="flex items-center gap-3 mb-4">
+            {primary_image && (
+              <img
+                src={normalizeImageUrl(primary_image)}
+                alt={heading}
+                className="w-10 h-10 object-contain rounded"
+              />
+            )}
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                {heading}
+              </h2>
+              {subheading && (
+                <p className="text-gray-200 text-sm sm:text-base mt-1">
+                  {subheading}
+                </p>
+              )}
+            </div>
           </div>
-        )}
+
+          {/* Stats row */}
+          {overlayItems.length > 0 && (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {overlayItems.map((item, idx) => {
+                const [number, ...rest] = item.split(" ");
+                return (
+                  <div
+                    key={idx}
+                    className="bg-black rounded-lg px-6 py-4 text-center flex flex-col items-center justify-center shadow"
+                  >
+                    <p className="text-2xl font-bold text-white leading-none">
+                      {number}
+                    </p>
+                    <p className="text-gray-300 text-sm mt-1">
+                      {rest.join(" ")}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Steps */}
-      <div className="max-w-7xl mx-auto px-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
-        {content_items
-          .filter((step) => step.is_active)
-          .map((step) => (
-            <div
-              key={step.id}
-              className="bg-white rounded-lg shadow-md p-6 flex flex-col sm:flex-row items-start gap-4 hover:shadow-xl transition"
-            >
-              {step.icon && (
-                <img
-                  src={normalizeImageUrl(step.icon)}
-                  alt={step.title}
-                  className="w-16 h-16 object-contain"
-                />
-              )}
-              <div>
-                <span className="text-sm font-semibold text-indigo-600">
-                  {step.label}
-                </span>
-                <h3 className="text-xl font-bold text-gray-900 mt-1">
-                  {step.title}
-                </h3>
-                <p className="text-gray-700 mt-2">{step.description}</p>
+      {/* Steps section */}
+      <div className="max-w-5xl mx-auto px-6 py-12 relative">
+        {/* Vertical timeline line */}
+        <div className="absolute left-8 top-0 bottom-0 w-px bg-sky-100"></div>
 
-                {/* Tags */}
-                {step.tags && (
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {step.tags.split(",").map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full"
-                      >
-                        {tag.trim()}
-                      </span>
-                    ))}
+        <div className="space-y-10">
+          {content_items
+            .filter((step) => step.is_active)
+            .map((step) => (
+              <div key={step.id} className="relative flex gap-6">
+                {/* Icon circle */}
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-full bg-gray-100 border flex items-center justify-center shadow">
+                    {step.icon && (
+                      <img
+                        src={normalizeImageUrl(step.icon)}
+                        alt={step.title}
+                        className="w-6 h-6 object-contain"
+                      />
+                    )}
                   </div>
-                )}
+                </div>
+
+                {/* Step card */}
+                <div className="bg-white rounded-lg shadow p-6 flex-1">
+                  <div className="flex justify-between items-start">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {step.title}
+                    </h3>
+                    {step.label && (
+                      <span className="text-sm font-medium text-sky-700 bg-sky-100 px-3 py-1 rounded-full">
+                        {step.label}
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-gray-600 mt-2">{step.description}</p>
+
+                  {/* Tags */}
+                  {step.tags && (
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {step.tags.split(",").map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full"
+                        >
+                          {tag.trim()}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
     </section>
   );
