@@ -1,26 +1,18 @@
 import HeroFloatingImages from "./HeroFloatingImages";
 
 export default function HeroSection({ data }) {
-  const heading = data?.heading ?? "Transform Your Into Reality";
-  const highlighted = data?.highlighted_heading ?? "Digital Vision";
-  const subheading =
-    data?.subheading ??
-    "Discover innovative solutions that drive growth and enhance user experiences.";
-  const primaryBtn = data?.primary_button_text ?? "Get Started Today";
-  const secondaryBtn = data?.secondary_button_text ?? "Learn More";
+  if (!data) return null; // no section at all if backend empty
 
-  // filter only active items
+  const heading = data?.heading;
+  const highlighted = data?.highlighted_heading;
+  const subheading = data?.subheading;
+  const primaryBtn = data?.primary_button_text;
+  const secondaryBtn = data?.secondary_button_text;
+
+  // only active items from backend
   const contentItems = (data?.content_items ?? []).filter(
     (item) => item.is_active
   );
-
-  // fallback icons/colors
-  const fallbackIcons = ["⚡", "🌱", "❤️"];
-  const fallbackColors = [
-    "bg-indigo-100 text-indigo-600",
-    "bg-emerald-100 text-emerald-600",
-    "bg-red-100 text-red-600",
-  ];
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 to-white pt-0 md:pt-0 pb-16 md:pb-20">
@@ -28,7 +20,7 @@ export default function HeroSection({ data }) {
       <div className="absolute -left-32 -top-20 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-blue-200 to-transparent opacity-30 blur-3xl" />
       <div className="absolute -right-32 -bottom-28 w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-indigo-100 to-transparent opacity-30 blur-2xl" />
 
-      {/* Waves (kept as it is) */}
+      {/* Waves */}
       <div className="absolute bottom-0 left-0 right-0">
         {/* First wave */}
         <svg
@@ -40,7 +32,7 @@ export default function HeroSection({ data }) {
           <path
             fill="url(#waveGradient1)"
             d="M0,256L48,234.7C96,213,192,171,288,165.3C384,160,480,192,576,213.3C672,235,768,245,864,229.3C960,213,1056,171,1152,154.7C1248,139,1344,149,1392,154.7L1440,160L1440,320L0,320Z"
-          ></path>
+          />
           <defs>
             <linearGradient
               id="waveGradient1"
@@ -65,7 +57,7 @@ export default function HeroSection({ data }) {
           <path
             fill="url(#waveGradient2)"
             d="M0,288L60,277.3C120,267,240,245,360,213.3C480,181,600,139,720,133.3C840,128,960,160,1080,181.3C1200,203,1320,213,1380,218.7L1440,224L1440,320L0,320Z"
-          ></path>
+          />
           <defs>
             <linearGradient
               id="waveGradient2"
@@ -89,61 +81,59 @@ export default function HeroSection({ data }) {
             {contentItems.length > 0 && (
               <div className="mb-3 flex items-center gap-3">
                 <div className="flex gap-2">
-                  {contentItems.map((item, i) => {
-                    const colorClass =
-                      fallbackColors[i % fallbackColors.length];
-                    return (
-                      <div
-                        key={item.id || i}
-                        className={`w-9 h-9 rounded-lg flex items-center justify-center shadow ${colorClass}`}
-                      >
-                        {item.icon ? (
-                          <img
-                            src={item.icon}
-                            alt={item.label || `icon-${i}`}
-                            className="w-5 h-5 object-contain"
-                          />
-                        ) : (
-                          <span className="text-sm">
-                            {fallbackIcons[i % fallbackIcons.length]}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
+                  {contentItems.map((item, i) => (
+                    <div
+                      key={item.id || i}
+                      className="w-9 h-9 rounded-lg flex items-center justify-center shadow"
+                    >
+                      {item.icon && (
+                        <img
+                          src={item.icon}
+                          alt={item.label || `icon-${i}`}
+                          className="w-5 h-5 object-contain"
+                        />
+                      )}
+                    </div>
+                  ))}
                 </div>
-                <span className="text-sm text-gray-500">
-                  Internship • Growth • Vision
-                </span>
               </div>
             )}
 
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight text-slate-900">
-              {heading}{" "}
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600">
-                {highlighted}
-              </span>
-            </h1>
+            {heading && (
+              <h1 className="text-3xl md:text-5xl font-bold leading-tight text-slate-900">
+                {heading}{" "}
+                {highlighted && (
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600">
+                    {highlighted}
+                  </span>
+                )}
+              </h1>
+            )}
 
-            <p className="mt-5 text-gray-600 max-w-xl">{subheading}</p>
+            {subheading && (
+              <p className="mt-5 text-gray-600 max-w-xl">{subheading}</p>
+            )}
 
-            <div className="mt-6 flex gap-4 items-center">
-              {/* Primary Button */}
-              <a
-                href={data?.primary_button_url ?? "#"}
-                className="px-6 py-3 rounded-lg bg-gradient-to-r from-sky-400 to-indigo-500 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-transform"
-              >
-                {primaryBtn}
-              </a>
-
-              {/* Secondary Button with background */}
-              <a
-                href={data?.secondary_button_url ?? "#"}
-                className="px-5 py-3 rounded-lg bg-sky-100 text-sky-700 font-medium hover:bg-sky-200 shadow-sm border border-sky-200"
-              >
-                {secondaryBtn}
-              </a>
-            </div>
+            {(primaryBtn || secondaryBtn) && (
+              <div className="mt-6 flex gap-4 items-center">
+                {primaryBtn && (
+                  <a
+                    href={data?.primary_button_url ?? "#"}
+                    className="px-6 py-3 rounded-lg bg-gradient-to-r from-sky-400 to-indigo-500 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-transform"
+                  >
+                    {primaryBtn}
+                  </a>
+                )}
+                {secondaryBtn && (
+                  <a
+                    href={data?.secondary_button_url ?? "#"}
+                    className="px-5 py-3 rounded-lg bg-sky-100 text-sky-700 font-medium hover:bg-sky-200 shadow-sm border border-sky-200"
+                  >
+                    {secondaryBtn}
+                  </a>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Right side: Floating images */}
