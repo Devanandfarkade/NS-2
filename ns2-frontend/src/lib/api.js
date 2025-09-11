@@ -9,7 +9,6 @@ export function normalizeImageUrl(url) {
 export async function fetchNavbarData() {
   try {
     const response = await fetch(`${API_BASE_URL}/api/core/header-footer`, {
-      // cache: "no-store",
       next: { revalidate: 60 },
     });
 
@@ -167,4 +166,25 @@ export async function fetchTrainingPage(slug) {
   }
 
   return res.json();
+}
+export async function fetchInternshipPage() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/internships/fetch-internship-page`, {
+      next: { revalidate: 60 }, // ISR / caching
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    // Normalize API response
+    if (Array.isArray(data)) return data;
+    if (data && typeof data === "object") return [data];
+    return [];
+  } catch (err) {
+    console.error("fetchInternshipPage error:", err);
+    return [];
+  }
 }
