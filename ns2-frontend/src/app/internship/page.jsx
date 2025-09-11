@@ -1,6 +1,7 @@
 import FeatureHighlights from "@/components/internship/FeatureHighlights";
 import HeroSection from "@/components/internship/HeroSection";
 import InternshipOpportunities from "@/components/internship/InternshipOpportunities";
+import ProgramStructure from "@/components/internship/ProgramStructure";
 import WhyChooseUs from "@/components/internship/WhyChooseUs";
 import { fetchInternshipPage } from "@/lib/api";
 
@@ -31,42 +32,25 @@ export default async function InternshipPage() {
       (section) => section.section_type === "WHY_CHOOSE_US"
     ) || null;
 
-  const featureHighlights=internshipData.find((section) => section.section_type==="FEATURE_HIGHLIGHTS")
+  const featureHighlights =
+    internshipData.find(
+      (section) => section.section_type === "FEATURE_HIGHLIGHTS"
+    ) || null;
 
+  const programStructure =
+    internshipData.find(
+      (section) => section.section_type === "PROGRAM_STRUCTURE"
+    ) || null;
 
   return (
     <main className="bg-white">
-      {heroBanner ? (
-        <HeroSection data={heroBanner} />
-      ) : (
-        <div className="p-10 text-center text-gray-900">
-          No internship hero data found.
-        </div>
-      )}
-
-      {opportunities ? (
-        <InternshipOpportunities initialData={opportunities} />
-      ) : (
-        <div className="p-10 text-center text-gray-900">
-          No internship opportunities data found.
-        </div>
-      )}
-
-      {whyChooseUs ? (
-        <WhyChooseUs initialData={whyChooseUs} />
-      ) : (
-        <div className="p-10 text-center text-gray-900">
-          No "Why Choose Us" data found.
-        </div>
-      )}
-
-      {featureHighlights ? (
+      {heroBanner && <HeroSection data={heroBanner} />}
+      {opportunities && <InternshipOpportunities initialData={opportunities} />}
+      {whyChooseUs && <WhyChooseUs initialData={whyChooseUs} />}
+      {featureHighlights && (
         <FeatureHighlights initialData={featureHighlights} />
-      ) : (
-        <div className="p-10 text-center text-gray-900">
-          No "FeatureHighlights" data found.
-        </div>
       )}
+      {programStructure && <ProgramStructure initialData={programStructure} />}
     </main>
   );
 }

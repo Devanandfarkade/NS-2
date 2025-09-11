@@ -1,7 +1,7 @@
 import HeroFloatingImages from "./HeroFloatingImages";
 
 export default function HeroSection({ data }) {
-  if (!data) return null; // no section at all if backend empty
+  if (!data) return null;
 
   const heading = data?.heading;
   const highlighted = data?.highlighted_heading;
@@ -9,20 +9,16 @@ export default function HeroSection({ data }) {
   const primaryBtn = data?.primary_button_text;
   const secondaryBtn = data?.secondary_button_text;
 
-  // only active items from backend
   const contentItems = (data?.content_items ?? []).filter(
     (item) => item.is_active
   );
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 to-white pt-0 md:pt-0 pb-16 md:pb-20">
-      {/* Background gradient blobs */}
+    <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 to-white pt-0 md:pt-0 pb-16 md:pb-20 min-h-screen">
       <div className="absolute -left-32 -top-20 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-blue-200 to-transparent opacity-30 blur-3xl" />
       <div className="absolute -right-32 -bottom-28 w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-indigo-100 to-transparent opacity-30 blur-2xl" />
 
-      {/* Waves */}
       <div className="absolute bottom-0 left-0 right-0">
-        {/* First wave */}
         <svg
           className="absolute bottom-0 w-full h-[85vh]"
           xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +43,6 @@ export default function HeroSection({ data }) {
           </defs>
         </svg>
 
-        {/* Second wave */}
         <svg
           className="absolute bottom-0 w-full h-[85vh]"
           xmlns="http://www.w3.org/2000/svg"
@@ -75,9 +70,7 @@ export default function HeroSection({ data }) {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12">
-          {/* Left side: text */}
           <div className="w-full md:w-1/2">
-            {/* Top icons row */}
             {contentItems.length > 0 && (
               <div className="mb-3 flex items-center gap-3">
                 <div className="flex gap-2">
@@ -136,7 +129,6 @@ export default function HeroSection({ data }) {
             )}
           </div>
 
-          {/* Right side: Floating images */}
           <div className="w-full md:w-1/2 flex justify-center md:justify-end">
             <HeroFloatingImages
               primaryImage={data?.primary_image}

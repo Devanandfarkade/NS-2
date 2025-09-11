@@ -23,20 +23,6 @@ export default function FeatureHighlights({ initialData }) {
   return (
     <section className="relative py-20 bg-gray-50 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        {/* Heading */}
-        {heading && (
-          <h2 className="text-4xl font-bold mb-4 text-gray-900">
-            {heading}
-          </h2>
-        )}
-
-        {/* Subheading */}
-        {subheading && (
-          <p className="text-gray-600 max-w-2xl mx-auto mb-12">
-            {subheading}
-          </p>
-        )}
-
         {/* Features grid */}
         {content_items && (
           <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6 mb-12">
@@ -79,25 +65,43 @@ export default function FeatureHighlights({ initialData }) {
           </div>
         )}
 
-        {/* CTA Buttons */}
-        <div className="flex justify-center gap-4 mt-8">
-          {primary_button_text && primary_button_url && (
-            <a
-              href={primary_button_url}
-              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:opacity-90 transition"
-            >
-              {primary_button_text}
-            </a>
-          )}
-          {secondary_button_text && secondary_button_url && (
-            <a
-              href={secondary_button_url}
-              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-100 transition"
-            >
-              {secondary_button_text}
-            </a>
-          )}
-        </div>
+        {/* Text content and CTA Buttons in a slightly lighter dark gradient box below cards */}
+        {(heading ||
+          subheading ||
+          primary_button_text ||
+          secondary_button_text) && (
+          <div className="bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 p-8 rounded-2xl shadow-md flex flex-col items-center gap-4">
+            {/* Heading */}
+            {heading && (
+              <h2 className="text-4xl font-bold text-white">{heading}</h2>
+            )}
+
+            {/* Subheading */}
+            {subheading && (
+              <p className="text-gray-200 max-w-2xl">{subheading}</p>
+            )}
+
+            {/* CTA Buttons */}
+            <div className="flex justify-center gap-4 mt-4">
+              {primary_button_text && primary_button_url && (
+                <a
+                  href={primary_button_url}
+                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:opacity-90 transition"
+                >
+                  {primary_button_text}
+                </a>
+              )}
+              {secondary_button_text && secondary_button_url && (
+                <a
+                  href={secondary_button_url}
+                  className="px-6 py-3 border border-gray-300 text-gray-200 rounded-lg font-semibold hover:bg-gray-700 transition"
+                >
+                  {secondary_button_text}
+                </a>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

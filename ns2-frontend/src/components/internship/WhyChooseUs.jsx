@@ -19,31 +19,30 @@ export default function WhyChooseUs({ initialData }) {
   } = data;
 
   return (
-    <section className="relative py-20 bg-gray-50 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 text-center">
-        {/* Super heading */}
+    <section className="relative py-20 bg-gradient-to-b from-[#F8F9FA] to-[#E0F2FF] overflow-hidden">
+      <div className="absolute -top-32 -left-20 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-[#007BFF] to-transparent opacity-20 blur-3xl" />
+      <div className="absolute -bottom-32 -right-20 w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-[#007BFF]/30 to-transparent opacity-20 blur-2xl" />
+
+      <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
         {super_heading && (
-          <span className="inline-block px-4 py-1 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-6">
+          <span className="inline-block px-4 py-1 text-sm font-semibold text-white bg-gradient-to-r from-[#007BFF] to-[#6C63FF] rounded-full mb-6">
             {super_heading}
           </span>
         )}
 
-        {/* Heading */}
         <h2 className="text-4xl font-bold mb-4 text-gray-900">
           {heading}{" "}
-          <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-            {highlighted_heading}
-          </span>
+          {highlighted_heading && (
+            <span className="bg-gradient-to-r from-[#007BFF] to-[#6C63FF] bg-clip-text text-transparent">
+              {highlighted_heading}
+            </span>
+          )}
         </h2>
 
-        {/* Subheading */}
         {subheading && (
-          <p className="text-gray-600 max-w-2xl mx-auto mb-12">
-            {subheading}
-          </p>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-12">{subheading}</p>
         )}
 
-        {/* Features grid */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {content_items &&
             content_items
@@ -54,27 +53,29 @@ export default function WhyChooseUs({ initialData }) {
                   className="bg-white p-6 rounded-2xl shadow-md text-left flex flex-col gap-4 hover:shadow-lg transition"
                 >
                   <div className="flex items-start gap-4">
-                    {/* Icon from backend */}
                     {item.icon && (
-                      <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shrink-0">
+                      <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-[#007BFF] to-[#6C63FF] text-white rounded-xl shrink-0">
                         <img
                           src={normalizeImageUrl(item.icon)}
-                          alt={item.title}
+                          alt={item.title || ""}
                           className="w-6 h-6 object-contain"
                         />
                       </div>
                     )}
                     <div>
-                      <h3 className="font-semibold text-lg mb-2 text-gray-900">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-600 whitespace-pre-line">
-                        {item.description}
-                      </p>
+                      {item.title && (
+                        <h3 className="font-semibold text-lg mb-2 text-gray-900">
+                          {item.title}
+                        </h3>
+                      )}
+                      {item.description && (
+                        <p className="text-gray-600 whitespace-pre-line">
+                          {item.description}
+                        </p>
+                      )}
                     </div>
                   </div>
 
-                  {/* Tags as bullet points */}
                   {item.tags && (
                     <ul className="list-disc list-inside text-gray-600 mt-2">
                       {item.tags.split(",").map((tag, index) => (
