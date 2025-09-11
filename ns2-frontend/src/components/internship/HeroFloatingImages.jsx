@@ -2,7 +2,12 @@
 
 import { useEffect, useRef } from "react";
 
-export default function HeroFloatingImages({ primaryImage, overlayTitle, overlayDescription }) {
+export default function HeroFloatingImages({
+  primaryImage,
+  secondaryImage,
+  overlayTitle,
+  overlayDescription,
+}) {
   const containerRef = useRef(null);
   const bigCardRef = useRef(null);
   const smallCardRef = useRef(null);
@@ -56,7 +61,7 @@ export default function HeroFloatingImages({ primaryImage, overlayTitle, overlay
       ref={containerRef}
       className="relative w-full max-w-xl md:max-w-2xl h-[28rem] md:h-[32rem] flex items-center justify-center"
     >
-      {/* Big card (larger now) */}
+      {/* Big card (Hero Image 1) */}
       <div
         ref={bigCardRef}
         className="absolute w-[26rem] sm:w-[30rem] h-[18rem] sm:h-[20rem] rounded-2xl bg-white shadow-2xl border border-gray-100 flex items-center justify-center"
@@ -64,7 +69,7 @@ export default function HeroFloatingImages({ primaryImage, overlayTitle, overlay
         {primaryImage ? (
           <img
             src={primaryImage}
-            alt={overlayTitle ?? "Hero image"}
+            alt={overlayTitle ?? "Hero image 1"}
             className="w-full h-full object-cover rounded-2xl"
           />
         ) : (
@@ -72,15 +77,27 @@ export default function HeroFloatingImages({ primaryImage, overlayTitle, overlay
         )}
       </div>
 
-      {/* Small card (larger now) */}
+      {/* Small card (Hero Image 2) */}
       <div
         ref={smallCardRef}
-        className="absolute right-10 bottom-10 w-56 h-32 rounded-xl bg-slate-900/95 text-white shadow-lg flex items-center justify-center border border-slate-800"
+        className="absolute right-10 bottom-10 w-56 h-32 rounded-xl shadow-lg flex items-center justify-center overflow-hidden border border-slate-800 bg-slate-900/95"
       >
-        <div className="text-base text-center">
-          <div className="font-semibold">{overlayTitle ?? "Hero Image 2"}</div>
-          <div className="text-sm text-slate-300">{overlayDescription ?? "Overlay"}</div>
-        </div>
+        {secondaryImage ? (
+          <img
+            src={secondaryImage}
+            alt="Hero image 2"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="text-base text-center text-white">
+            <div className="font-semibold">
+              {overlayTitle ?? "Hero Image 2"}
+            </div>
+            <div className="text-sm text-slate-300">
+              {overlayDescription ?? "Overlay"}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
