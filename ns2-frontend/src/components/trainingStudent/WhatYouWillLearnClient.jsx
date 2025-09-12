@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Clock, Star } from "lucide-react";
 
-// Define color palettes for different tabs
 const colors = [
   { bg: "bg-green-600", text: "text-green-600", lightBg: "bg-green-100" },
   { bg: "bg-blue-600", text: "text-blue-600", lightBg: "bg-blue-100" },
@@ -16,7 +15,6 @@ const colors = [
 export default function WhatYouWillLearnClient({ data }) {
   if (!Array.isArray(data) || data.length === 0) return null;
 
-  // default tab = first section
   const [activeTab, setActiveTab] = useState(data[0].subheading);
 
   const activeIndex = data.findIndex((item) => item.subheading === activeTab);
@@ -26,7 +24,6 @@ export default function WhatYouWillLearnClient({ data }) {
   return (
     <section className="relative w-full py-12 bg-[linear-gradient(135deg,#E2E8F0,#F8FAFC)]">
       <div className="container mx-auto px-6 lg:px-12">
-        {/* Super Heading */}
         {activeSection?.super_heading && (
           <div className="flex justify-center">
             <span
@@ -41,21 +38,18 @@ export default function WhatYouWillLearnClient({ data }) {
           </div>
         )}
 
-        {/* Main Heading */}
         {activeSection?.heading && (
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mt-4">
             {activeSection.heading}
           </h2>
         )}
 
-        {/* Highlighted Heading */}
         {activeSection?.highlighted_heading && (
           <p className="text-lg md:text-xl text-center text-gray-600 mt-4 max-w-3xl mx-auto">
             {activeSection.highlighted_heading}
           </p>
         )}
 
-        {/* Tabs */}
         <div className="flex flex-wrap justify-center mt-8 gap-2">
           {data.map((section, index) => {
             const color = colors[index % colors.length];
@@ -77,7 +71,6 @@ export default function WhatYouWillLearnClient({ data }) {
           })}
         </div>
 
-        {/* Active Tab Content */}
         {activeSection && (
           <motion.div
             key={activeSection.id}
@@ -86,7 +79,6 @@ export default function WhatYouWillLearnClient({ data }) {
             transition={{ duration: 0.8 }}
             className="mt-12 bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full md:w-11/12 lg:w-10/12 xl:w-8/12 mx-auto"
           >
-            {/* Course List */}
             <div className="space-y-4">
               {activeSection.content_items?.map((item, index) => (
                 <motion.div
@@ -94,7 +86,6 @@ export default function WhatYouWillLearnClient({ data }) {
                   className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-5 bg-[linear-gradient(135deg,#E2E8F0,#F8FAFC)] rounded-xl shadow hover:shadow-md transition"
                   whileHover={{ scale: 1.02 }}
                 >
-                  {/* Course Info */}
                   <div className="flex items-start gap-4">
                     <span
                       className={`flex items-center justify-center w-8 h-8 rounded-full ${activeColor.lightBg} ${activeColor.text} font-bold`}
@@ -113,7 +104,6 @@ export default function WhatYouWillLearnClient({ data }) {
                     </div>
                   </div>
 
-                  {/* Optional Label */}
                   {item.label && (
                     <div className="mt-3 sm:mt-0 text-sm text-gray-500 text-left sm:text-right">
                       <span
