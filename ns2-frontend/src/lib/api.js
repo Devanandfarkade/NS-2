@@ -169,9 +169,12 @@ export async function fetchTrainingPage(slug) {
 }
 export async function fetchInternshipPage() {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/internships/fetch-internship-page`, {
-      next: { revalidate: 60 }, // ISR / caching
-    });
+    const res = await fetch(
+      `${API_BASE_URL}/api/internships/fetch-internship-page`,
+      {
+        next: { revalidate: 60 },
+      }
+    );
 
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
@@ -179,7 +182,6 @@ export async function fetchInternshipPage() {
 
     const data = await res.json();
 
-    // Normalize API response
     if (Array.isArray(data)) return data;
     if (data && typeof data === "object") return [data];
     return [];
