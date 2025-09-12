@@ -34,7 +34,7 @@ export default async function HomePage() {
       {ourServices && <ServicesSection data={ourServices} />}
       <KeyAchievementsServer data={keyAchievements} />
       <Testimonial data={testimonial} />
-      <FAQSection data={faq}/>
+      <FAQSection data={faq} />
       <ContactUs data={contact} />
       <ScrollToTop />
     </main>

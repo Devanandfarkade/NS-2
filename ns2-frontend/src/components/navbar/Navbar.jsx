@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { fetchNavbarData } from "@/lib/api";
 import MobileMenu from "@/components/navbar/MobileMenuClient";
 import LogoClient from "@/components/navbar/LogoClient";
+import NavLinkClient from "@/components/navbar/NavLinkClient";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -15,7 +15,6 @@ export default async function Navbar() {
   }
 
   const menuItems = navbarData?.header?.menu || [];
-
   const logoPath = navbarData?.footer?.company?.logo;
   const logoUrl = logoPath ? `${API_BASE_URL}${logoPath}` : null;
 
@@ -29,11 +28,12 @@ export default async function Navbar() {
           <LogoClient logoUrl={logoUrl} />
         </div>
 
+        {/* Desktop menu */}
         <div className="hidden md:flex flex-1 justify-center items-center">
           <ul className="flex space-x-6">
             {regularMenuItems.map((item, index) => (
               <li key={index} className="relative group">
-                {item.submenus && item.submenus.length > 0 ? (
+                {item.submenus?.length > 0 ? (
                   <>
                     <button className="text-[#6C757D] hover:text-[#007BFF] transition-colors duration-200 flex items-center">
                       {item.text}
@@ -42,7 +42,6 @@ export default async function Navbar() {
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           strokeLinecap="round"
@@ -55,43 +54,40 @@ export default async function Navbar() {
 
                     <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                       {item.submenus.map((subitem, subIndex) => (
-                        <Link
+                        <NavLinkClient
                           key={subIndex}
                           href={subitem.url}
-                          className="block px-4 py-2 text-[#6C757D] hover:text-[#007BFF] hover:bg-gray-100"
+                          className="block px-4 py-2 hover:bg-gray-100"
                         >
                           {subitem.text}
-                        </Link>
+                        </NavLinkClient>
                       ))}
                     </div>
                   </>
                 ) : (
-                  <Link
-                    href={item.url}
-                    className="text-[#6C757D] hover:text-[#007BFF] transition-colors duration-200"
-                  >
-                    {item.text}
-                  </Link>
+                  <NavLinkClient href={item.url}>{item.text}</NavLinkClient>
                 )}
               </li>
             ))}
           </ul>
         </div>
 
+        {/* Buttons */}
         {buttonMenuItems.length > 0 && (
           <div className="hidden md:flex space-x-4 pr-4 md:pr-8">
             {buttonMenuItems.map((buttonItem, index) => (
-              <Link
+              <NavLinkClient
                 key={index}
                 href={buttonItem.url}
                 className="bg-[#007BFF] text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
               >
                 {buttonItem.text}
-              </Link>
+              </NavLinkClient>
             ))}
           </div>
         )}
 
+        {/* Mobile */}
         <div className="md:hidden">
           <MobileMenu menuItems={menuItems} logoUrl={logoUrl} />
         </div>

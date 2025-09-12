@@ -1,4 +1,3 @@
-// src/components/trainingStudent/HeroSectionClient.jsx
 "use client";
 
 import { normalizeImageUrl } from "@/lib/api";
@@ -27,7 +26,6 @@ export default function HeroSectionClient({ data }) {
     <section className="py-8 md:py-10 px-4 bg-[linear-gradient(135deg,#E2E8F0,#F8FAFC)]">
       <div className="max-w-7xl mx-auto">
         <div className="relative rounded-2xl overflow-hidden shadow-lg">
-          {/* background image (fill) */}
           <div className="relative w-full h-[420px] sm:h-[480px] md:h-[560px] lg:h-[580px]">
             {bgUrl ? (
               <Image
@@ -40,11 +38,7 @@ export default function HeroSectionClient({ data }) {
             ) : (
               <div className="absolute inset-0 bg-gradient-to-r from-green-100 to-green-50" />
             )}
-
-            {/* left-to-right dark overlay for text contrast */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/20 to-transparent" />
-
-            {/* left content */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -53,7 +47,6 @@ export default function HeroSectionClient({ data }) {
             >
               <div className="max-w-xl md:max-w-2xl p-6 md:p-12 text-white">
                 <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
-                  {/* We keep heading dynamic; if highlighted_heading exists show it on next line */}
                   {heading}
                   {highlighted_heading && (
                     <>
