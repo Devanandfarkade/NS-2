@@ -1,9 +1,11 @@
-export const metadata = {
+const metadata = {
   title: "NS^2 | | Training Programs",
   description:
     "At NS², we offer comprehensive training programs for both corporate professionals and students.",
 };
 
+import WhatYouWillLearnServer from "@/components/trainingStudent/WhatYouWillLearnServer";
+import ProgramStructureServer from "@/components/trainingStudent/ProgramStructureServer";
 import HeroSectionServer from "@/components/trainingCorporate/HeroSectionServer";
 import StudentHeroSectionServer from "@/components/trainingStudent/HeroSectionServer";
 import AboutCorporateServer from "@/components/trainingCorporate/AboutCorporateServer";
@@ -12,16 +14,16 @@ import WhyChooseUsServer from "@/components/trainingCorporate/WhyChooseUsServer"
 import IndustriesServedServer from "@/components/trainingCorporate/IndustriesServedServer";
 import TrainingProcessServer from "@/components/trainingCorporate/TrainingProcessServer";
 import OurTrainersServer from "@/components/trainingCorporate/OurTrainersServer";
-
-import ProgramStructureServer from "@/components/trainingStudent/ProgramStructureServer";
 import FAQSection from "@/components/homepage/FAQSection";
 
 import { fetchTrainingPage } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
 
-export default async function TrainingPage({ params }) {
-  const slug = (await params).slug;
+export default async function TrainingPage({ params: incomingParams }) {
+  // Await params before using
+  const params = await incomingParams;
+  const slug = params.slug;
 
   const data = await fetchTrainingPage(slug);
 
@@ -49,7 +51,10 @@ export default async function TrainingPage({ params }) {
     (section) => section.section_type === "PROGRAM_STRUCTURE"
   );
 
-  // OTHER COMMON SECTIONS
+  const whatYouWillLearnData = data.filter(
+    (section) => section.section_type === "WHAT_YOU_WILL_LEARN"
+  );
+
   const why = data.find((section) => section.section_type === "WHY_CHOOSE_US");
   const industries = data.find(
     (section) => section.section_type === "INDUSTRIES_SERVED"
@@ -64,16 +69,21 @@ export default async function TrainingPage({ params }) {
 
   return (
     <main>
-      {heroData && slug === "corporate-training" && (
-        <HeroSectionServer data={heroData} />
-      )}
-      {heroData && slug === "student-training" && (
-        <StudentHeroSectionServer data={heroData} />
-      )}
+      {heroData &&
+        (slug === "corporate-training" ? (
+          <HeroSectionServer data={heroData} />
+        ) : (
+          <StudentHeroSectionServer data={heroData} />
+        ))}
 
       {programStructureData.length > 0 && slug === "student-training" && (
         <ProgramStructureServer data={programStructureData} />
       )}
+
+      {whatYouWillLearnData.length > 0 && slug === "student-training" && (
+        <WhatYouWillLearnServer data={whatYouWillLearnData} />
+      )}
+
       {aboutData && <AboutCorporateServer data={aboutData} />}
       {trainingData && <TrainingSectionServer data={trainingData} />}
       {why && <WhyChooseUsServer data={why} />}

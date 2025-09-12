@@ -1,5 +1,8 @@
+import FeatureHighlights from "@/components/internship/FeatureHighlights";
 import HeroSection from "@/components/internship/HeroSection";
 import InternshipOpportunities from "@/components/internship/InternshipOpportunities";
+import ProgramStructure from "@/components/internship/ProgramStructure";
+import WhyChooseUs from "@/components/internship/WhyChooseUs";
 import { fetchInternshipPage } from "@/lib/api";
 
 export const metadata = {
@@ -12,7 +15,6 @@ export const dynamic = "force-dynamic";
 export default async function InternshipPage() {
   const internshipData = await fetchInternshipPage();
 
-  // Pick hero section
   const heroBanner =
     internshipData.find(
       (section) =>
@@ -20,30 +22,35 @@ export default async function InternshipPage() {
         section.section_type === "Hero Banner"
     ) || null;
 
-  // Pick internship opportunities section
   const opportunities =
     internshipData.find(
-      (section) =>
-        section.section_type === "INTERNSHIP_OPPORTUNITIES"
+      (section) => section.section_type === "INTERNSHIP_OPPORTUNITIES"
+    ) || null;
+
+  const whyChooseUs =
+    internshipData.find(
+      (section) => section.section_type === "WHY_CHOOSE_US"
+    ) || null;
+
+  const featureHighlights =
+    internshipData.find(
+      (section) => section.section_type === "FEATURE_HIGHLIGHTS"
+    ) || null;
+
+  const programStructure =
+    internshipData.find(
+      (section) => section.section_type === "PROGRAM_STRUCTURE"
     ) || null;
 
   return (
     <main className="bg-white">
-      {/* Hero Section */}
-      {heroBanner ? (
-        <HeroSection data={heroBanner} />
-      ) : (
-        <div className="p-10 text-center">No internship hero data found.</div>
+      {heroBanner && <HeroSection data={heroBanner} />}
+      {opportunities && <InternshipOpportunities initialData={opportunities} />}
+      {whyChooseUs && <WhyChooseUs initialData={whyChooseUs} />}
+      {featureHighlights && (
+        <FeatureHighlights initialData={featureHighlights} />
       )}
-
-      {/* Internship Opportunities Section */}
-      {opportunities ? (
-        <InternshipOpportunities initialData={opportunities} />
-      ) : (
-        <div className="p-10 text-center">
-          No internship opportunities data found.
-        </div>
-      )}
+      {programStructure && <ProgramStructure initialData={programStructure} />}
     </main>
   );
 }
