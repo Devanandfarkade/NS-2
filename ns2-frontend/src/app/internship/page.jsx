@@ -3,6 +3,7 @@ import HeroSection from "@/components/internship/HeroSection";
 import InternshipOpportunities from "@/components/internship/InternshipOpportunities";
 import ProgramStructure from "@/components/internship/ProgramStructure";
 import WhyChooseUs from "@/components/internship/WhyChooseUs";
+import FAQSection from "@/components/homepage/FAQSection";
 import { fetchInternshipPage } from "@/lib/api";
 
 export const metadata = {
@@ -42,6 +43,9 @@ export default async function InternshipPage() {
       (section) => section.section_type === "PROGRAM_STRUCTURE"
     ) || null;
 
+  const faqSection =
+    internshipData.find((section) => section.section_type === "FAQ") || null;
+
   return (
     <main className="bg-white">
       {heroBanner && <HeroSection data={heroBanner} />}
@@ -51,6 +55,7 @@ export default async function InternshipPage() {
         <FeatureHighlights initialData={featureHighlights} />
       )}
       {programStructure && <ProgramStructure initialData={programStructure} />}
+      {faqSection && <FAQSection data={faqSection} />}
     </main>
   );
 }
