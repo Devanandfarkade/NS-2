@@ -59,12 +59,12 @@ export default function HeroFloatingImages({
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-xl md:max-w-2xl h-[28rem] md:h-[32rem] flex items-center justify-center"
+      className="relative w-full max-w-sm sm:max-w-md md:max-w-2xl h-[20rem] sm:h-[26rem] md:h-[32rem] flex items-center justify-center"
     >
       {/* Big card (Hero Image 1) */}
       <div
         ref={bigCardRef}
-        className="absolute w-[26rem] sm:w-[30rem] h-[18rem] sm:h-[20rem] rounded-2xl bg-white shadow-2xl border border-gray-100 flex items-center justify-center"
+        className="absolute w-[18rem] sm:w-[24rem] md:w-[30rem] h-[12rem] sm:h-[16rem] md:h-[20rem] rounded-2xl bg-white shadow-2xl border border-gray-100 flex items-center justify-center"
       >
         {primaryImage ? (
           <img
@@ -73,14 +73,16 @@ export default function HeroFloatingImages({
             className="w-full h-full object-cover rounded-2xl"
           />
         ) : (
-          <div className="text-xl font-semibold text-sky-600">Hero Image 1</div>
+          <div className="text-lg sm:text-xl font-semibold text-sky-600">
+            Hero Image 1
+          </div>
         )}
       </div>
 
       {/* Small card (Hero Image 2) */}
       <div
         ref={smallCardRef}
-        className="absolute right-10 bottom-10 w-56 h-32 rounded-xl shadow-lg flex items-center justify-center overflow-hidden border border-slate-800 bg-slate-900/95"
+        className="absolute right-4 sm:right-6 md:right-10 bottom-6 sm:bottom-8 md:bottom-10 w-36 sm:w-44 md:w-56 h-24 sm:h-28 md:h-32 rounded-xl shadow-lg flex items-center justify-center overflow-hidden border border-slate-800 bg-slate-900/95"
       >
         {secondaryImage ? (
           <img
@@ -89,11 +91,11 @@ export default function HeroFloatingImages({
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="text-base text-center text-white">
+          <div className="text-xs sm:text-sm text-center text-white p-2">
             <div className="font-semibold">
               {overlayTitle ?? "Hero Image 2"}
             </div>
-            <div className="text-sm text-slate-300">
+            <div className="text-[0.7rem] sm:text-xs text-slate-300">
               {overlayDescription ?? "Overlay"}
             </div>
           </div>

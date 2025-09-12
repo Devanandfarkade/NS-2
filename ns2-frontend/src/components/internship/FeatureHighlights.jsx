@@ -21,11 +21,11 @@ export default function FeatureHighlights({ initialData }) {
   } = data;
 
   return (
-    <section className="relative py-20 bg-gray-50 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 text-center">
+    <section className="relative py-16 sm:py-20 bg-gray-50 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
         {/* Features grid */}
         {content_items && (
-          <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
             {content_items
               .filter((item) => item.is_active)
               .map((item, idx) => (
@@ -35,17 +35,17 @@ export default function FeatureHighlights({ initialData }) {
                 >
                   {/* Icon */}
                   {item.icon && (
-                    <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl mb-4">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl mb-4">
                       <img
                         src={normalizeImageUrl(item.icon)}
                         alt={item.title}
-                        className="w-8 h-8 object-contain"
+                        className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
                       />
                     </div>
                   )}
 
                   {/* Title */}
-                  <h3 className="font-semibold text-lg text-gray-900 mb-1">
+                  <h3 className="font-semibold text-base sm:text-lg text-gray-900 mb-1">
                     {item.title}
                   </h3>
 
@@ -54,7 +54,7 @@ export default function FeatureHighlights({ initialData }) {
 
                   {/* Tags (if any) */}
                   {item.tags && (
-                    <ul className="list-disc list-inside text-gray-600 mt-2 text-left">
+                    <ul className="list-disc list-inside text-gray-600 mt-2 text-left text-sm">
                       {item.tags.split(",").map((tag, index) => (
                         <li key={index}>{tag.trim()}</li>
                       ))}
@@ -65,28 +65,32 @@ export default function FeatureHighlights({ initialData }) {
           </div>
         )}
 
-        {/* Text content and CTA Buttons in a slightly lighter dark gradient box below cards */}
+        {/* Text content and CTA Buttons in gradient box */}
         {(heading ||
           subheading ||
           primary_button_text ||
           secondary_button_text) && (
-          <div className="bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 p-8 rounded-2xl shadow-md flex flex-col items-center gap-4">
+          <div className="bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl shadow-md flex flex-col items-center gap-4">
             {/* Heading */}
             {heading && (
-              <h2 className="text-4xl font-bold text-white">{heading}</h2>
+              <h2 className="text-2xl sm:text-4xl font-bold text-white">
+                {heading}
+              </h2>
             )}
 
             {/* Subheading */}
             {subheading && (
-              <p className="text-gray-200 max-w-2xl">{subheading}</p>
+              <p className="text-gray-200 max-w-2xl text-sm sm:text-base">
+                {subheading}
+              </p>
             )}
 
             {/* CTA Buttons */}
-            <div className="flex justify-center gap-4 mt-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-4 w-full sm:w-auto">
               {primary_button_text && primary_button_url && (
                 <a
                   href={primary_button_url}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:opacity-90 transition"
+                  className="px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold text-sm sm:text-base hover:opacity-90 transition w-full sm:w-auto text-center"
                 >
                   {primary_button_text}
                 </a>
@@ -94,7 +98,7 @@ export default function FeatureHighlights({ initialData }) {
               {secondary_button_text && secondary_button_url && (
                 <a
                   href={secondary_button_url}
-                  className="px-6 py-3 border border-gray-300 text-gray-200 rounded-lg font-semibold hover:bg-gray-700 transition"
+                  className="px-4 py-2 sm:px-6 sm:py-3 border border-gray-300 text-gray-200 rounded-lg font-semibold text-sm sm:text-base hover:bg-gray-700 transition w-full sm:w-auto text-center"
                 >
                   {secondary_button_text}
                 </a>

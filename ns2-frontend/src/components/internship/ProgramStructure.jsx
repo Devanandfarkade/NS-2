@@ -96,12 +96,12 @@ export default function ProgramStructure({ initialData }) {
 
                 {/* Step card */}
                 <div className="bg-white rounded-lg shadow p-6 flex-1">
-                  <div className="flex justify-between items-start">
+                  <div className="flex flex-wrap justify-between items-center gap-2">
                     <h3 className="text-lg font-semibold text-gray-900">
                       {step.title}
                     </h3>
                     {step.label && (
-                      <span className="text-sm font-medium text-sky-700 bg-sky-100 px-3 py-1 rounded-full">
+                      <span className="text-xs sm:text-sm md:text-base font-medium text-sky-700 bg-sky-100 px-2 sm:px-3 py-1 rounded-full">
                         {step.label}
                       </span>
                     )}
@@ -115,7 +115,7 @@ export default function ProgramStructure({ initialData }) {
                       {step.tags.split(",").map((tag, idx) => (
                         <span
                           key={idx}
-                          className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full"
+                          className="text-xs sm:text-sm md:text-base bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 rounded-full"
                         >
                           {tag.trim()}
                         </span>
