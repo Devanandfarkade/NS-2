@@ -6,7 +6,10 @@ export default function UpcomingBatchesClient({ data }) {
   if (!Array.isArray(data) || data.length === 0) return null;
 
   return (
-    <section className="relative w-full py-12 bg-[linear-gradient(135deg,#F8FAFC,#E2E8F0)]">
+    <section
+      id="upcoming_batches"
+      className="relative w-full py-12 bg-[linear-gradient(135deg,#F8FAFC,#E2E8F0)] scroll-mt-19 "
+    >
       <div className="container mx-auto px-6 lg:px-12">
         {data.map((section) => (
           <div key={section.id} className="mb-12">
