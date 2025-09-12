@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import NavLinkClient from "@/components/navbar/NavLinkClient";
 
 export default function MobileMenu({ menuItems, logoUrl }) {
   const [isMounted, setIsMounted] = useState(false);
@@ -44,6 +44,7 @@ export default function MobileMenu({ menuItems, logoUrl }) {
 
   return (
     <div className="md:hidden">
+      {/* Hamburger */}
       <button
         id="hamburger-button"
         onClick={toggleMenu}
@@ -82,6 +83,7 @@ export default function MobileMenu({ menuItems, logoUrl }) {
         )}
       </button>
 
+      {/* Overlay */}
       <div
         className={`fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 ${
           isMenuOpen
@@ -90,6 +92,7 @@ export default function MobileMenu({ menuItems, logoUrl }) {
         }`}
         onClick={() => setIsMenuOpen(false)}
       >
+        {/* Menu Panel */}
         <div
           id="mobile-menu"
           className={`absolute inset-0 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${
@@ -98,33 +101,25 @@ export default function MobileMenu({ menuItems, logoUrl }) {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="p-6 h-full flex flex-col">
+            {/* Logo & Close */}
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
               {logoUrl && !logoError ? (
-                <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                <NavLinkClient href="/" onClick={() => setIsMenuOpen(false)}>
                   <img
                     src={logoUrl}
                     alt="Company Logo"
                     className="h-10 w-auto"
-                    onError={() => {
-                      console.error(
-                        "Failed to load logo in mobile menu:",
-                        logoUrl
-                      );
-                      setLogoError(true);
-                    }}
+                    onError={() => setLogoError(true)}
                   />
-                </Link>
+                </NavLinkClient>
               ) : (
-                <Link
-                  href="/"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center"
-                >
+                <NavLinkClient href="/" onClick={() => setIsMenuOpen(false)}>
                   <div className="h-10 w-32 bg-gray-300 flex items-center justify-center text-sm font-medium text-gray-600 rounded-md">
                     Company Logo
                   </div>
-                </Link>
+                </NavLinkClient>
               )}
+
               <button
                 onClick={() => setIsMenuOpen(false)}
                 className="p-2 rounded-full text-[#6C757D] hover:text-[#007BFF] hover:bg-[#F8F9FA] transition-colors duration-200"
@@ -146,6 +141,7 @@ export default function MobileMenu({ menuItems, logoUrl }) {
               </button>
             </div>
 
+            {/* Menu Items */}
             <nav className="flex-1 overflow-y-auto">
               <ul className="space-y-2">
                 {regularItems.map((item, index) => (
@@ -153,7 +149,7 @@ export default function MobileMenu({ menuItems, logoUrl }) {
                     key={index}
                     className="border-b border-gray-100 last:border-b-0"
                   >
-                    {item.submenus && item.submenus.length > 0 ? (
+                    {item.submenus?.length > 0 ? (
                       <>
                         <button
                           onClick={() => toggleSubmenu(index)}
@@ -183,42 +179,43 @@ export default function MobileMenu({ menuItems, logoUrl }) {
                         >
                           {item.submenus.map((subitem, subIndex) => (
                             <li key={subIndex}>
-                              <Link
+                              <NavLinkClient
                                 href={subitem.url}
-                                className="block py-2 px-4 text-[#6C757D] hover:text-[#007BFF] rounded-md hover:bg-[#F8F9FA] transition-colors duration-200"
+                                className="block py-2 px-4 rounded-md hover:bg-[#F8F9FA]"
                                 onClick={() => setIsMenuOpen(false)}
                               >
                                 {subitem.text}
-                              </Link>
+                              </NavLinkClient>
                             </li>
                           ))}
                         </ul>
                       </>
                     ) : (
-                      <Link
+                      <NavLinkClient
                         href={item.url}
-                        className="block py-4 text-[#6C757D] hover:text-[#007BFF] transition-colors duration-200 font-medium"
+                        className="block py-4 font-medium"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {item.text}
-                      </Link>
+                      </NavLinkClient>
                     )}
                   </li>
                 ))}
               </ul>
             </nav>
 
+            {/* Buttons */}
             {buttonItems.length > 0 && (
               <div className="pt-6 mt-auto border-t border-gray-200 space-y-3">
                 {buttonItems.map((buttonItem, index) => (
-                  <Link
+                  <NavLinkClient
                     key={index}
                     href={buttonItem.url}
                     className="block w-full bg-[#007BFF] text-white text-center px-6 py-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium shadow-md hover:shadow-lg"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {buttonItem.text}
-                  </Link>
+                  </NavLinkClient>
                 ))}
               </div>
             )}
