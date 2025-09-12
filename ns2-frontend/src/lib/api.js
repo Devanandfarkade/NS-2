@@ -140,10 +140,9 @@ export async function fetchServiceBySlug(slug) {
 
 export async function fetchAboutPage() {
   try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/aboutus/fetch-about-page/`,
-      { cache: "no-store" } // SSR - no cache
-    );
+    const res = await fetch(`${API_BASE_URL}/api/aboutus/fetch-about-page/`, {
+      cache: "no-store",
+    });
 
     if (!res.ok)
       throw new Error(`Failed to fetch About Us page: ${res.status}`);

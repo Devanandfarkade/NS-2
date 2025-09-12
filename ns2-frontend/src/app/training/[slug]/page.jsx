@@ -15,44 +15,44 @@ import IndustriesServedServer from "@/components/trainingCorporate/IndustriesSer
 import TrainingProcessServer from "@/components/trainingCorporate/TrainingProcessServer";
 import OurTrainersServer from "@/components/trainingCorporate/OurTrainersServer";
 import FAQSection from "@/components/homepage/FAQSection";
+import UpcomingBatchesServer from "@/components/trainingStudent/UpcomingBatchesServer";
 
 import { fetchTrainingPage } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
 
 export default async function TrainingPage({ params: incomingParams }) {
-  // Await params before using
   const params = await incomingParams;
   const slug = params.slug;
 
   const data = await fetchTrainingPage(slug);
 
-  // HERO
   const heroData = data.find(
     (section) =>
       section.section_type ===
       (slug === "corporate-training" ? "HERO_CORPORATE" : "HERO_STUDENT")
   );
 
-  // ABOUT
   const aboutData = data.find(
     (section) =>
       section.section_type ===
       (slug === "corporate-training" ? "ABOUT_CORPORATE" : "ABOUT_STUDENT")
   );
 
-  // TRAINING OFFERINGS
   const trainingData = data.find(
     (section) => section.section_type === "TRAINING_OFFERINGS"
   );
 
-  // PROGRAM STRUCTURE (STUDENT)
   const programStructureData = data.filter(
     (section) => section.section_type === "PROGRAM_STRUCTURE"
   );
 
   const whatYouWillLearnData = data.filter(
     (section) => section.section_type === "WHAT_YOU_WILL_LEARN"
+  );
+
+  const upcomingBatchesData = data.filter(
+    (section) => section.section_type === "UPCOMING_BATCHES"
   );
 
   const why = data.find((section) => section.section_type === "WHY_CHOOSE_US");
@@ -75,13 +75,14 @@ export default async function TrainingPage({ params: incomingParams }) {
         ) : (
           <StudentHeroSectionServer data={heroData} />
         ))}
-
       {programStructureData.length > 0 && slug === "student-training" && (
         <ProgramStructureServer data={programStructureData} />
       )}
-
       {whatYouWillLearnData.length > 0 && slug === "student-training" && (
         <WhatYouWillLearnServer data={whatYouWillLearnData} />
+      )}
+      {upcomingBatchesData.length > 0 && slug === "student-training" && (
+        <UpcomingBatchesServer data={upcomingBatchesData} />
       )}
 
       {aboutData && <AboutCorporateServer data={aboutData} />}
