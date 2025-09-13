@@ -17,6 +17,9 @@ const opensans = Open_Sans({
 export const metadata = {
   title: "NS^2",
   description: "Next.js Project with Dynamic Navbar & Footer",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
