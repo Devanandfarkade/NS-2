@@ -12,7 +12,6 @@ export default function NavLinkClient({
   const pathname = usePathname();
   const isActive = pathname === href;
 
-  // Base text style only for non-button links
   const baseClasses = isActive
     ? "text-[#007BFF] font-semibold"
     : "text-[#6C757D] hover:text-[#007BFF]";
