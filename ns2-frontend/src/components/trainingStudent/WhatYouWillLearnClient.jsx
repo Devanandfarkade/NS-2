@@ -4,13 +4,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Clock, Star } from "lucide-react";
 
-const colors = [
-  { bg: "bg-green-600", text: "text-green-600", lightBg: "bg-green-100" },
-  { bg: "bg-blue-600", text: "text-blue-600", lightBg: "bg-blue-100" },
-  { bg: "bg-purple-600", text: "text-purple-600", lightBg: "bg-purple-100" },
-  { bg: "bg-red-600", text: "text-red-600", lightBg: "bg-red-100" },
-  { bg: "bg-yellow-600", text: "text-yellow-600", lightBg: "bg-yellow-100" },
-];
+const activeColor = {
+  bg: "bg-[#007BFF]",
+  text: "text-[#007BFF]",
+  lightBg: "bg-[#E6F0FF]",
+};
 
 export default function WhatYouWillLearnClient({ data }) {
   if (!Array.isArray(data) || data.length === 0) return null;
@@ -19,7 +17,6 @@ export default function WhatYouWillLearnClient({ data }) {
 
   const activeIndex = data.findIndex((item) => item.subheading === activeTab);
   const activeSection = data[activeIndex];
-  const activeColor = colors[activeIndex % colors.length];
 
   return (
     <section className="relative w-full py-12 bg-[linear-gradient(135deg,#E2E8F0,#F8FAFC)]">
@@ -29,7 +26,7 @@ export default function WhatYouWillLearnClient({ data }) {
             <span
               className="inline-flex items-center gap-1.5 sm:gap-2 
                 px-3 py-1 sm:px-2 sm:py-1 
-                rounded-full bg-green-50 text-green-600 
+                rounded-full bg-[#E6F0FF] text-[#007BFF] 
                 text-xs sm:text-sm font-semibold shadow-md"
             >
               <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current text-yellow-400" />
@@ -37,22 +34,18 @@ export default function WhatYouWillLearnClient({ data }) {
             </span>
           </div>
         )}
-
         {activeSection?.heading && (
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mt-4">
             {activeSection.heading}
           </h2>
         )}
-
         {activeSection?.highlighted_heading && (
           <p className="text-lg md:text-xl text-center text-gray-600 mt-4 max-w-3xl mx-auto">
             {activeSection.highlighted_heading}
           </p>
         )}
-
         <div className="flex flex-wrap justify-center mt-8 gap-2">
-          {data.map((section, index) => {
-            const color = colors[index % colors.length];
+          {data.map((section) => {
             const isActive = activeTab === section.subheading;
 
             return (
@@ -61,7 +54,7 @@ export default function WhatYouWillLearnClient({ data }) {
                 onClick={() => setActiveTab(section.subheading)}
                 className={`px-5 py-2 rounded-lg font-medium shadow transition text-sm sm:text-base ${
                   isActive
-                    ? `${color.bg} text-white`
+                    ? `${activeColor.bg} text-white`
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
@@ -70,7 +63,6 @@ export default function WhatYouWillLearnClient({ data }) {
             );
           })}
         </div>
-
         {activeSection && (
           <motion.div
             key={activeSection.id}
