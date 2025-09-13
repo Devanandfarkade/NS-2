@@ -1,23 +1,32 @@
-import ContactUs from '@/components/homepage/ContactUs';
-import { fetchHomepageSection, fetchServiceBySlug } from '@/lib/api';
-import { redirect } from 'next/navigation'; // Needed for redirecting in server components
-import ServicesPageClient from './ServicesPageClient';
+export const metadata = {
+  title: "NS^2 | | Services",
+  description:
+    "At NS², we craft innovative solutions that bridge technology and human creativity.",
+};
+
+import ContactUs from "@/components/homepage/ContactUs";
+import { fetchHomepageSection, fetchServiceBySlug } from "@/lib/api";
+import { redirect } from "next/navigation"; // Needed for redirecting in server components
+import ServicesPageClient from "./ServicesPageClient";
 
 export default async function ServicesPage({ params }) {
   const { slug } = await params;
 
   const [contact, initialSections] = await Promise.all([
-    fetchHomepageSection('Contact Us'),
+    fetchHomepageSection("Contact Us"),
     fetchServiceBySlug(slug),
   ]);
 
   if (!initialSections || initialSections.length === 0) {
-    redirect('/');
+    redirect("/");
   }
 
   return (
     <>
-      <ServicesPageClient initialSections={initialSections} initialSlug={slug} />
+      <ServicesPageClient
+        initialSections={initialSections}
+        initialSlug={slug}
+      />
       <ContactUs data={contact} />
     </>
   );

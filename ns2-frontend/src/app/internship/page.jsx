@@ -7,7 +7,7 @@ import FAQSection from "@/components/homepage/FAQSection";
 import { fetchInternshipPage } from "@/lib/api";
 
 export const metadata = {
-  title: "NS² | Internships",
+  title: "NS² | | Internships",
   description: "Explore internship opportunities and innovative projects.",
 };
 

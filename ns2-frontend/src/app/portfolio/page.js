@@ -1,6 +1,7 @@
 export const metadata = {
-  title: "NS^2 | Portfolio",
-  description: "Explore NS²'s innovative projects, trusted partnerships, and expert team.",
+  title: "NS^2 | | Portfolio",
+  description:
+    "Explore NS²'s innovative projects, trusted partnerships, and expert team.",
 };
 
 export const dynamic = "force-dynamic";
@@ -15,13 +16,23 @@ import { TrustedCompaniesSection } from "@/components/portfolio/TrustedCompanies
 import { fetchHomepageSection, fetchPortfolioData } from "@/lib/api";
 
 export default async function PortfolioPage() {
-  const portfolioData = await fetchPortfolioData(); 
+  const portfolioData = await fetchPortfolioData();
 
-  const heroBanner = portfolioData.find(section => section.section_type === "Hero Banner");
-  const featuredProjects = portfolioData.find(section => section.section_type === "Featured Projects");
-  const trustedCompanies = portfolioData.find(section => section.section_type === "Trusted Companies");
-  const ourTeam = portfolioData.find(section => section.section_type === "Our Team");
-  const projects = portfolioData.find(section => section.section_type === "Projects");
+  const heroBanner = portfolioData.find(
+    (section) => section.section_type === "Hero Banner"
+  );
+  const featuredProjects = portfolioData.find(
+    (section) => section.section_type === "Featured Projects"
+  );
+  const trustedCompanies = portfolioData.find(
+    (section) => section.section_type === "Trusted Companies"
+  );
+  const ourTeam = portfolioData.find(
+    (section) => section.section_type === "Our Team"
+  );
+  const projects = portfolioData.find(
+    (section) => section.section_type === "Projects"
+  );
 
   const testimonial = await fetchHomepageSection("Testimonials Slider");
 

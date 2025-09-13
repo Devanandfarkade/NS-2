@@ -1,4 +1,4 @@
-const metadata = {
+export const metadata = {
   title: "NS^2 | | Training Programs",
   description:
     "At NS², we offer comprehensive training programs for both corporate professionals and students.",
