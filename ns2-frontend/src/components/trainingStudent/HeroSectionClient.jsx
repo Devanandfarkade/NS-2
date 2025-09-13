@@ -68,7 +68,7 @@ export default function HeroSectionClient({ data }) {
                   {primary_button_text && (
                     <Link
                       href={primary_button_url || "#"}
-                      className="inline-flex items-center px-5 py-3 rounded-full bg-[#3b82f6] text-white font-semibold shadow-md hover:brightness-95 transition"
+                      className="inline-flex items-center px-5 py-3  bg-[#007BFF] text-white  rounded-md font-semibold shadow-md hover:brightness-95 transition"
                     >
                       {primary_button_text}
                     </Link>

@@ -4,14 +4,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Clock, Star } from "lucide-react";
 
-// Define color palettes for different tabs
-const colors = [
-  { bg: "bg-green-600", text: "text-green-600", lightBg: "bg-green-100" },
-  { bg: "bg-blue-600", text: "text-blue-600", lightBg: "bg-blue-100" },
-  { bg: "bg-purple-600", text: "text-purple-600", lightBg: "bg-purple-100" },
-  { bg: "bg-red-600", text: "text-red-600", lightBg: "bg-red-100" },
-  { bg: "bg-yellow-600", text: "text-yellow-600", lightBg: "bg-yellow-100" },
-];
+const activeColor = {
+  bg: "bg-[#007BFF]",
+  text: "text-[#007BFF]",
+  lightBg: "bg-[#E6F0FF]",
+};
 
 export default function ProgramStructureClient({ data }) {
   if (!Array.isArray(data) || data.length === 0) return null;
@@ -22,7 +19,6 @@ export default function ProgramStructureClient({ data }) {
     (section) => section.primary_button_text === activeTab
   );
   const activeSection = data[activeIndex];
-  const activeColor = colors[activeIndex % colors.length]; // cycle if more tabs
 
   return (
     <section className="relative w-full py-12 bg-[linear-gradient(135deg,#E2E8F0,#F8FAFC)]">
@@ -33,7 +29,7 @@ export default function ProgramStructureClient({ data }) {
             <span
               className="inline-flex items-center gap-1.5 sm:gap-2 
       px-3 py-1 sm:px-2 sm:py-1 
-      rounded-full bg-green-50 text-green-600 
+      rounded-full bg-blue-50 text-blue-600 
       text-xs sm:text-sm font-semibold shadow-md"
             >
               <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current text-yellow-400 " />
@@ -58,8 +54,7 @@ export default function ProgramStructureClient({ data }) {
 
         {/* Tabs */}
         <div className="flex flex-wrap justify-center mt-8 gap-2">
-          {data.map((section, index) => {
-            const color = colors[index % colors.length];
+          {data.map((section) => {
             const isActive = activeTab === section.primary_button_text;
 
             return (
@@ -68,7 +63,7 @@ export default function ProgramStructureClient({ data }) {
                 onClick={() => setActiveTab(section.primary_button_text)}
                 className={`px-5 py-2 rounded-lg font-medium shadow transition text-sm sm:text-base ${
                   isActive
-                    ? `${color.bg} text-white`
+                    ? `${activeColor.bg} text-white`
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
