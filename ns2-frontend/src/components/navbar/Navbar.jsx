@@ -24,12 +24,11 @@ export default async function Navbar() {
   return (
     <nav className="sticky top-0 bg-[#F8F9FA] shadow-md py-4 z-50">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <div className="pl-4 md:pl-8">
+        <div className="pl-4 lg:pl-8">
           <LogoClient logoUrl={logoUrl} />
         </div>
 
-        {/* Desktop menu */}
-        <div className="hidden md:flex flex-1 justify-center items-center">
+        <div className="hidden lg:flex flex-1 justify-center items-center">
           <ul className="flex space-x-6">
             {regularMenuItems.map((item, index) => (
               <li key={index} className="relative group">
@@ -72,9 +71,8 @@ export default async function Navbar() {
           </ul>
         </div>
 
-        {/* Buttons */}
         {buttonMenuItems.length > 0 && (
-          <div className="hidden md:flex space-x-4 pr-4 md:pr-8">
+          <div className="hidden lg:flex space-x-4 pr-4 lg:pr-8">
             {buttonMenuItems.map((buttonItem, index) => (
               <NavLinkClient
                 key={index}
@@ -87,8 +85,7 @@ export default async function Navbar() {
           </div>
         )}
 
-        {/* Mobile */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <MobileMenu menuItems={menuItems} logoUrl={logoUrl} />
         </div>
       </div>

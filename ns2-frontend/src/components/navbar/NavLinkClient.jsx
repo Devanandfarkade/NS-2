@@ -3,14 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function NavLinkClient({ href, children, className = "" }) {
+export default function NavLinkClient({
+  href,
+  children,
+  className = "",
+  onClick,
+}) {
   const pathname = usePathname();
   const isActive = pathname === href;
+
+  // Base text style only for non-button links
+  const baseClasses = isActive
+    ? "text-[#007BFF] font-semibold"
+    : "text-[#6C757D] hover:text-[#007BFF]";
 
   return (
     <Link
       href={href}
-      className={`${isActive ? "text-[#007BFF] font-semibold" : "text-[#6C757D]"} ${className} hover:text-[#007BFF] transition-colors duration-200`}
+      onClick={onClick}
+      className={`${baseClasses} ${className} transition-colors duration-200`}
     >
       {children}
     </Link>
