@@ -22,6 +22,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${opensans.variable}`}>
+      <head>
+        <link rel="icon" href="/favicon.svg" />
+      </head>
       <body className="font-opensans flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">{children}</main>
