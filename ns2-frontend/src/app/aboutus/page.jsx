@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "NS^2 | | About Us",
+  description:
+    "At NS², we craft innovative solutions that bridge technology and human creativity.",
+};
+
 import { fetchAboutPage } from "@/lib/api";
 import WhoWeAre from "@/components/aboutus/WhoWeAre";
 import VisionSection from "@/components/aboutus/VisionSection";
