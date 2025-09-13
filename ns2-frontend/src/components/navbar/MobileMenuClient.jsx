@@ -2,14 +2,23 @@
 
 import { useState, useEffect } from "react";
 import NavLinkClient from "@/components/navbar/NavLinkClient";
+import { usePathname } from "next/navigation";
 
 export default function MobileMenu({ menuItems, logoUrl }) {
   const [isMounted, setIsMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [logoError, setLogoError] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => setIsMounted(true), []);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+      setActiveSubmenu(null);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -43,8 +52,7 @@ export default function MobileMenu({ menuItems, logoUrl }) {
   if (!isMounted) return null;
 
   return (
-    <div className="md:hidden">
-      {/* Hamburger */}
+    <div className="lg:hidden">
       <button
         id="hamburger-button"
         onClick={toggleMenu}
@@ -83,7 +91,6 @@ export default function MobileMenu({ menuItems, logoUrl }) {
         )}
       </button>
 
-      {/* Overlay */}
       <div
         className={`fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 ${
           isMenuOpen
@@ -92,7 +99,6 @@ export default function MobileMenu({ menuItems, logoUrl }) {
         }`}
         onClick={() => setIsMenuOpen(false)}
       >
-        {/* Menu Panel */}
         <div
           id="mobile-menu"
           className={`absolute inset-0 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${
@@ -101,7 +107,6 @@ export default function MobileMenu({ menuItems, logoUrl }) {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="p-6 h-full flex flex-col">
-            {/* Logo & Close */}
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
               {logoUrl && !logoError ? (
                 <NavLinkClient href="/" onClick={() => setIsMenuOpen(false)}>
@@ -141,7 +146,6 @@ export default function MobileMenu({ menuItems, logoUrl }) {
               </button>
             </div>
 
-            {/* Menu Items */}
             <nav className="flex-1 overflow-y-auto">
               <ul className="space-y-2">
                 {regularItems.map((item, index) => (
@@ -204,7 +208,6 @@ export default function MobileMenu({ menuItems, logoUrl }) {
               </ul>
             </nav>
 
-            {/* Buttons */}
             {buttonItems.length > 0 && (
               <div className="pt-6 mt-auto border-t border-gray-200 space-y-3">
                 {buttonItems.map((buttonItem, index) => (
