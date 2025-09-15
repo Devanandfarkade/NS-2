@@ -12,7 +12,6 @@ export default function KeyAchievementsClient({ items = [] }) {
         {items.map((item, idx) => {
           const labelStr = String(item.label || "").trim();
 
-          // Check if label is numeric-like (with optional +, %, etc.)
           const numericMatch = labelStr.match(/^(\d+)([+%]*)$/);
 
           return (
@@ -36,7 +35,6 @@ export default function KeyAchievementsClient({ items = [] }) {
                     {numericMatch[2]}
                   </>
                 ) : (
-                  // For labels like "24/7", "N/A", etc. → show as-is
                   labelStr
                 )}
               </div>
