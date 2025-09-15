@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function HeroSectionClient({ data }) {
-  if (!data || !data.is_active) return null; // hide section if inactive
+  if (!data || !data.is_active) return null;
 
   const {
     heading,
@@ -22,7 +22,6 @@ export default function HeroSectionClient({ data }) {
     content_items = [],
   } = data;
 
-  // filter items by is_active
   const iconItems = (content_items || []).filter(
     (item) => item.is_active && item.icon
   );
@@ -33,7 +32,6 @@ export default function HeroSectionClient({ data }) {
 
   return (
     <section className="relative bg-white py-16 px-6 md:px-12 lg:px-24 overflow-hidden">
-      {/* Dotted Background */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -60,7 +58,6 @@ export default function HeroSectionClient({ data }) {
         </svg>
       </motion.div>
 
-      {/* Content */}
       <div className="relative max-w-6xl mx-auto text-center">
         <h1 className="text-3xl md:text-5xl font-bold text-gray-900">
           {heading}{" "}
@@ -71,7 +68,6 @@ export default function HeroSectionClient({ data }) {
           {subheading}
         </p>
 
-        {/* Buttons */}
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           {primary_button_text && (
             <Link href={primary_button_url || "#"}>
@@ -98,13 +94,12 @@ export default function HeroSectionClient({ data }) {
           )}
         </div>
 
-        {/* Icon Cards */}
         {iconItems.length > 0 && (
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 items-stretch">
+          <div className="mt-16 hero-icon-row">
             {iconItems.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col items-center text-center p-6 rounded-xl shadow-sm hover:shadow-lg transition bg-white"
+                className="icon-card flex flex-col items-center text-center p-6 rounded-xl shadow-sm hover:shadow-lg transition bg-white"
               >
                 <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-[#f6f9ff]">
                   <Image
@@ -128,17 +123,53 @@ export default function HeroSectionClient({ data }) {
           </div>
         )}
 
-        {/* Stats */}
         <div
-          className={`mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 ${
-            iconItems.length === 0 ? "pt-12 border-t border-gray-200" : ""
-          }`}
+          className={`${statItems.length === 0 ? "" : "mt-16"} ${iconItems.length === 0 ? "pt-12 border-t border-gray-200" : ""}`}
         >
-          {statItems.map((stat) => (
-            <StatCounter key={stat.id} stat={stat} />
-          ))}
+          {statItems.length > 0 && (
+            <div className="hero-stat-row">
+              {statItems.map((stat) => (
+                <div key={stat.id} className="stat-card">
+                  <StatCounter stat={stat} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
+
+      <style>{`
+        /* ICONS: gap-6 (1.5rem) */
+        .hero-icon-row { display:flex; flex-wrap:wrap; justify-content:center; gap:1.5rem; }
+        .hero-icon-row .icon-card { box-sizing:border-box; }
+        /* mobile: full width */
+        @media (max-width:639px) {
+          .hero-icon-row .icon-card { flex: 0 0 100%; max-width:100%; }
+        }
+        /* sm: 2 columns -> subtract 1 gap (1 * 1.5rem) distributed across 2 items */
+        @media (min-width:640px) and (max-width:767px) {
+          .hero-icon-row .icon-card { flex: 0 0 calc((100% - 1 * 1.5rem) / 2); max-width: calc((100% - 1 * 1.5rem) / 2); }
+        }
+        /* md and up: 3 columns -> subtract 2 gaps (2 * 1.5rem) across 3 items */
+        @media (min-width:768px) {
+          .hero-icon-row .icon-card { flex: 0 0 calc((100% - 2 * 1.5rem) / 3); max-width: calc((100% - 2 * 1.5rem) / 3); }
+        }
+
+        /* STATS: gap-8 (2rem) */
+        .hero-stat-row { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; }
+        .hero-stat-row .stat-card { box-sizing:border-box; text-align:center; }
+        @media (max-width:639px) {
+          .hero-stat-row .stat-card { flex: 0 0 100%; max-width:100%; }
+        }
+        /* sm: 2 columns, subtract 1 gap (2rem) */
+        @media (min-width:640px) and (max-width:767px) {
+          .hero-stat-row .stat-card { flex: 0 0 calc((100% - 1 * 2rem) / 2); max-width: calc((100% - 1 * 2rem) / 2); }
+        }
+        /* md and up: 4 columns, subtract 3 gaps (3 * 2rem) */
+        @media (min-width:768px) {
+          .hero-stat-row .stat-card { flex: 0 0 calc((100% - 3 * 2rem) / 4); max-width: calc((100% - 3 * 2rem) / 4); }
+        }
+      `}</style>
     </section>
   );
 }

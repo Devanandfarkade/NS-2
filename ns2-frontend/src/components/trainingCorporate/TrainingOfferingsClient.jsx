@@ -58,7 +58,10 @@ export default function TrainingOfferingsClient({ data }) {
   };
 
   return (
-    <section className="bg-white dark:bg-white py-16 px-6 md:px-12">
+    <section
+      id="corporate-training"
+      className="bg-white text-gray-600 py-16 px-6 md:px-12"
+    >
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-[#007BFF]">
           {data.heading}
@@ -70,7 +73,7 @@ export default function TrainingOfferingsClient({ data }) {
         {items.map((item) => (
           <div
             key={item.id}
-            className="bg-white dark:bg-white shadow-md rounded-lg p-6 flex flex-col justify-between"
+            className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between"
           >
             <div className="flex items-center mb-4">
               <div className="p-3 rounded-lg bg-gray-100">
@@ -81,7 +84,9 @@ export default function TrainingOfferingsClient({ data }) {
                   alt={item.title}
                 />
               </div>
-              <h3 className="ml-4 text-lg font-semibold">{item.title}</h3>
+              <h3 className="ml-4 text-lg font-semibold text-gray-900">
+                {item.title}
+              </h3>
             </div>
 
             <p className="text-gray-600 mb-4">{item.description}</p>
