@@ -6,11 +6,16 @@ export default function FAQSection({ data }) {
   return (
     <section className="py-16 px-6 md:px-12 bg-gray-50">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+        <h2
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold"
+          style={{ color: "#007BFF" }}
+        >
           {data.heading}
         </h2>
         {data.subheading && (
-          <p className="mt-4 text-gray-600">{data.subheading}</p>
+          <p className="mt-4 text-gray-600 text-base sm:text-lg leading-relaxed">
+            {data.subheading}
+          </p>
         )}
       </div>
 

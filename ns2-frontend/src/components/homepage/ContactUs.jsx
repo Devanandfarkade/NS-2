@@ -105,23 +105,37 @@ export default function ContactUs({ data }) {
   return (
     <section id="contact" className="w-full py-16 bg-white text-black">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* Section Header */}
         <div className="text-center mb-12">
           <p className="text-sm font-semibold text-blue-500 animate-pulse drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">
             + Get In Touch
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold mt-2 text-black">
+          <h2
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-2"
+            style={{ color: "#007BFF" }}
+          >
             {data.super_heading}
           </h2>
-          <p className="text-black mt-4 max-w-2xl mx-auto">{data.heading}</p>
+          <p
+            className="text-base sm:text-lg mt-4 max-w-2xl mx-auto"
+            style={{ color: "#212529" }}
+          >
+            {data.heading}
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-10">
           {/* Left side */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-black">
+            <h3
+              className="text-2xl sm:text-3xl font-bold mb-4"
+              style={{ color: "#007BFF" }}
+            >
               {data.subheading}
             </h3>
-            <p className="text-black mb-6">{data.overview_text}</p>
+            <p className="text-base sm:text-lg text-gray-700 mb-6">
+              {data.overview_text}
+            </p>
 
             <div className="space-y-6">
               {data.content_items
@@ -179,10 +193,13 @@ export default function ContactUs({ data }) {
 
           {/* Right side (Form) */}
           <div className="p-8 rounded-2xl shadow-lg bg-white border border-gray-200">
-            <h3 className="text-lg font-bold mb-2 text-black">
+            <h3
+              className="text-xl sm:text-2xl font-bold mb-2"
+              style={{ color: "#007BFF" }}
+            >
               Send us a Message
             </h3>
-            <p className="text-black text-sm mb-6">
+            <p className="text-gray-800 text-sm sm:text-base mb-6">
               Fill out the form below and we'll get back to you within 24 hours.
             </p>
 
