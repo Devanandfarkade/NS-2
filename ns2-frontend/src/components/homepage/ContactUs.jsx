@@ -1,15 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { submitContactForm } from "@/lib/api";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function ContactUs({ data }) {
   const subjects = [
-    { value: "general", label: "General" },
-    { value: "project", label: "Project" },
-    { value: "support", label: "Support" },
+    { value: "general", label: "General Inquiry" },
+    { value: "project", label: "Project Collaboration" },
+    { value: "support", label: "Technical Support" },
     { value: "feedback", label: "Feedback" },
   ];
 
@@ -23,6 +21,22 @@ export default function ContactUs({ data }) {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const validators = {
     fullName: (val) =>
@@ -31,9 +45,9 @@ export default function ContactUs({ data }) {
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? "" : "Enter a valid email.",
     phone: (val) => {
       if (!val) return "";
-      return /^\+\d{1,3}\s\d{10}$/.test(val)
+      return /^\d{10}$/.test(val)
         ? ""
-        : "Phone must include country code (+XX) + space + 10 digits.";
+        : "Phone number must be exactly 10 digits.";
     },
     subject: (val) => (val ? "" : "Please select a subject."),
     message: (val) =>
@@ -43,9 +57,20 @@ export default function ContactUs({ data }) {
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (errors[e.target.name]) {
-      setErrors({ ...errors, [e.target.name]: "" });
+    const { name, value } = e.target;
+
+    // Only allow digits in phone field
+    if (name === "phone") {
+      const digitsOnly = value.replace(/\D/g, "");
+      // Limit to 10 digits
+      const truncatedValue = digitsOnly.slice(0, 10);
+      setFormData({ ...formData, [name]: truncatedValue });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
     }
   };
 
@@ -100,28 +125,59 @@ export default function ContactUs({ data }) {
     }
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const selectSubject = (subjectValue) => {
+    setFormData({ ...formData, subject: subjectValue });
+    setIsDropdownOpen(false);
+    if (errors.subject) {
+      setErrors({ ...errors, subject: "" });
+    }
+  };
+
   if (!data) return null;
+
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const selectedSubjectLabel =
+    subjects.find((sub) => sub.value === formData.subject)?.label ||
+    "Select a subject";
 
   return (
     <section id="contact" className="w-full py-16 bg-white text-black">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* Section Header */}
         <div className="text-center mb-12">
           <p className="text-sm font-semibold text-blue-500 animate-pulse drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">
             + Get In Touch
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold mt-2 text-black">
+          <h2
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-2"
+            style={{ color: "#007BFF" }}
+          >
             {data.super_heading}
           </h2>
-          <p className="text-black mt-4 max-w-2xl mx-auto">{data.heading}</p>
+          <p
+            className="text-base sm:text-lg mt-4 max-w-2xl mx-auto"
+            style={{ color: "#212529" }}
+          >
+            {data.heading}
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-10">
           {/* Left side */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-black">
+            <h3
+              className="text-2xl sm:text-3xl font-bold mb-4"
+              style={{ color: "#007BFF" }}
+            >
               {data.subheading}
             </h3>
-            <p className="text-black mb-6">{data.overview_text}</p>
+            <p className="text-base sm:text-lg text-gray-700 mb-6">
+              {data.overview_text}
+            </p>
 
             <div className="space-y-6">
               {data.content_items
@@ -179,17 +235,33 @@ export default function ContactUs({ data }) {
 
           {/* Right side (Form) */}
           <div className="p-8 rounded-2xl shadow-lg bg-white border border-gray-200">
-            <h3 className="text-lg font-bold mb-2 text-black">
+            <h3
+              className="text-xl sm:text-2xl font-bold mb-2"
+              style={{ color: "#007BFF" }}
+            >
               Send us a Message
             </h3>
-            <p className="text-black text-sm mb-6">
+            <p className="text-gray-800 text-sm sm:text-base mb-6">
               Fill out the form below and we'll get back to you within 24 hours.
             </p>
 
             {submitted && (
-              <p className="text-green-600 font-semibold mb-4">
-                ✅ Message sent successfully!
-              </p>
+              <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-green-700 font-medium flex items-center">
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Message sent successfully!
+                </p>
+              </div>
             )}
 
             <form onSubmit={handleSubmit}>
@@ -199,11 +271,11 @@ export default function ContactUs({ data }) {
                     <input
                       type="text"
                       name="fullName"
-                      placeholder="Enter your full name"
+                      placeholder="Enter your full name *"
                       value={formData.fullName}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black transition-colors"
                     />
                     {errors.fullName && (
                       <p className="text-red-500 text-sm mt-1">
@@ -215,11 +287,11 @@ export default function ContactUs({ data }) {
                     <input
                       type="email"
                       name="email"
-                      placeholder="Enter your email address"
+                      placeholder="Enter your email address *"
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black transition-colors"
                     />
                     {errors.email && (
                       <p className="text-red-500 text-sm mt-1">
@@ -232,33 +304,60 @@ export default function ContactUs({ data }) {
                 {/* Phone */}
                 <div>
                   <input
-                    type="text"
+                    type="tel"
                     name="phone"
-                    placeholder="Enter phone e.g. +91 9876543210"
+                    placeholder="Enter 10-digit phone number *"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black transition-colors"
                   />
                   {errors.phone && (
                     <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
                   )}
                 </div>
 
-                <div>
-                  <select
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
+                {/* Custom Dropdown */}
+                <div className="relative" ref={dropdownRef}>
+                  <div
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.subject ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black bg-white flex items-center justify-between cursor-pointer transition-colors ${isDropdownOpen ? "ring-2 ring-blue-500 border-blue-500" : ""}`}
+                    onClick={toggleDropdown}
                   >
-                    <option value="">Select a subject</option>
-                    {subjects.map((s, idx) => (
-                      <option key={idx} value={s.value}>
-                        {s.label}
-                      </option>
-                    ))}
-                  </select>
+                    <span
+                      className={
+                        formData.subject ? "text-black" : "text-gray-400"
+                      }
+                    >
+                      {selectedSubjectLabel}
+                    </span>
+                    <svg
+                      className={`w-5 h-5 text-gray-400 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+
+                  {isDropdownOpen && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+                      {subjects.map((subject, idx) => (
+                        <div
+                          key={idx}
+                          className={`px-4 py-3 cursor-pointer transition-colors ${formData.subject === subject.value ? "bg-blue-50 text-blue-700" : "hover:bg-gray-50"}`}
+                          onClick={() => selectSubject(subject.value)}
+                        >
+                          {subject.label}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
                   {errors.subject && (
                     <p className="text-red-500 text-sm mt-1">
                       {errors.subject}
@@ -274,7 +373,7 @@ export default function ContactUs({ data }) {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 text-black"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black transition-colors"
                   />
                   {errors.message && (
                     <p className="text-red-500 text-sm mt-1">
@@ -287,24 +386,49 @@ export default function ContactUs({ data }) {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50"
+                    className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
                   >
-                    {loading
-                      ? "Sending..."
-                      : data.primary_button_text || "Send Message"}
+                    {loading ? (
+                      <>
+                        <svg
+                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      data.primary_button_text || "Send Message"
+                    )}
                   </button>
                   <button
                     type="reset"
-                    onClick={() =>
+                    onClick={() => {
                       setFormData({
                         fullName: "",
                         email: "",
                         phone: "",
                         subject: "",
                         message: "",
-                      })
-                    }
-                    className="px-6 py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-100"
+                      });
+                      setErrors({});
+                    }}
+                    className="px-6 py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
                   >
                     Reset
                   </button>

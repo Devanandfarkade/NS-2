@@ -11,7 +11,10 @@ export default function Testimonial({ data }) {
             {data.super_heading}
           </h2>
         )}
-        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-snug text-gray-900">
+        <h3
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-snug"
+          style={{ color: "#007BFF" }}
+        >
           {data.heading}
         </h3>
         {data.subheading && (
@@ -20,7 +23,6 @@ export default function Testimonial({ data }) {
           </p>
         )}
 
-        {/* Slider */}
         <TestimonialSlider items={data.content_items || []} />
       </div>
     </section>

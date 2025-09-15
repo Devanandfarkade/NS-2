@@ -12,23 +12,23 @@ export default function Hero({ data }) {
     ? data.background_image.startsWith("http")
       ? data.background_image
       : `${API_BASE_URL}${data.background_image}`
-    : "/hero-bg.jpg";
+    : null;
 
   return (
     <section className="relative w-full bg-black text-white pb-40 sm:pb-48">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <Image
-          alt="Hero Background"
-          src={backgroundImageUrl}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-50"
-        />
-      </div>
+      {backgroundImageUrl && (
+        <div className="absolute inset-0">
+          <Image
+            alt="Hero Background"
+            src={backgroundImageUrl}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[50%_50%] opacity-50"
+          />
+        </div>
+      )}
 
-      {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20 grid lg:grid-cols-2 items-center gap-8 sm:gap-10">
         <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
           <h2 className="text-blue-400 font-extrabold text-2xl sm:text-3xl lg:text-4xl font-heading">
@@ -54,14 +54,12 @@ export default function Hero({ data }) {
         </div>
       </div>
 
-      {/* Stats Section - visible only on large screens */}
-      {/* Stats Section */}
       <div
         className="
-    relative z-20 mt-8 px-4 sm:px-6
-    grid grid-cols-2 gap-4 sm:gap-6
-    lg:absolute lg:bottom-0 lg:left-1/2 lg:w-full lg:max-w-6xl lg:-translate-x-1/2 lg:translate-y-1/2 lg:grid-cols-4 lg:mt-0
-  "
+          relative z-20 mt-8 px-4 sm:px-6
+          grid grid-cols-2 gap-4 sm:gap-6
+          lg:absolute lg:bottom-0 lg:left-1/2 lg:w-full lg:max-w-6xl lg:-translate-x-1/2 lg:translate-y-1/2 lg:grid-cols-4 lg:mt-0
+        "
       >
         {data.content_items?.map((item, idx) => (
           <div

@@ -4,7 +4,6 @@ export default function KeyAchievementsServer({ data }) {
   if (!data) return null;
 
   return (
-    // ✅ Force white background & dark text (ignores dark mode)
     <section className="w-full py-16 bg-white text-gray-900">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
         {data.super_heading && (
@@ -25,6 +24,8 @@ export default function KeyAchievementsServer({ data }) {
         )}
 
         <KeyAchievementsClient items={data.content_items} />
+
+        <hr className="mt-12 border-t-2 border-dashed border-gray-300" />
       </div>
     </section>
   );

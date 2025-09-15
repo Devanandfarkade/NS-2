@@ -20,7 +20,6 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
 
   const total = items.length;
 
-  // autoplay with pause on hover
   useEffect(() => {
     if (!isHovering && total > 0) {
       autoplayRef.current = setInterval(() => {
@@ -65,20 +64,17 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
   }
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto py-12 md:py-20 px-4">
-      {/* Header */}
+    <div className="relative w-full max-w-7xl mx-auto pt-12 md:pt-16 pb-0 md:pb-1 px-4">
       {(heading || subheading) && (
-        <div className="text-center mb-16 relative">
+        <div className="text-center mb-8 relative">
           {heading && (
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
               {heading}
             </h2>
           )}
           {subheading && (
             <p className="text-gray-600 max-w-2xl mx-auto">{subheading}</p>
           )}
-
-          {/* Left doodle arrow */}
           <div className="hidden md:block absolute -left-24 top-full mt-2 z-20">
             <svg
               width="100"
@@ -97,8 +93,6 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
               <polygon points="20,70 30,65 25,75" fill="currentColor" />
             </svg>
           </div>
-
-          {/* Right doodle arrow */}
           <div className="hidden md:block absolute -right-24 top-full mt-2 z-20">
             <svg
               width="100"
@@ -120,13 +114,11 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
         </div>
       )}
 
-      {/* Slider */}
       <div
         className="relative overflow-hidden"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        {/* Prev / Next buttons */}
         <button
           onClick={handlePrev}
           className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 bg-white shadow-lg rounded-full hover:bg-blue-50 transition"
@@ -143,8 +135,6 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
           <ChevronRight className="w-6 h-6 text-gray-700" />
         </button>
 
-        {/* Cards */}
-        {/* Cards */}
         <div className="flex justify-center items-start relative h-[320px] sm:h-[340px] md:h-[360px]">
           {items.map((item, idx) => {
             const pos = getPosition(idx);
@@ -170,8 +160,6 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
               >
                 <div className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 flex flex-col justify-between shadow-lg border border-gray-100 relative mx-auto h-auto min-h-[220px] sm:min-h-[240px] md:min-h-[260px]">
                   <Quote className="absolute top-5 right-5 w-6 h-6 sm:w-8 sm:h-8 text-blue-100" />
-
-                  {/* User info */}
                   <div className="flex items-center gap-3 sm:gap-4">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden bg-blue-100 border-2 border-white shadow-sm flex-shrink-0">
                       {item?.icon ? (
@@ -199,8 +187,6 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
                       </p>
                     </div>
                   </div>
-
-                  {/* Testimonial content */}
                   <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-3 sm:mt-4">
                     {item?.description}
                   </p>
@@ -211,8 +197,7 @@ export default function TestimonialSlider({ items = [], heading, subheading }) {
         </div>
       </div>
 
-      {/* Dots */}
-      <div className="flex justify-center mt-8 md:mt-12 space-x-2">
+      <div className="flex justify-center mt-4 md:mt-6 space-x-2">
         {items.map((_, idx) => (
           <button
             key={idx}
