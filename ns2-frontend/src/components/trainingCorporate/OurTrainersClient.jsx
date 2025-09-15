@@ -34,8 +34,8 @@ export default function OurTrainersClient({ data }) {
           )}
         </div>
 
-        {/* Trainers Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Trainers Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
           {items.map((item, index) => {
             const profileUrl = normalizeImageUrl(item.icon);
 
@@ -46,7 +46,7 @@ export default function OurTrainersClient({ data }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 flex flex-col items-center text-center"
+                className="flex flex-col items-center text-center bg-white rounded-2xl p-6 shadow-md border border-gray-100 w-full max-w-sm"
               >
                 {/* Profile Image / Initials */}
                 <div className="w-full h-40 flex justify-center items-center mb-4 rounded-lg overflow-hidden">
