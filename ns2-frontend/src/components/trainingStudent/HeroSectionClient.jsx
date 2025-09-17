@@ -1,9 +1,9 @@
 "use client";
 
 import { normalizeImageUrl } from "@/lib/api";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 export default function HeroSectionClient({ data }) {
   if (!data || !data.is_active) return null;
@@ -65,14 +65,21 @@ export default function HeroSectionClient({ data }) {
                 )}
 
                 <div className="mt-6 flex gap-4">
-                  {primary_button_text && (
-                    <Link
-                      href={primary_button_url || "#"}
-                      className="inline-flex items-center px-5 py-3  bg-[#007BFF] text-white  rounded-md font-semibold shadow-md hover:brightness-95 transition"
-                    >
-                      {primary_button_text}
-                    </Link>
-                  )}
+                      {primary_button_text && (
+                        <Link
+                          href={primary_button_url || "#"}
+                          className="inline-flex items-center px-5 py-3 text-white rounded-md font-semibold shadow-md transition"
+                          style={{
+                            backgroundColor: "#155dfc",
+                          }}
+                          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#1047c1")}
+                          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#155dfc")}
+                        >
+                          {primary_button_text}
+                        </Link>
+                      )}
+
+
 
                   {secondary_button_text && (
                     <Link

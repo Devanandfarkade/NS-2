@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Clock, Star } from "lucide-react";
+import { useState } from "react";
 
 const activeColor = {
-  bg: "bg-[#007BFF]",
-  text: "text-[#007BFF]",
-  lightBg: "bg-[#E6F0FF]",
+  bg: "bg-[#155dfc]",
+  text: "text-[#155dfc]",
+  lightBg: "bg-[#e3ebff]",
 };
 
 export default function WhatYouWillLearnClient({ data }) {
