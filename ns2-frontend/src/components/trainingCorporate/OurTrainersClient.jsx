@@ -22,7 +22,6 @@ export default function OurTrainersClient({ data }) {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Heading */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-[#155dfc]">
             {data?.heading}
@@ -47,7 +46,6 @@ export default function OurTrainersClient({ data }) {
                 viewport={{ once: true }}
                 className="flex flex-col items-center text-center bg-white rounded-lg p-6 shadow-md border border-gray-100 w-full max-w-sm"
               >
-                {/* Profile Image / Initials */}
                 <div className="w-full h-40 flex justify-center items-center mb-4 rounded-lg overflow-hidden">
                   {profileUrl ? (
                     <img
