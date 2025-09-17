@@ -25,14 +25,14 @@ export default function ProgramStructure({ initialData }) {
       {/* Constrained container that will also hold the gradient box */}
       <div className="max-w-5xl mx-auto px-6">
         {/* Gradient box INSIDE the constrained container */}
-        <div className="bg-gradient-to-r from-slate-900 to-sky-700 rounded-xl p-8 mb-6 shadow-lg">
+        <div className="bg-gradient-to-r from-slate-900 to-sky-700 rounded-[8px] p-8 mb-6 shadow-lg">
           {/* Heading row: icon left of title */}
           <div className="flex items-center gap-3 mb-4">
             {primary_image && (
               <img
                 src={normalizeImageUrl(primary_image)}
                 alt={heading}
-                className="w-10 h-10 object-contain rounded"
+                className="w-10 h-10 object-contain rounded-[8px]"
               />
             )}
             <div>
@@ -55,7 +55,7 @@ export default function ProgramStructure({ initialData }) {
                 return (
                   <div
                     key={idx}
-                    className="bg-black rounded-lg px-6 py-4 text-center flex flex-col items-center justify-center shadow"
+                    className="bg-black rounded-[8px] px-6 py-4 text-center flex flex-col items-center justify-center shadow"
                   >
                     <p className="text-2xl font-bold text-white leading-none">
                       {number}
@@ -83,7 +83,7 @@ export default function ProgramStructure({ initialData }) {
               <div key={step.id} className="relative flex gap-6">
                 {/* Icon circle */}
                 <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-full bg-gray-100 border flex items-center justify-center shadow">
+                  <div className="w-12 h-12 rounded-[8px] bg-gray-100 border flex items-center justify-center shadow">
                     {step.icon && (
                       <img
                         src={normalizeImageUrl(step.icon)}
@@ -95,13 +95,13 @@ export default function ProgramStructure({ initialData }) {
                 </div>
 
                 {/* Step card */}
-                <div className="bg-white rounded-lg shadow p-6 flex-1">
+                <div className="bg-white rounded-[8px] shadow p-6 flex-1">
                   <div className="flex flex-wrap justify-between items-center gap-2">
                     <h3 className="text-lg font-semibold text-gray-900">
                       {step.title}
                     </h3>
                     {step.label && (
-                      <span className="text-xs sm:text-sm md:text-base font-medium text-sky-700 bg-sky-100 px-2 sm:px-3 py-1 rounded-full">
+                      <span className="text-xs sm:text-sm md:text-base font-medium text-[#155dfc] bg-sky-100 px-2 sm:px-3 py-1 rounded-[8px]">
                         {step.label}
                       </span>
                     )}
@@ -115,7 +115,7 @@ export default function ProgramStructure({ initialData }) {
                       {step.tags.split(",").map((tag, idx) => (
                         <span
                           key={idx}
-                          className="text-xs sm:text-sm md:text-base bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 rounded-full"
+                          className="text-xs sm:text-sm md:text-base bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 rounded-[8px]"
                         >
                           {tag.trim()}
                         </span>

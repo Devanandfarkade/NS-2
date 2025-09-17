@@ -1,8 +1,8 @@
 "use client";
 
 import { normalizeImageUrl } from "@/lib/api";
-import { useState } from "react";
 import { Download } from "lucide-react";
+import { useState } from "react";
 
 export default function InternshipOpportunities({ initialData }) {
   const [data] = useState(initialData);
@@ -28,7 +28,7 @@ export default function InternshipOpportunities({ initialData }) {
           return (
             <div
               key={item.id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col justify-between"
+              className="bg-white rounded-[8px] shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col justify-between"
             >
               {iconUrl && (
                 <img
@@ -50,7 +50,7 @@ export default function InternshipOpportunities({ initialData }) {
               {item.primary_button_text && (
                 <a
                   href={item.primary_button_url || "#"}
-                  className="mt-auto text-sm font-medium text-blue-600 hover:underline flex items-center gap-1"
+                  className="mt-auto text-sm font-medium text-[#155dfc] hover:underline flex items-center gap-1"
                 >
                   {item.primary_button_text} <Download size={16} />
                 </a>
