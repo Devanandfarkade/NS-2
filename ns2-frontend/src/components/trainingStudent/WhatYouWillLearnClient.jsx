@@ -49,17 +49,18 @@ export default function WhatYouWillLearnClient({ data }) {
             const isActive = activeTab === section.subheading;
 
             return (
-              <button
-                key={section.id}
-                onClick={() => setActiveTab(section.subheading)}
-                className={`px-5 py-2 rounded-lg font-medium shadow transition text-sm sm:text-base ${
-                  isActive
-                    ? `${activeColor.bg} text-white`
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {section.subheading}
-              </button>
+            <button
+              key={section.id}
+              onClick={() => setActiveTab(section.subheading)}
+              className={`px-5 py-2 rounded-[8px] font-medium shadow transition text-sm sm:text-base ${
+                isActive
+                  ? `${activeColor.bg} text-white`
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+            >
+              {section.subheading}
+            </button>
+
             );
           })}
         </div>
