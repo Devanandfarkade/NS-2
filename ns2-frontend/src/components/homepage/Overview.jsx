@@ -117,7 +117,7 @@ export default function Overview({ data }) {
               sm:bottom-[45%] sm:right-[25%] sm:w-[65%] sm:h-[50%]
               md:bottom-[48%] md:right-[28%] md:w-[60%] md:h-[52%]
               lg:bottom-[48%] lg:right-[28%] lg:w-[55%] lg:h-[54%]
-              rounded-xl overflow-hidden shadow-lg z-10
+              rounded-lg overflow-hidden shadow-lg z-10
               border-2 border-blue-100
             "
             >
@@ -140,7 +140,7 @@ export default function Overview({ data }) {
               sm:w-[75%] sm:h-[60%]
               md:w-[70%] md:h-[62%]
               lg:w-[65%] lg:h-[64%]
-              rounded-xl overflow-hidden shadow-lg border-4 border-white z-20
+              rounded-lg overflow-hidden shadow-lg border-4 border-white z-20
             "
             >
               <Image
