@@ -48,18 +48,25 @@ export default function ServicesHero({ data }) {
             </p>
 
             {/* Buttons */}
-            <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
-              {bannerData.primary_button_text && (
-                <button className="px-6 py-3 rounded-2xl bg-[#155dfc] text-white font-semibold shadow-lg hover:bg-[#134cbf] transition-all duration-300">
-                  {bannerData.primary_button_text}
-                </button>
-              )}
-              {bannerData.secondary_button_text && (
-                <button className="px-6 py-3 rounded-2xl border-2 border-blue-600 text-blue-600 font-semibold shadow hover:bg-blue-50 transition-all duration-300">
-                  {bannerData.secondary_button_text}
-                </button>
-              )}
-            </div>
+                <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
+                  {bannerData.primary_button_text && (
+                    <button
+                      className="px-6 py-3 bg-[#155dfc] text-white font-semibold shadow-lg hover:bg-[#134cbf] transition-all duration-300"
+                      style={{ borderRadius: '8px' }}
+                    >
+                      {bannerData.primary_button_text}
+                    </button>
+                  )}
+                  {bannerData.secondary_button_text && (
+                    <button
+                      className="px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold shadow hover:bg-blue-50 transition-all duration-300"
+                      style={{ borderRadius: '8px' }}
+                    >
+                      {bannerData.secondary_button_text}
+                    </button>
+                  )}
+                </div>
+
 
             {/* Stats */}
             {statBarItems.length > 0 && (
