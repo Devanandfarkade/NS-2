@@ -16,7 +16,8 @@ import TrainingProcessServer from "@/components/trainingCorporate/TrainingProces
 import OurTrainersServer from "@/components/trainingCorporate/OurTrainersServer";
 import FAQSection from "@/components/homepage/FAQSection";
 import UpcomingBatchesServer from "@/components/trainingStudent/UpcomingBatchesServer";
-
+import ContactUs from "@/components/homepage/ContactUs";
+import { fetchHomepageSection } from "@/lib/api";
 import { fetchTrainingPage } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
@@ -24,6 +25,11 @@ export const dynamic = "force-dynamic";
 export default async function TrainingPage({ params: incomingParams }) {
   const params = await incomingParams;
   const slug = params.slug;
+
+  const [contact, initialSections] = await Promise.all([
+    fetchHomepageSection("Contact Us"),
+    ,
+  ]);
 
   const data = await fetchTrainingPage(slug);
 
@@ -92,6 +98,7 @@ export default async function TrainingPage({ params: incomingParams }) {
       {processData && <TrainingProcessServer slug={slug} />}
       {trainersData && <OurTrainersServer data={trainersData} />}
       {faq && <FAQSection data={faq} />}
+      <ContactUs data={contact} />
     </main>
   );
 }
