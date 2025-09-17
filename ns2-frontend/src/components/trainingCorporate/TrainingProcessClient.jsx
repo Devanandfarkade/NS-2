@@ -10,8 +10,7 @@ export default function TrainingProcessClient({ data }) {
   return (
     <section className="bg-[#F8F9FA] py-16 px-6">
       <div className="max-w-6xl mx-auto text-center">
-        {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-[#007BFF]">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#155dfc]">
           {data?.heading}
         </h2>
         {data?.subheading && (
@@ -20,7 +19,6 @@ export default function TrainingProcessClient({ data }) {
           </p>
         )}
 
-        {/* Steps */}
         <div
           className="
             mt-12 grid gap-10 justify-center
@@ -39,17 +37,14 @@ export default function TrainingProcessClient({ data }) {
               viewport={{ once: true }}
               className="flex flex-col items-center text-center max-w-sm mx-auto"
             >
-              {/* Number Circle */}
-              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-[#007BFF] text-white font-semibold text-lg shadow-md">
+              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-[#155dfc] text-white font-semibold text-lg shadow-md">
                 {index + 1}
               </div>
 
-              {/* Title */}
               <h3 className="mt-4 font-semibold text-lg text-gray-900">
                 {item.title}
               </h3>
 
-              {/* Description */}
               <p className="mt-2 text-sm text-[#6C757D] leading-relaxed">
                 {item.description}
               </p>

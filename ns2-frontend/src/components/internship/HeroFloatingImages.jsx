@@ -64,13 +64,13 @@ export default function HeroFloatingImages({
       {/* Big card (Hero Image 1) */}
       <div
         ref={bigCardRef}
-        className="absolute w-[18rem] sm:w-[24rem] md:w-[30rem] h-[12rem] sm:h-[16rem] md:h-[20rem] rounded-2xl bg-white shadow-2xl border border-gray-100 flex items-center justify-center"
+        className="absolute w-[18rem] sm:w-[24rem] md:w-[30rem] h-[12rem] sm:h-[16rem] md:h-[20rem] rounded-[8px] bg-white shadow-2xl border border-gray-100 flex items-center justify-center"
       >
         {primaryImage ? (
           <img
             src={primaryImage}
             alt={overlayTitle ?? "Hero image 1"}
-            className="w-full h-full object-cover rounded-2xl"
+            className="w-full h-full object-cover rounded-[8px]"
           />
         ) : (
           <div className="text-lg sm:text-xl font-semibold text-sky-600">
@@ -82,13 +82,13 @@ export default function HeroFloatingImages({
       {/* Small card (Hero Image 2) */}
       <div
         ref={smallCardRef}
-        className="absolute right-4 sm:right-6 md:right-10 bottom-6 sm:bottom-8 md:bottom-10 w-36 sm:w-44 md:w-56 h-24 sm:h-28 md:h-32 rounded-xl shadow-lg flex items-center justify-center overflow-hidden border border-slate-800 bg-slate-900/95"
+        className="absolute right-4 sm:right-6 md:right-10 bottom-6 sm:bottom-8 md:bottom-10 w-36 sm:w-44 md:w-56 h-24 sm:h-28 md:h-32 rounded-[8px] shadow-lg flex items-center justify-center overflow-hidden border border-slate-800 bg-slate-900/95"
       >
         {secondaryImage ? (
           <img
             src={secondaryImage}
             alt="Hero image 2"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-[8px]"
           />
         ) : (
           <div className="text-xs sm:text-sm text-center text-white p-2">

@@ -7,7 +7,7 @@ const SectionHeader = ({ superHeading, heading, subheading }) => (
   <div className="text-center max-w-3xl mx-auto px-4 mb-12">
     <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 font-poppins">
       {superHeading}{' '}
-      <span className="text-blue-600">{heading}</span>
+      <span style={{ color: '#155dfc' }}>{heading}</span>
     </h2>
     {subheading && (
       <p className="mt-4 text-lg text-gray-500 font-opensans">
@@ -25,13 +25,11 @@ export const FeaturedProjectsSection = ({ data = {} }) => {
   const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
-    // On current change, trigger animation
     setAnimate(false);
     const timeout = setTimeout(() => setAnimate(true), 50);
     return () => clearTimeout(timeout);
-  }, [current]); 
+  }, [current]);
 
-  // Auto slide every 3 seconds (3000ms)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev === contentItems.length - 1 ? 0 : prev + 1));
@@ -79,7 +77,8 @@ export const FeaturedProjectsSection = ({ data = {} }) => {
                 {contentItems[current].description?.split(',').map((tag, i) => (
                   <span
                     key={i}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium"
+                    className="text-white px-3 py-1 rounded-full text-sm font-medium"
+                    style={{ backgroundColor: '#155dfc' }}
                   >
                     {tag.trim()}
                   </span>
@@ -88,21 +87,44 @@ export const FeaturedProjectsSection = ({ data = {} }) => {
 
               {/* Placeholder client info and buttons */}
               <p className="text-sm text-gray-500 mb-4">
-                Client: <span className="text-blue-600 font-semibold">RetailCorp</span>
+                Client:{' '}
+                <span className="font-semibold" style={{ color: '#155dfc' }}>
+                  RetailCorp
+                </span>
               </p>
 
               <div className="flex gap-4">
-                <button className="bg-blue-600 text-white px-6 py-2 rounded-md font-semibold hover:bg-blue-700 transition">
+                <button
+                  className="text-white px-6 py-2 rounded-md font-semibold transition"
+                  style={{
+                    backgroundColor: '#155dfc',
+                    transition: 'background-color 0.3s',
+                  }}
+                  onMouseOver={(e) => (e.target.style.backgroundColor = '#1047c1')}
+                  onMouseOut={(e) => (e.target.style.backgroundColor = '#155dfc')}
+                >
                   View Live
                 </button>
-                <button className="border border-blue-600 text-blue-600 px-6 py-2 rounded-md font-semibold hover:bg-blue-50 transition">
+                <button
+                  className="px-6 py-2 rounded-md font-semibold border transition"
+                  style={{
+                    color: '#155dfc',
+                    borderColor: '#155dfc',
+                    transition: 'background-color 0.3s',
+                  }}
+                  onMouseOver={(e) => (e.target.style.backgroundColor = '#eaf0ff')}
+                  onMouseOut={(e) => (e.target.style.backgroundColor = 'transparent')}
+                >
                   Case Study
                 </button>
               </div>
             </div>
 
             {/* Right: Image or Placeholder */}
-            <div className="w-full md:w-1/2 bg-blue-600 flex items-center justify-center relative min-h-[280px] md:min-h-[350px]">
+            <div
+              className="w-full md:w-1/2 flex items-center justify-center relative min-h-[280px] md:min-h-[350px]"
+              style={{ backgroundColor: '#155dfc' }}
+            >
               {contentItems[current].icon ? (
                 <img
                   src={`${API_BASE_URL}${contentItems[current].icon}`}
@@ -119,23 +141,26 @@ export const FeaturedProjectsSection = ({ data = {} }) => {
 
           {/* Slider Controls */}
           <div className="flex gap-4 mt-6">
-                <div className="flex gap-4 mt-6">
-                <button
-                    onClick={prevSlide}
-                    className="w-10 h-10 rounded-full bg-blue-600 text-white shadow hover:bg-blue-700 transition"
-                    aria-label="Previous Slide"
-                >
-                    ←
-                </button>
-                <button
-                    onClick={nextSlide}
-                    className="w-10 h-10 rounded-full bg-blue-600 text-white shadow hover:bg-blue-700 transition"
-                    aria-label="Next Slide"
-                >
-                    →
-                </button>
-                </div>
-
+            <button
+              onClick={prevSlide}
+              className="w-10 h-10 rounded-full text-white shadow transition"
+              aria-label="Previous Slide"
+              style={{ backgroundColor: '#155dfc' }}
+              onMouseOver={(e) => (e.target.style.backgroundColor = '#1047c1')}
+              onMouseOut={(e) => (e.target.style.backgroundColor = '#155dfc')}
+            >
+              ←
+            </button>
+            <button
+              onClick={nextSlide}
+              className="w-10 h-10 rounded-full text-white shadow transition"
+              aria-label="Next Slide"
+              style={{ backgroundColor: '#155dfc' }}
+              onMouseOver={(e) => (e.target.style.backgroundColor = '#1047c1')}
+              onMouseOut={(e) => (e.target.style.backgroundColor = '#155dfc')}
+            >
+              →
+            </button>
           </div>
         </div>
       </div>

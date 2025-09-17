@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Clock, Star } from "lucide-react";
+import { useState } from "react";
 
 const activeColor = {
-  bg: "bg-[#007BFF]",
-  text: "text-[#007BFF]",
-  lightBg: "bg-[#E6F0FF]",
+  bg: "bg-[#155dfc]",
+  text: "text-[#155dfc]",
+  lightBg: "bg-[#e3ebff]",
 };
 
 export default function ProgramStructureClient({ data }) {
@@ -58,17 +58,18 @@ export default function ProgramStructureClient({ data }) {
             const isActive = activeTab === section.primary_button_text;
 
             return (
-              <button
-                key={section.id}
-                onClick={() => setActiveTab(section.primary_button_text)}
-                className={`px-5 py-2 rounded-lg font-medium shadow transition text-sm sm:text-base ${
-                  isActive
-                    ? `${activeColor.bg} text-white`
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {section.primary_button_text}
-              </button>
+          <button
+            key={section.id}
+            onClick={() => setActiveTab(section.primary_button_text)}
+            className={`px-5 py-2 rounded-[8px] font-medium shadow transition text-sm sm:text-base ${
+              isActive
+                ? `${activeColor.bg} text-white`
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
+          >
+            {section.primary_button_text}
+          </button>
+
             );
           })}
         </div>

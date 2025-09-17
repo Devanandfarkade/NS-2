@@ -22,9 +22,8 @@ export default function OurTrainersClient({ data }) {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#007BFF]">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#155dfc]">
             {data?.heading}
           </h2>
           {data?.subheading && (
@@ -34,7 +33,6 @@ export default function OurTrainersClient({ data }) {
           )}
         </div>
 
-        {/* Trainers Grid Layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
           {items.map((item, index) => {
             const profileUrl = normalizeImageUrl(item.icon);
@@ -46,9 +44,8 @@ export default function OurTrainersClient({ data }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="flex flex-col items-center text-center bg-white rounded-2xl p-6 shadow-md border border-gray-100 w-full max-w-sm"
+                className="flex flex-col items-center text-center bg-white rounded-lg p-6 shadow-md border border-gray-100 w-full max-w-sm"
               >
-                {/* Profile Image / Initials */}
                 <div className="w-full h-40 flex justify-center items-center mb-4 rounded-lg overflow-hidden">
                   {profileUrl ? (
                     <img
@@ -63,22 +60,18 @@ export default function OurTrainersClient({ data }) {
                   )}
                 </div>
 
-                {/* Name */}
                 <h3 className="mt-2 text-xl font-semibold text-gray-900">
                   {item.label}
                 </h3>
 
-                {/* Title */}
-                <p className="mt-1 text-sm font-medium text-[#007BFF]">
+                <p className="mt-1 text-sm font-medium text-[#155dfc]">
                   {item.title}
                 </p>
 
-                {/* Description */}
                 <p className="mt-3 text-sm text-[#6C757D] leading-relaxed">
                   {item.description}
                 </p>
 
-                {/* Social Links */}
                 <div className="mt-4 flex gap-3">
                   {item.linkedin_url && (
                     <a

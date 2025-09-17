@@ -15,8 +15,7 @@ export default function FAQAccordion({ items }) {
       {items.map((item, index) => (
         <div
           key={index}
-          // ✅ Force light mode (white card, light border, shadow)
-          className="border border-gray-200 rounded-xl bg-white shadow-sm"
+          className="border border-gray-200 rounded-lg bg-white shadow-sm"
         >
           <button
             onClick={() => toggle(index)}

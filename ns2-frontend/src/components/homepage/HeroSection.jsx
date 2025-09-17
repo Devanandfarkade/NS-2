@@ -31,7 +31,10 @@ export default function Hero({ data }) {
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20 grid lg:grid-cols-2 items-center gap-8 sm:gap-10">
         <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
-          <h2 className="text-blue-400 font-extrabold text-2xl sm:text-3xl lg:text-4xl font-heading">
+          <h2
+            className="font-extrabold text-2xl sm:text-3xl lg:text-4xl font-heading"
+            style={{ color: "#155dfc" }}
+          >
             {data.super_heading}
           </h2>
 
@@ -46,7 +49,7 @@ export default function Hero({ data }) {
           {data.primary_button_text && (
             <Link
               href={data.primary_button_url || "#"}
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium transition-colors font-body"
+              className="inline-block bg-[#155dfc] hover:bg-blue-700 text-white hover:text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium transition-colors font-body"
             >
               {data.primary_button_text}
             </Link>
@@ -64,7 +67,7 @@ export default function Hero({ data }) {
         {data.content_items?.map((item, idx) => (
           <div
             key={idx}
-            className="bg-white text-black p-4 sm:p-6 rounded-xl shadow hover:shadow-lg transition-transform flex flex-col items-center justify-center text-center"
+            className="bg-white text-black p-4 sm:p-6 rounded-lg shadow hover:shadow-lg transition-transform flex flex-col items-center justify-center text-center"
           >
             <p className="text-lg sm:text-2xl lg:text-3xl font-bold font-heading">
               {item.label}

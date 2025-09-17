@@ -153,22 +153,24 @@ export default function WhatWeProvideSection({ data }) {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-center mt-16"
           >
-            <button 
-              onClick={() => setShowAll(!showAll)}
-              className="bg-gray-900 hover:bg-blue-700 text-white py-3 px-8 rounded font-medium transition-colors duration-300 flex items-center mx-auto border border-gray-800"
+          <button 
+            onClick={() => setShowAll(!showAll)}
+            className="bg-[#155dfc] hover:bg-[#1047c1] text-white py-3 px-8 rounded-[8px] font-medium transition-colors duration-300 flex items-center mx-auto border border-[#1047c1]"
+          >
+            {showAll ? 'Show Less Services' : 'View All Services'}
+            <svg 
+              className={`ml-2 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`} 
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
             >
-              {showAll ? 'Show Less Services' : 'View All Services'}
-              <svg 
-                className={`ml-2 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`} 
-                width="20" 
-                height="20" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
+              <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+
           </motion.div>
         )}
       </div>

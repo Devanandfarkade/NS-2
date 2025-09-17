@@ -14,10 +14,12 @@ export default function HeroSection({ data }) {
   );
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 to-white pt-0 md:pt-0 pb-16 md:pb-20 min-h-screen">
-      <div className="absolute -left-32 -top-20 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-blue-200 to-transparent opacity-30 blur-3xl" />
-      <div className="absolute -right-32 -bottom-28 w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-indigo-100 to-transparent opacity-30 blur-2xl" />
+    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white pt-0 md:pt-0 pb-16 md:pb-20 min-h-screen">
+      {/* Decorative background circles */}
+      <div className="absolute -left-32 -top-20 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-[#155dfc]/30 to-transparent opacity-30 blur-3xl" />
+      <div className="absolute -right-32 -bottom-28 w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-[#155dfc]/20 to-transparent opacity-30 blur-2xl" />
 
+      {/* Waves */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg
           className="absolute bottom-0 w-full h-[85vh]"
@@ -37,8 +39,8 @@ export default function HeroSection({ data }) {
               x2="100%"
               y2="0%"
             >
-              <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#c7d2fe" stopOpacity="0.5" />
+              <stop offset="0%" stopColor="#155dfc" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#155dfc" stopOpacity="0.2" />
             </linearGradient>
           </defs>
         </svg>
@@ -61,42 +63,42 @@ export default function HeroSection({ data }) {
               x2="100%"
               y2="0%"
             >
-              <stop offset="0%" stopColor="#7dd3fc" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#818cf8" stopOpacity="0.6" />
+              <stop offset="0%" stopColor="#155dfc" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#155dfc" stopOpacity="0.3" />
             </linearGradient>
           </defs>
         </svg>
       </div>
 
+      {/* Content */}
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12">
-          <div className="w-full md:w-1/2">
+        <div className="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
+          {/* Text Content */}
+          <div className="w-full lg:w-1/2 text-center md:text-left">
             {contentItems.length > 0 && (
-              <div className="mb-3 flex items-center gap-3">
-                <div className="flex gap-2">
-                  {contentItems.map((item, i) => (
-                    <div
-                      key={item.id || i}
-                      className="w-9 h-9 rounded-lg flex items-center justify-center shadow"
-                    >
-                      {item.icon && (
-                        <img
-                          src={item.icon}
-                          alt={item.label || `icon-${i}`}
-                          className="w-5 h-5 object-contain"
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
+              <div className="mb-4 flex justify-center md:justify-start gap-3 flex-wrap">
+                {contentItems.map((item, i) => (
+                  <div
+                    key={item.id || i}
+                    className="w-9 h-9 rounded-[8px] flex items-center justify-center shadow bg-blue-50"
+                  >
+                    {item.icon && (
+                      <img
+                        src={item.icon}
+                        alt={item.label || `icon-${i}`}
+                        className="w-5 h-5 object-contain"
+                      />
+                    )}
+                  </div>
+                ))}
               </div>
             )}
 
             {heading && (
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight text-slate-900">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-slate-900">
                 {heading}{" "}
                 {highlighted && (
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600">
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#155dfc] to-[#0056b3]">
                     {highlighted}
                   </span>
                 )}
@@ -104,15 +106,17 @@ export default function HeroSection({ data }) {
             )}
 
             {subheading && (
-              <p className="mt-5 text-gray-600 max-w-xl">{subheading}</p>
+              <p className="mt-5 text-gray-600 max-w-xl mx-auto md:mx-0">
+                {subheading}
+              </p>
             )}
 
             {(primaryBtn || secondaryBtn) && (
-              <div className="mt-6 flex gap-4 items-center">
+              <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 {primaryBtn && (
                   <a
                     href={data?.primary_button_url ?? "#"}
-                    className="px-6 py-3 rounded-lg bg-gradient-to-r from-sky-400 to-indigo-500 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-transform"
+                    className="px-6 py-3 rounded-[8px] bg-[#155dfc] text-white font-semibold shadow-lg hover:shadow-xl hover:bg-[#0056b3] transition"
                   >
                     {primaryBtn}
                   </a>
@@ -120,7 +124,7 @@ export default function HeroSection({ data }) {
                 {secondaryBtn && (
                   <a
                     href={data?.secondary_button_url ?? "#"}
-                    className="px-5 py-3 rounded-lg bg-sky-100 text-sky-700 font-medium hover:bg-sky-200 shadow-sm border border-sky-200"
+                    className="px-5 py-3 rounded-[8px] bg-blue-50 text-[#155dfc] font-medium hover:bg-blue-100 shadow-sm border border-blue-200"
                   >
                     {secondaryBtn}
                   </a>
@@ -129,7 +133,8 @@ export default function HeroSection({ data }) {
             )}
           </div>
 
-          <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+          {/* Floating Images Section */}
+          <div className="w-full lg:w-1/2 flex justify-center">
             <HeroFloatingImages
               primaryImage={data?.primary_image}
               secondaryImage={data?.background_image}

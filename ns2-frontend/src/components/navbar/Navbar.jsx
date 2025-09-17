@@ -34,7 +34,7 @@ export default async function Navbar() {
               <li key={index} className="relative group">
                 {item.submenus?.length > 0 ? (
                   <>
-                    <button className="text-[#6C757D] hover:text-[#007BFF] transition-colors duration-200 flex items-center">
+                    <button className="text-[#6C757D] hover:text-[#155dfc] transition-colors duration-200 flex items-center">
                       {item.text}
                       <svg
                         className="ml-1 w-4 h-4"
@@ -51,7 +51,7 @@ export default async function Navbar() {
                       </svg>
                     </button>
 
-                    <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                    <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                       {item.submenus.map((subitem, subIndex) => (
                         <NavLinkClient
                           key={subIndex}
@@ -77,7 +77,7 @@ export default async function Navbar() {
               <NavLinkClient
                 key={index}
                 href={buttonItem.url}
-                className="bg-[#007BFF] text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
+                className="bg-[#155dfc] text-white px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white transition-colors duration-200"
               >
                 {buttonItem.text}
               </NavLinkClient>

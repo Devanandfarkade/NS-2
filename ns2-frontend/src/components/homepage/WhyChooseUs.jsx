@@ -13,7 +13,6 @@ const WhyChooseUs = ({ data }) => {
         background: "linear-gradient(to bottom right, #F8F9FA, #E9ECEF)",
       }}
     >
-      {/* subtle noise/texture overlay */}
       <div className="absolute inset-0 opacity-10 bg-[url('/noise.png')] pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch relative z-10">
@@ -21,7 +20,7 @@ const WhyChooseUs = ({ data }) => {
           {data.super_heading && (
             <h2
               className="font-semibold text-xs sm:text-sm uppercase tracking-widest relative inline-block after:absolute after:-bottom-1 after:left-0 after:w-1/2 after:h-0.5 after:transition-all after:duration-500 hover:after:w-full"
-              style={{ color: "#007BFF" }}
+              style={{ color: "#155dfc" }}
             >
               {data.super_heading}
             </h2>
@@ -29,7 +28,7 @@ const WhyChooseUs = ({ data }) => {
 
           <h3
             className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight"
-            style={{ color: "#007BFF" }}
+            style={{ color: "#155dfc" }}
           >
             {data.heading.split(" ").map((word, i) => (
               <span
@@ -56,7 +55,7 @@ const WhyChooseUs = ({ data }) => {
               return (
                 <div
                   key={idx}
-                  className="rounded-xl shadow-md p-6 hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-[1.02] duration-300 flex flex-col gap-4 group animate-fade-in-up"
+                  className="rounded-lg shadow-md p-6 hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-[1.02] duration-300 flex flex-col gap-4 group animate-fade-in-up"
                   style={{
                     backgroundColor: "#F8F9FA",
                     animationDelay: `${idx * 100}ms`,
@@ -71,7 +70,7 @@ const WhyChooseUs = ({ data }) => {
                     >
                       <IconComponent
                         className="w-6 h-6 flex-shrink-0"
-                        style={{ color: "#007BFF" }}
+                        style={{ color: "#155dfc" }}
                       />
                     </div>
                     <h4

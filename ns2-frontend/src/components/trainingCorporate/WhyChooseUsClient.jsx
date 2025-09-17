@@ -13,9 +13,8 @@ export default function WhyChooseUsClient({ data }) {
   return (
     <section className="py-16 bg-[#F8F9FA] dark:bg-[#F8F9FA]">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Heading Section */}
         <div className="text-center mb-10">
-          <h2 className="mt-0 text-3xl md:text-4xl font-bold font-[Poppins] text-[#007BFF]">
+          <h2 className="mt-0 text-3xl md:text-4xl font-bold font-[Poppins] text-[#155dfc]">
             {data?.heading}
           </h2>
           {data?.subheading && (
@@ -25,14 +24,13 @@ export default function WhyChooseUsClient({ data }) {
           )}
         </div>
 
-        {/* Cards Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item) => {
             const iconUrl = normalizeImageUrl(item.icon);
             return (
               <div
                 key={item.id}
-                className="bg-[#F8F9FA] dark:bg-[#F8F9FA] rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition transform hover:-translate-y-1"
+                className="bg-[#F8F9FA] dark:bg-[#F8F9FA] rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-lg transition transform hover:-translate-y-1"
               >
                 <div className="flex items-start gap-4">
                   {iconUrl && (

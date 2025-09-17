@@ -35,9 +35,8 @@ export default function IndustriesServedClient({ data }) {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Section Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#007BFF]">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#155dfc]">
             {data?.heading || "Industry we serve"}
           </h2>
           {data?.subheading && (
@@ -47,7 +46,6 @@ export default function IndustriesServedClient({ data }) {
           )}
         </div>
 
-        {/* Grid Section */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -62,7 +60,7 @@ export default function IndustriesServedClient({ data }) {
                 key={itemData.id}
                 variants={item}
                 whileHover={{ translateY: -6, scale: 1.01 }}
-                className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 cursor-default"
+                className="bg-white rounded-lg p-6 shadow-sm border border-gray-100 cursor-default"
                 aria-labelledby={`industry-${itemData.id}-title`}
                 role="article"
               >

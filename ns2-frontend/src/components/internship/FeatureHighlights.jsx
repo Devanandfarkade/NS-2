@@ -31,11 +31,11 @@ export default function FeatureHighlights({ initialData }) {
               .map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-white p-6 rounded-2xl shadow-md text-center flex flex-col items-center gap-4 hover:shadow-lg transition"
+                  className="bg-white p-6 rounded-[8px] shadow-md text-center flex flex-col items-center gap-4 hover:shadow-lg transition"
                 >
                   {/* Icon */}
                   {item.icon && (
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl mb-4">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-[8px] mb-4">
                       <img
                         src={normalizeImageUrl(item.icon)}
                         alt={item.title}
@@ -70,7 +70,7 @@ export default function FeatureHighlights({ initialData }) {
           subheading ||
           primary_button_text ||
           secondary_button_text) && (
-          <div className="bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 p-6 sm:p-8 rounded-2xl shadow-md flex flex-col items-center gap-4">
+          <div className="bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 p-6 sm:p-8 rounded-[8px] shadow-md flex flex-col items-center gap-4">
             {/* Heading */}
             {heading && (
               <h2 className="text-2xl sm:text-4xl font-bold text-white">
@@ -86,11 +86,11 @@ export default function FeatureHighlights({ initialData }) {
             )}
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-4 w-full sm:w-auto text-center">
               {primary_button_text && primary_button_url && (
                 <a
                   href={primary_button_url}
-                  className="px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold text-sm sm:text-base hover:opacity-90 transition w-full sm:w-auto text-center"
+                  className="px-4 py-2 sm:px-6 sm:py-3 bg-[#155dfc] hover:bg-[#0f4ae0] focus:bg-[#0f4ae0] text-white rounded-[8px] font-semibold text-sm sm:text-base transition w-full sm:w-auto"
                 >
                   {primary_button_text}
                 </a>
@@ -98,7 +98,7 @@ export default function FeatureHighlights({ initialData }) {
               {secondary_button_text && secondary_button_url && (
                 <a
                   href={secondary_button_url}
-                  className="px-4 py-2 sm:px-6 sm:py-3 border border-gray-300 text-gray-200 rounded-lg font-semibold text-sm sm:text-base hover:bg-gray-700 transition w-full sm:w-auto text-center"
+                  className="px-4 py-2 sm:px-6 sm:py-3 border border-gray-300 text-gray-200 rounded-[8px] font-semibold text-sm sm:text-base hover:bg-gray-700 transition w-full sm:w-auto"
                 >
                   {secondary_button_text}
                 </a>

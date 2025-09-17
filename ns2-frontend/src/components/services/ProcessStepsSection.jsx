@@ -53,8 +53,8 @@ export default function ProcessStepsSection({ data }) {
         {/* Steps */}
         <div className="relative">
           {/* Connecting line for steps */}
-          <div className="absolute top-10 left-1/2 -translate-x-1/2 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 w-3/4 hidden md:block"></div>
-          
+          <div className="absolute top-10 left-1/2 -translate-x-1/2 h-1 bg-gradient-to-r from-[#155dfc] to-[#0a44c7] w-3/4 hidden md:block"></div>
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
             {orderedSteps.map((step, index) => {
               const iconUrl = step.icon
@@ -73,11 +73,11 @@ export default function ProcessStepsSection({ data }) {
                 >
                   {/* Step connector circles */}
                   {index < orderedSteps.length - 1 && (
-                    <div className="hidden md:block absolute top-10 -right-6 w-6 h-6 rounded-full bg-white border-4 border-indigo-500 z-10"></div>
+                    <div className="hidden md:block absolute top-10 -right-6 w-6 h-6 rounded-full bg-white border-4 border-[#155dfc] z-10"></div>
                   )}
                   
                   {/* Icon container with gradient background */}
-                  <div className="relative w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg mb-6 group-hover:shadow-xl transition-all duration-300">
+                  <div className="relative w-24 h-24 bg-gradient-to-br from-[#155dfc] to-[#0a44c7] rounded-2xl flex items-center justify-center shadow-lg mb-6 group-hover:shadow-xl transition-all duration-300">
                     <div className="absolute -inset-2 bg-blue-200 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
                     <Image
                       src={iconUrl}
@@ -88,13 +88,13 @@ export default function ProcessStepsSection({ data }) {
                     />
                     
                     {/* Step number badge */}
-                    <div className="absolute -top-3 -right-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center shadow-md">
+                    <div className="absolute -top-3 -right-3 bg-gradient-to-r from-[#155dfc] to-[#0a44c7] text-white font-bold w-8 h-8 rounded-full flex items-center justify-center shadow-md">
                       {step.order}
                     </div>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-indigo-700 transition-colors duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-[#155dfc] transition-colors duration-300">
                     {step.title}
                   </h3>
 
@@ -106,6 +106,7 @@ export default function ProcessStepsSection({ data }) {
               );
             })}
           </div>
+
         </div>
       </div>
     </section>
