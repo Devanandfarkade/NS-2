@@ -3,20 +3,26 @@ export const metadata = {
   description:
     "Explore NS²'s innovative projects, trusted partnerships, and expert team.",
 };
-
-export const dynamic = "force-dynamic";
-
+import ContactUs from "@/components/homepage/ContactUs";
 import Testimonial from "@/components/homepage/Testimonial";
 import { FeaturedProjectsSection } from "@/components/portfolio/FeaturedProjects";
 import { HeroSection } from "@/components/portfolio/HeroSection";
 import { TeamSection } from "@/components/portfolio/ourteam";
 import { Projects } from "@/components/portfolio/Projects";
 import { TrustedCompaniesSection } from "@/components/portfolio/TrustedCompanies";
+import { fetchHomepageSection } from "@/lib/api";
+export const dynamic = "force-dynamic";
 
-import { fetchHomepageSection, fetchPortfolioData } from "@/lib/api";
+import { fetchPortfolioData } from "@/lib/api";
+
 
 export default async function PortfolioPage() {
   const portfolioData = await fetchPortfolioData();
+
+  const [contact, initialSections] = await Promise.all([
+      fetchHomepageSection("Contact Us"),
+    ]);
+
 
   const heroBanner = portfolioData.find(
     (section) => section.section_type === "Hero Banner"
@@ -44,6 +50,7 @@ export default async function PortfolioPage() {
       {ourTeam && <TeamSection data={ourTeam} />}
       {projects && <Projects data={projects} />}
       {testimonial && <Testimonial data={testimonial} />}
+      <ContactUs data={contact} />
     </main>
   );
 }

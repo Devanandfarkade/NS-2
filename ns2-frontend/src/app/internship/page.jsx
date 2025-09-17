@@ -1,10 +1,11 @@
+import ContactUs from "@/components/homepage/ContactUs";
+import FAQSection from "@/components/homepage/FAQSection";
 import FeatureHighlights from "@/components/internship/FeatureHighlights";
 import HeroSection from "@/components/internship/HeroSection";
 import InternshipOpportunities from "@/components/internship/InternshipOpportunities";
 import ProgramStructure from "@/components/internship/ProgramStructure";
 import WhyChooseUs from "@/components/internship/WhyChooseUs";
-import FAQSection from "@/components/homepage/FAQSection";
-import { fetchInternshipPage } from "@/lib/api";
+import { fetchHomepageSection, fetchInternshipPage } from "@/lib/api";
 
 export const metadata = {
   title: "NS² | | Internships",
@@ -46,6 +47,10 @@ export default async function InternshipPage() {
   const faqSection =
     internshipData.find((section) => section.section_type === "FAQ") || null;
 
+  const [contact, initialSections] = await Promise.all([
+      fetchHomepageSection("Contact Us"),
+    ]); 
+
   return (
     <main className="bg-white">
       {heroBanner && <HeroSection data={heroBanner} />}
@@ -56,6 +61,7 @@ export default async function InternshipPage() {
       )}
       {programStructure && <ProgramStructure initialData={programStructure} />}
       {faqSection && <FAQSection data={faqSection} />}
+      <ContactUs data={contact} />
     </main>
   );
 }

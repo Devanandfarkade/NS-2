@@ -20,7 +20,7 @@ export const metadata = {
   title: "NS^2",
   description: "Next.js Project with Dynamic Navbar & Footer",
   icons: {
-    icon: "/favicon-16x16.png",
+    icon: "/favicon.svg",
   },
 };
 
@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${opensans.variable}`}>
       <head>
-        <link rel="icon" href="/favicon-16x16.png" />
+        <link rel="icon" href="/favicon.svg" />
 
         <Script
           strategy="afterInteractive"
