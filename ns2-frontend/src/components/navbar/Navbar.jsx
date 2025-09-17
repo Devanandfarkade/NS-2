@@ -77,7 +77,7 @@ export default async function Navbar() {
               <NavLinkClient
                 key={index}
                 href={buttonItem.url}
-                className="bg-[#155dfc] text-white px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white transition-colors duration-200"
+                className="bg-[#155dfc] text-white px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white hover:scale-105 transition-transform transition-colors duration-200"
               >
                 {buttonItem.text}
               </NavLinkClient>
