@@ -4,11 +4,12 @@ export const metadata = {
     "At NS², we craft innovative solutions that bridge technology and human creativity.",
 };
 
-import { fetchAboutPage } from "@/lib/api";
-import WhoWeAre from "@/components/aboutus/WhoWeAre";
-import VisionSection from "@/components/aboutus/VisionSection";
 import CompanyGallery from "@/components/aboutus/CompanyGallery";
 import OurTeam from "@/components/aboutus/OurTeam";
+import VisionSection from "@/components/aboutus/VisionSection";
+import WhoWeAre from "@/components/aboutus/WhoWeAre";
+import ContactUs from "@/components/homepage/ContactUs";
+import { fetchAboutPage, fetchHomepageSection } from "@/lib/api";
 
 export const revalidate = 0; // Full SSR (no cache)
 
@@ -31,6 +32,9 @@ export default async function AboutUsPage() {
   const team = data.find(
     (section) => section.section_type === "OUR_TEAM" && section.is_active
   );
+  const [contact, initialSections] = await Promise.all([
+      fetchHomepageSection("Contact Us"),
+    ]);
 
   return (
     <main className="min-h-screen bg-white">
@@ -38,6 +42,7 @@ export default async function AboutUsPage() {
       {vision && <VisionSection data={vision} />}
       {gallery && <CompanyGallery data={gallery} />}
       {team && <OurTeam data={team} />}
+      <ContactUs data={contact} />
     </main>
   );
 }
